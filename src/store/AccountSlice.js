@@ -11,11 +11,24 @@ export const accountSlice = createSlice({
     name: "account",
     initialState,
     reducers: {
+        register: (state, action) => {
+            console.log(state.session);
+            console.log(action.payload);
+            const allAccounts = JSON.parse(localStorage.getItem("allAccounts")) || [];
+            allAccounts.push(action.payload);
+            localStorage.setItem("allAccounts", JSON.stringify(allAccounts));
+        },
         login: (state, action) => {
             console.log(state.session);
             console.log(action.payload);
-            state.session = action.payload;
-            localStorage.setItem("currentSession", JSON.stringify(action.payload));
+            const allAccounts = JSON.parse(localStorage.getItem("allAccounts"));
+            if (allAccounts.find((account) => account == action.payload.emailValue)) {
+                state.session = action.payload;
+                localStorage.setItem("currentSession", JSON.stringify(action.payload));
+            } else {
+                console.log("No");
+            }
+            
         },
         logout: (state, action) => {
             localStorage.removeItem("currentSession")
@@ -26,6 +39,7 @@ export const accountSlice = createSlice({
 
 
 export const {
+    register,
     login,
     logout
 } = accountSlice.actions;

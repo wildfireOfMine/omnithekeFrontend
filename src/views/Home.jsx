@@ -1,10 +1,11 @@
+import { Box, Typography } from '@mui/material'
 import React from 'react'
 
 const Home = () => {
   return (
-    <div>
-      Welcome home
-    </div>
+    <Box>
+      <Typography variant="h1">Omnitheke</Typography>
+    </Box>
   )
 }
 
