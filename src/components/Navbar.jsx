@@ -7,16 +7,17 @@ import { logout } from '../store/AccountSlice'
 const Navbar = () => {
   const dispatch = useDispatch();
   const session = useSelector(
-    (state) => state.account.session
+    (state) => state.account.session.emailValue
   )
   console.log(session);
+  console.log(JSON.stringify(session));
   return (
     <Box>
       <AppBar position={'static'}>
         <Link to="/">OMNITHEKE</Link>
 
-        {session.emailValue && <Typography>Hola, {session.emailValue}</Typography>}
-        {session.emailValue ? <Button onClick={()=> dispatch(logout())} variant="contained">Log out</Button> : <Link to="/login">Login</Link>}
+        {session && <Typography>Hello, {session}</Typography>}
+        {session ? <Button onClick={()=> dispatch(logout())} variant="contained">Log out</Button> : <Link to="/login">Login</Link>}
       </AppBar>
     </Box>
   )
