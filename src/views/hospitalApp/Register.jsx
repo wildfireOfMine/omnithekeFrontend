@@ -20,7 +20,8 @@ const Register = () => {
         console.log(e.target);
         const {email, password, confirmPassword} = e.currentTarget;
         if (checkPassword(password, confirmPassword)) {
-            dispatch(register(email.value, password.value));
+            const user = {email: email.value, password: password.value}
+            dispatch(register(user));
         } else {
             toast("Wrong");
             console.log("Wrong");
