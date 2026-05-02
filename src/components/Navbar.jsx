@@ -1,25 +1,82 @@
-import { AppBar, Box, Button, Typography } from '@mui/material'
+import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, Link as RouterLink, useNavigate } from 'react-router-dom';
 import { logout } from '../store/AccountSlice'
+import CustomButton from './CustomButton';
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const session = useSelector(
     (state) => state.account.session.emailValue
   )
   console.log(session);
   console.log(JSON.stringify(session));
-  return (
-    <Box>
-      <AppBar position={'static'}>
-        <Link to="/">OMNITHEKE</Link>
 
-        {session && <Typography>Hello, {session}</Typography>}
-        {session ? <Button onClick={()=> dispatch(logout())} variant="contained">Log out</Button> : <Link to="/login">Login</Link>}
-      </AppBar>
-    </Box>
+  return (
+    <AppBar
+    position="relative"
+    sx={{
+      padding: "0 24px",
+      margin: "0",
+      background: "#fff",
+      borderBottom: "1px solid #e5e7eb",
+      width: "100%",
+      boxSizing: "border-box",
+    }}>
+      <Box>
+        <Toolbar
+          sx={{
+            justifyContent: "space-between"
+          }}
+        >
+           <Typography 
+            variant="h4" 
+            component={RouterLink}
+            to="/" 
+            sx={{ 
+              color:"black",
+              fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
+              textDecoration: "none"
+             }}
+            >
+            Omnitheke
+          </Typography>
+
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              gap: "15px"  
+            }}
+          >
+            <Typography sx={{ color: "black"}}>Create Your Hospital</Typography>
+            <Typography sx={{ color: "black"}}>Admin Profile</Typography>
+            <Typography sx={{ color: "black"}}>Doctor Profile</Typography>
+            <Typography sx={{ color: "black"}}>Patient Profile</Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: "15px"
+            }}
+          >
+            {session ?
+              <>
+                <Typography sx={{ color: "black"}}>Hello, {session}</Typography>
+                <CustomButton color="red" text="Log Out" variant="contained" onClick={()=>dispatch(logout())}/>
+              </>
+              : 
+              <CustomButton color="#2563eb" text="Log-in" variant="contained" onClick={()=>navigate("/login")}/>
+            }
+          </Box>
+        </Toolbar>
+      </Box>
+    </AppBar>
   )
 }
 
