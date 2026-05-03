@@ -1,7 +1,7 @@
 import { Button } from '@mui/material'
 import React from 'react'
 
-const CustomButton = ({color, text, variant, ...props}) => {
+const CustomButton = ({color, text, variant, backgroundColor="white", ...props}) => {
     return <Button 
             sx={{
               color: color,
@@ -10,7 +10,7 @@ const CustomButton = ({color, text, variant, ...props}) => {
               padding: "5px 12px",
               fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
               fontWeight: "bold",
-              backgroundColor: "white",
+              backgroundColor: backgroundColor,
             }}
             {...props}
             >

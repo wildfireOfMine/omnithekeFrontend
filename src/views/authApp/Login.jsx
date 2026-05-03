@@ -2,17 +2,27 @@ import { Box, Button, TextField, Typography } from '@mui/material'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../store/AccountSlice';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import CustomButton from '../../components/CustomButton';
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleForm = (e) => {
+  const handleForm = async (e) => {
     e.preventDefault();
     console.log(e.target);
     const {email, password} = e.currentTarget;
     const emailValue = email.value;
     const passwordValue = password.value;
-    dispatch(login({emailValue, passwordValue}));
+    try {
+      await dispatch(login({emailValue, passwordValue})).unwrap();
+      toast.success("User registered successfully!");
+      navigate("/dashboard");
+    } catch (err) {
+      toast.error(err?.email ? err.email.join(", ") : "Registration failed");
+    }
   }
 
   const session = useSelector(
@@ -20,16 +30,81 @@ const Login = () => {
   )
   console.log(session);
   return (
-    <Box>
-      <Typography>Log-in</Typography>
-      <Box component="form" onSubmit={handleForm} sx={{ display: "flex", flexDirection: "column"}}>
-          <label htmlFor='email'>E-mail</label>
-          <TextField id='email' name='email' label='email' variant='standard'/>
+    <Box sx={{
+      maxWidth: "860px",
+      margin: "0 auto",
+      padding: "10px 16px 64px"
+    }}>
+      <Box component="div" sx={{
+        textAlign: "center"
+      }}>
+        <Typography sx={{
+          fontSize: "clamp(1.6rem, 4vw, 2.2rem)",
+          color: "#1f2933",
+          margin: "12px",
+          fontWeight: 800
+        }}>Log-in</Typography>
+      </Box>
 
-          <label htmlFor='password'>Password</label>
-          <TextField type='password' id='password' name='password' label='password' variant='filled'/>
+      <Box component="form" onSubmit={handleForm} 
+      sx={{
+        display: "flex", 
+        flexDirection: "column",
+        background: "white",
+        borderRadius: "14px",
+        padding: "24px 28px 10px",
+        boxShadow: "0 4px 16px rgba(0,0,0,0.06)",
+        marginBottom: "20px",
+        }}> 
+            <Box component="div"
+            sx={{
+              padding: "50px 0",
+              marginBottom: "16px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "40px"
+            }}>
+              <Box>
+                <Typography variant='h6' sx={{
+                  fontWeight: 600,
+                  color: "#374151"
+                  
+                }}>E-mail</Typography>
+                  <TextField type="text" id="email" name="email" placeholder='user@gmail.com' variant="outlined"
+                  sx={{
+                    borderRadius: "8px",
+                    color: "#1f2933",
+                    transition: "border-color 0.15s",
+                    fontFamily: "inherit",
+                    width: "100%",
+                    border: "1.5px solid #fff",
+                    fontSize: "0.95rem"
+                  }}
+                />
+              </Box>
+              
+              <Box>
+                <Typography variant='h6' sx={{
+                  fontWeight: 600,
+                  color: "#374151"
+                }}>Password</Typography>
+                <TextField type='password' id='password' name='password' placeholder='*******' variant="outlined"
+                sx={{
+                    borderRadius: "8px",
+                    color: "#1f2933",
+                    transition: "border-color 0.15s",
+                    fontFamily: "inherit",
+                    width: "100%",
+                    border: "1.5px solid #fff",
+                    fontSize: "0.95rem"
+                  }}
+              />
+              </Box>
+              
 
-          <Button type='submit'>Log-in</Button>
+              <CustomButton color="#fff" text="Log-in" backgroundColor='#2563eb' type='submit'/>
+          </Box>
+
       </Box>
     </Box>
   )

@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { register } from '../../store/AccountSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import CustomButton from '../../components/CustomButton';
 
 const Register = () => {
     const dispatch = useDispatch();
@@ -40,22 +41,117 @@ const Register = () => {
 
     }
   return (
-    <Box>
-      <Typography>Register</Typography>
-      <Box component="form" onSubmit={handleForm} sx={{ display: "flex", flexDirection: "column"}}>
-          <label htmlFor='name'>Your username</label>
-          <TextField id='name' name='name' label='text' variant='standard'/>
+    <Box sx={{
+      maxWidth: "860px",
+      margin: "0 auto",
+      padding: "10px 16px 64px"
+    }}>
+      <Box component="div" sx={{
+        textAlign: "center"
+      }}>
+        <Typography sx={{
+          fontSize: "clamp(1.6rem, 4vw, 2.2rem)",
+          color: "#1f2933",
+          margin: "12px",
+          fontWeight: 800
+        }}>Register</Typography>
+      </Box>
 
-          <label htmlFor='email'>E-mail</label>
-          <TextField id='email' name='email' label='email' variant='standard'/>
+      <Box component="form" onSubmit={handleForm} 
+      sx={{
+        display: "flex", 
+        flexDirection: "column",
+        background: "white",
+        borderRadius: "14px",
+        padding: "24px 28px 10px",
+        boxShadow: "0 4px 16px rgba(0,0,0,0.06)",
+        marginBottom: "20px",
+        }}> 
+            <Box component="div"
+            sx={{
+              padding: "50px 0",
+              marginBottom: "16px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "30px"
+            }}>
+              <Box>
+                <Typography variant='h6' sx={{
+                  fontWeight: 600,
+                  color: "#374151"
+                  
+                }}>Your Username</Typography>
+                  <TextField type="text" id="name" name="name" placeholder='John Doe' variant="outlined"
+                  sx={{
+                    borderRadius: "8px",
+                    color: "#1f2933",
+                    transition: "border-color 0.15s",
+                    fontFamily: "inherit",
+                    width: "100%",
+                    border: "1.5px solid #fff",
+                    fontSize: "0.95rem"
+                  }}
+                />
+              </Box>
+              
+              <Box>
+                <Typography variant='h6' sx={{
+                  fontWeight: 600,
+                  color: "#374151"
+                }}>E-mail</Typography>
+                <TextField type='email' id='email' name='email' placeholder='user@gmail.com' variant="outlined"
+                sx={{
+                    borderRadius: "8px",
+                    color: "#1f2933",
+                    transition: "border-color 0.15s",
+                    fontFamily: "inherit",
+                    width: "100%",
+                    border: "1.5px solid #fff",
+                    fontSize: "0.95rem"
+                  }}
+              />
+              </Box>
 
-          <label htmlFor='password'>Password</label>
-          <TextField type='password' id='password' name='password' label='password' variant='filled'/>
+              <Box>
+                <Typography variant='h6' sx={{
+                  fontWeight: 600,
+                  color: "#374151"
+                }}>Password</Typography>
+                <TextField type='password' id='password' name='password' placeholder='*******' variant="outlined"
+                sx={{
+                    borderRadius: "8px",
+                    color: "#1f2933",
+                    transition: "border-color 0.15s",
+                    fontFamily: "inherit",
+                    width: "100%",
+                    border: "1.5px solid #fff",
+                    fontSize: "0.95rem"
+                  }}
+              />
+              </Box>
 
-          <label htmlFor='confirmPassword'>Confirm Password</label>
-          <TextField type='password' id='confirmPassword' name='confirmPassword' label='confirm password' variant='filled'/>
+              <Box>
+                <Typography variant='h6' sx={{
+                  fontWeight: 600,
+                  color: "#374151"
+                }}>Confirm Password</Typography>
+                <TextField type='password' id='confirmPassword' name='confirmPassword' placeholder='*******' variant="outlined"
+                sx={{
+                    borderRadius: "8px",
+                    color: "#1f2933",
+                    transition: "border-color 0.15s",
+                    fontFamily: "inherit",
+                    width: "100%",
+                    border: "1.5px solid #fff",
+                    fontSize: "0.95rem"
+                  }}
+              />
+              </Box>
+              
 
-          <Button type='submit'>Register</Button>
+              <CustomButton color="#fff" text="Register" backgroundColor='#2563eb' type='submit'/>
+          </Box>
+
       </Box>
     </Box>
   )
