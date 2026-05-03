@@ -53,9 +53,9 @@ const Navbar = () => {
             }}
           >
             <Typography sx={{ color: "black"}}>Create Your Hospital</Typography>
-            <Typography sx={{ color: "black"}}>Admin Profile</Typography>
-            <Typography sx={{ color: "black"}}>Doctor Profile</Typography>
-            <Typography sx={{ color: "black"}}>Patient Profile</Typography>
+            <Typography component={RouterLink} to="/admin/dashboard" sx={{ color: "black"}}>Admin Profile</Typography>
+            <Typography component={RouterLink} to="/doctor/dashboard" sx={{ color: "black"}}>Doctor Profile</Typography>
+            <Typography component={RouterLink} to="/patient/dashboard" sx={{ color: "black"}}>Patient Profile</Typography>
           </Box>
           <Box
             sx={{
