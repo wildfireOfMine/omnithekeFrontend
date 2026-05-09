@@ -3,7 +3,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../store/AccountSlice';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import CustomButton from '../../components/CustomButton';
 
 const Login = () => {
@@ -101,7 +101,7 @@ const Login = () => {
               />
               </Box>
               
-
+              <Typography component={RouterLink} to="/register">Don't have an account?</Typography>
               <CustomButton color="#fff" text="Log-in" backgroundColor='#2563eb' type='submit'/>
           </Box>
 
