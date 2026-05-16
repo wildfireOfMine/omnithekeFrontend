@@ -18,10 +18,13 @@ const Login = () => {
     const passwordValue = password.value;
     try {
       await dispatch(login({emailValue, passwordValue})).unwrap();
-      toast.success("User registered successfully!");
-      navigate("/dashboard");
+      toast.success("Logged in successfully!");
+      const role = JSON.parse(localStorage.getItem("currentSession")).role;
+      console.log(role);
+      navigate(`/${role}/dashboard`);
+      
     } catch (err) {
-      toast.error(err?.email ? err.email.join(", ") : "Registration failed");
+      toast.error(err?.email ? err.email.join(", ") : "Log-in failed");
     }
   }
 
@@ -101,7 +104,7 @@ const Login = () => {
               />
               </Box>
               
-              <Typography component={RouterLink} to="/register">Don't have an account?</Typography>
+              <Typography component={RouterLink} to="/register">Looking to create your hospital?</Typography>
               <CustomButton color="#fff" text="Log-in" backgroundColor='#2563eb' type='submit'/>
           </Box>
 

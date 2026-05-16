@@ -2,11 +2,12 @@ import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 
 
-export const ProtectedRoute = () => {
+export const ProtectedDoctorRoute = () => {
     const session = useSelector(
         (state) => state.account.session
     )
-    if (!session.token) {
+    console.log("SESSION PROTECTED ROUTE", session);
+    if (!session.token && session.role != "doctor") {
         return <Navigate to={'/'} replace />
     }
     return <Outlet />

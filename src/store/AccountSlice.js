@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -37,6 +38,7 @@ export const login = createAsyncThunk(
       const sessionData = {
         emailValue: credentials.emailValue,
         token: res.data.access,
+        role: res.data.role,
       };
       console.log(res);
       console.log(res.data);
@@ -57,6 +59,7 @@ export const accountSlice = createSlice({
       localStorage.removeItem("currentSession");
       state.session = {};
       state.error = null;
+      toast.success("Logged out successfully!");
     },
   },
   extraReducers: (builder) => {

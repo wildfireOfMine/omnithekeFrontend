@@ -48,19 +48,6 @@ const Navbar = () => {
             sx={{
               display: "flex",
               flexDirection: "row",
-              justifyContent: "space-between",
-              gap: "15px"  
-            }}
-          >
-            <Typography sx={{ color: "black"}}>Create Your Hospital</Typography>
-            <Typography component={RouterLink} to="/admin/dashboard" sx={{ color: "black"}}>Admin Profile</Typography>
-            <Typography component={RouterLink} to="/doctor/dashboard" sx={{ color: "black"}}>Doctor Profile</Typography>
-            <Typography component={RouterLink} to="/patient/dashboard" sx={{ color: "black"}}>Patient Profile</Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
               alignItems: "center",
               gap: "15px"
             }}
