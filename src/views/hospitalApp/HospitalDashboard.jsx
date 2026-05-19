@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material'
 import React from 'react'
 
-const Hospital = () => {
+const HospitalDashboard = () => {
   return (
     <Box>
       <Typography>Hospital</Typography>
@@ -9,4 +9,4 @@ const Hospital = () => {
   )
 }
 
-export default Hospital
+export default HospitalDashboard

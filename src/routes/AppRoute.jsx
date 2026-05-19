@@ -23,6 +23,9 @@ import MyIncidents from '../views/patientApp/MyIncidents'
 import MyVaccines from '../views/patientApp/MyVaccines'
 import MyHospitalDoctors from '../views/adminApp/MyHospitalDoctors'
 import MyHospitalPatients from '../views/adminApp/MyHospitalPatients'
+import HospitalRegister from '../views/hospitalApp/HospitalRegister'
+import HospitalDashboard from '../views/hospitalApp/HospitalDashboard'
+import CreateYourProfile from '../views/hospitalApp/CreateYourProfile'
 
 const AppRoute = () => {
   return (
@@ -33,11 +36,15 @@ const AppRoute = () => {
         <Route path="/register" element={<Register/>}/>
         <Route path="/login" element={<Login/>}/>
 
+        <Route path="/createYourProfile" element={<CreateYourProfile/>}/>
+        <Route path="/createYourHospital" element={<HospitalRegister/>}/>
+
         <Route element={<ProtectedAdminRoute/>}>
           <Route path="/admin/dashboard" element={<AdminDashboard/>}/>
           <Route path="/admin/myProfile" element={<MyProfile/>}/>
           <Route path="/admin/myHospitalDoctors" element={<MyHospitalDoctors/>}/>
           <Route path="/admin/myHospitalPatients" element={<MyHospitalPatients/>}/>
+          <Route path="/admin/hospitalDashboard" element={<HospitalDashboard/>}/>
         </Route>
 
         <Route element={<ProtectedDoctorRoute/>}>
@@ -59,8 +66,6 @@ const AppRoute = () => {
           <Route path="/patient/myIncidents" element={<MyIncidents/>}/>
           <Route path="/patient/myVaccines" element={<MyVaccines/>}/>
         </Route>
-
-        
 
         <Route path="*" element={<Error404/>}/>
       </Routes>
