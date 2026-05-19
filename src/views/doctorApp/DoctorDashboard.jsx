@@ -68,6 +68,13 @@ const DoctorDashboard = () => {
                     <img src="/favicon.svg"/>
                   </CustomCard>
                 </Grid>
+
+                <Grid size={5}>
+                  <CustomCard>
+                    <Typography component={RouterLink} to="/doctor/messages">My Messages</Typography>
+                    <img src="/favicon.svg"/>
+                  </CustomCard>
+                </Grid>
               </Grid>
             </Box>
           </Box>

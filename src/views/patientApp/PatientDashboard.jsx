@@ -45,14 +45,21 @@ const PatientDashboard = () => {
 
           <Grid size={5}>
             <CustomCard>
-              <Typography component={RouterLink} to="/patient/appointments">Active Incidents</Typography>
+              <Typography component={RouterLink} to="/patient/incidents">My Incidents</Typography>
               <img src="/favicon.svg"/>
             </CustomCard>
           </Grid>
 
           <Grid size={5}>
             <CustomCard>
-              <Typography component={RouterLink} to="/patient/appointments">Send a Message</Typography>
+              <Typography component={RouterLink} to="/patient/messages">Send a Message</Typography>
+              <img src="/favicon.svg"/>
+            </CustomCard>
+          </Grid>
+
+          <Grid size={5}>
+            <CustomCard>
+              <Typography component={RouterLink} to="/patient/vaccines">My Vaccines</Typography>
               <img src="/favicon.svg"/>
             </CustomCard>
           </Grid>
