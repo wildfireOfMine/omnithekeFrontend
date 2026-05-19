@@ -29,7 +29,7 @@ const DoctorDashboard = () => {
               }}>
                 <Grid size={5}>
                   <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/appointments">Appointments</Typography>
+                    <Typography component={RouterLink} to="/doctor/attachDoctors">Attach New Doctors</Typography>
                     <img src="/favicon.svg"/>
                   </CustomCard>
                 </Grid>
@@ -43,7 +43,21 @@ const DoctorDashboard = () => {
 
                 <Grid size={5}>
                   <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/appointments">Add a New Incident</Typography>
+                    <Typography component={RouterLink} to="/doctor/appointments">My Appointments</Typography>
+                    <img src="/favicon.svg"/>
+                  </CustomCard>
+                </Grid>
+
+                <Grid size={5}>
+                  <CustomCard>
+                    <Typography component={RouterLink} to="/doctor/myReports">Add a New Report</Typography>
+                    <img src="/favicon.svg"/>
+                  </CustomCard>
+                </Grid>
+
+                <Grid size={5}>
+                  <CustomCard>
+                    <Typography component={RouterLink} to="/doctor/vaccines">Vaccines</Typography>
                     <img src="/favicon.svg"/>
                   </CustomCard>
                 </Grid>

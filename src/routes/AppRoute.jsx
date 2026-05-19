@@ -8,11 +8,12 @@ import AdminDashboard from '../views/adminApp/AdminDashboard'
 import PatientDashboard from '../views/patientApp/PatientDashboard'
 import DoctorDashboard from '../views/doctorApp/DoctorDashboard'
 import Appointments from '../views/patientApp/Appointments'
-import MyProfile from '../views/doctorApp/MyProfile'
+import MyProfile from '../components/MyProfile'
 import MyPatients from '../views/doctorApp/MyPatients'
 import { ProtectedAdminRoute } from './ProtectedAdminRoute'
 import { ProtectedDoctorRoute } from './ProtectedDoctorRoute'
 import { ProtectedPatientRoute } from './ProtectedPatientRoute'
+import Vaccines from '../views/doctorApp/Vaccines'
 
 const AppRoute = () => {
   return (
@@ -25,16 +26,19 @@ const AppRoute = () => {
 
         <Route element={<ProtectedAdminRoute/>}>
           <Route path="/admin/dashboard" element={<AdminDashboard/>}/>
+          <Route path="/admin/myProfile" element={<MyProfile/>}/>
         </Route>
 
         <Route element={<ProtectedDoctorRoute/>}>
           <Route path="/doctor/dashboard" element={<DoctorDashboard/>}/>
           <Route path="/doctor/myProfile" element={<MyProfile/>}/>
           <Route path="/doctor/myPatients" element={<MyPatients/>}/>
+          <Route path="/doctor/vaccines" element={<Vaccines/>}/>
         </Route>
 
         <Route element={<ProtectedPatientRoute/>}>
           <Route path="/patient/dashboard" element={<PatientDashboard/>}/>
+          <Route path="/patient/myProfile" element={<MyProfile/>}/>
           <Route path="/patient/appointments" element={<Appointments/>}/>
         </Route>
 

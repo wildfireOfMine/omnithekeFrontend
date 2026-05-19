@@ -38,7 +38,7 @@ const PatientDashboard = () => {
 
           <Grid size={5}>
             <CustomCard>
-              <Typography component={RouterLink} to="/patient/appointments">My Profile</Typography>
+              <Typography component={RouterLink} to="/patient/myProfile">My Profile</Typography>
               <img src="/favicon.svg"/>
             </CustomCard>
           </Grid>

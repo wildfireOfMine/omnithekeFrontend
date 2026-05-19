@@ -1,21 +1,29 @@
 import { Box, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { myProfile } from '../../store/DoctorSlice';
+import { myDoctorProfile } from '../store/DoctorSlice';
+import { myPatientProfile } from '../store/PatientSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import CustomButton from '../../components/CustomButton';
+import CustomButton from './CustomButton';
+import { myAdminProfile } from '../store/AdminSlice';
 
 const MyProfile = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const profile = useSelector(state => state.doctor.profile);
     const loading = useSelector(state => state.doctor.loading);
     const [data, setData] = useState({});
-    console.log(loading);
-    console.log(profile);
+    console.log("LOADING", loading);
+    const role = JSON.parse(localStorage.getItem("currentSession")).role;
     useEffect(() => {
-        dispatch(myProfile()).unwrap().then(data => setData(data));
-    }, [dispatch]);
+      if (role == "doctor") {
+        dispatch(myDoctorProfile()).unwrap().then(data => setData(data));
+      } else if (role == "patient") {
+        dispatch(myPatientProfile()).unwrap().then(data => setData(data));
+      } else {
+        dispatch(myAdminProfile()).unwrap().then(data => setData(data));
+      }
+    }, [dispatch, role]);
+    
     console.log(data);
 
     const handleCustomButton = () => {

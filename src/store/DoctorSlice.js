@@ -10,7 +10,7 @@ const initialState = {
   error: null,
 };
 
-export const myProfile = createAsyncThunk(
+export const myDoctorProfile = createAsyncThunk(
   "doctor/myProfile",
   async (user, { rejectWithValue }) => {
     try {
