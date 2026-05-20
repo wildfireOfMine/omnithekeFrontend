@@ -12,9 +12,11 @@ const initialState = {
 
 export const myPatientProfile = createAsyncThunk(
   "patient/myProfile",
-  async (user, { rejectWithValue }) => {
+  async (user, { getState, rejectWithValue }) => {
     try {
-    const session = JSON.parse(localStorage.getItem("currentSession"));
+    const state = getState();
+    const session = state.hospital.session
+    
     console.log(session);
     const res = await axios.get(`${BACKEND_URL}patient/api/myPatientProfile/`, {
       headers: {

@@ -12,9 +12,11 @@ const initialState = {
 
 export const administratorPost = createAsyncThunk(
   "hospital/administratorPost",
-  async (user, { rejectWithValue }) => {
+  async (user, { getState, rejectWithValue }) => {
     try {
-    const session = JSON.parse(localStorage.getItem("currentSession"));
+    const state = getState();
+    const session = state.hospital.session;
+    console.log(state);
     console.log(session);
     const res = await axios.post(`${BACKEND_URL}hospital/api/administrator/`, user, {
         headers: {
@@ -29,6 +31,28 @@ export const administratorPost = createAsyncThunk(
     }
   }
 );
+
+export const hospitalPost = createAsyncThunk(
+  "hospital/hospitalPost",
+  async (hospital, { getState, rejectWithValue }) => {
+    try {
+    const state = getState();
+    const session = state.hospital.session;
+    console.log(session);
+    const res = await axios.post(`${BACKEND_URL}hospital/api/hospital/`, hospital, {
+        headers: {
+            Authorization: `Bearer ${session.token}`
+        }
+    });
+    console.log(res);
+    
+
+    } catch (err) {
+      return rejectWithValue(err.response?.data || "Couldn't extract the data");
+    }
+  }
+);
+
 
 
 export const hospitalSlice = createSlice({
