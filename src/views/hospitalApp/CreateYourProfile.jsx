@@ -12,7 +12,7 @@ const CreateYourProfile = () => {
     
     const handleForm = async (e) => {
         e.preventDefault();
-        console.log(e.target);
+        
         const {name, firstName, secondName, sex, birthday, identity, address, city, postCode, country, telephone} = e.currentTarget;
         if (true) {
             const user = {name: name.value, 
@@ -26,7 +26,6 @@ const CreateYourProfile = () => {
                 postCode: postCode.value,
                 country: country.value,
                 telephone: telephone.value}
-            console.log(user);
             try {
                 await dispatch(administratorPost(user)).unwrap();
                 toast.success("Administrator registered successfully!");
