@@ -4,7 +4,7 @@ import React from 'react'
 const HospitalDashboard = () => {
   return (
     <Box>
-      <Typography>Hospital</Typography>
+      <Typography>Hospital Dashboard</Typography>
     </Box>
   )
 }

@@ -21,7 +21,12 @@ const Login = () => {
       toast.success("Logged in successfully!");
       const role = JSON.parse(localStorage.getItem("currentSession")).role;
       console.log(role);
-      navigate(`/${role}/dashboard`);
+      if (role) {
+        navigate(`/${role}/dashboard`);
+      } else {
+        navigate(`/createYourProfile`);
+      }
+      
       
     } catch (err) {
       toast.error(err?.email ? err.email.join(", ") : "Log-in failed");

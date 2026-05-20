@@ -15,7 +15,7 @@ export const myAdminProfile = createAsyncThunk(
     try {
     const session = JSON.parse(localStorage.getItem("currentSession"));
     console.log(session);
-    const res = await axios.get(`${BACKEND_URL}amdin/api/myPatientProfile/`, {
+    const res = await axios.get(`${BACKEND_URL}admin/api/myPatientProfile/`, {
       headers: {
         Authorization: `Bearer ${session.token}`
       }

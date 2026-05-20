@@ -28,7 +28,7 @@ const Register = () => {
             try {
                 await dispatch(register(user)).unwrap();
                 toast.success("User registered successfully!");
-                navigate("/createYourProfile");
+                navigate("/login");
             } catch (err) {
                 toast.error(err?.email ? err.email.join(", ") : "Registration failed");
             }

@@ -4,7 +4,7 @@ import React from 'react'
 const HospitalRegister = () => {
   return (
     <Box>
-      
+      Create Your Hospital
     </Box>
   )
 }
