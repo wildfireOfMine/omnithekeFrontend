@@ -30,7 +30,14 @@ const Dashboard = () => {
               }}>
                 <Grid size={5}>
                   <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/appointments">Appointments</Typography>
+                    <Typography component={RouterLink} to="/admin/myHospitalDoctors">My Doctors</Typography>
+                    <img src="/favicon.svg"/>
+                  </CustomCard>
+                </Grid>
+
+                <Grid size={5}>
+                  <CustomCard>
+                    <Typography component={RouterLink} to="/admin/myHospitalPatients">My Patients</Typography>
                     <img src="/favicon.svg"/>
                   </CustomCard>
                 </Grid>
@@ -44,17 +51,12 @@ const Dashboard = () => {
 
                 <Grid size={5}>
                   <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/appointments">Add a New Incident</Typography>
+                    <Typography component={RouterLink} to="/hospital/dashboard">My Hospital Dashboard</Typography>
                     <img src="/favicon.svg"/>
                   </CustomCard>
                 </Grid>
 
-                <Grid size={5}>
-                  <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/myPatients">My Patients</Typography>
-                    <img src="/favicon.svg"/>
-                  </CustomCard>
-                </Grid>
+                
               </Grid>
             </Box>
     </Box>
