@@ -1,5 +1,5 @@
-import { Box, TextField, Typography } from '@mui/material'
-import React from 'react'
+import { Box, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material'
+import React, { useState } from 'react'
 import CustomButton from '../../components/CustomButton';
 import { useDispatch } from 'react-redux';
 import { administratorPost } from '../../store/HospitalSlice';
@@ -9,16 +9,21 @@ import { useNavigate } from 'react-router-dom';
 const CreateYourProfile = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [sex, setSex] = useState("M")
+
+    const handleChange = (e) => {
+      setSex(e.target.value);
+    };
     
     const handleForm = async (e) => {
         e.preventDefault();
         
-        const {name, firstName, secondName, sex, birthday, identity, address, city, postCode, country, telephone} = e.currentTarget;
+        const {name, firstSurname, secondSurname, sex, birthday, identity, address, city, postCode, country, telephone} = e.currentTarget;
         if (true) {
             const user = {name: name.value, 
-                firstName: firstName.value,
-                secondName: secondName.value,
-                sex: "M",
+                firstSurname: firstSurname.value,
+                secondSurname: secondSurname.value,
+                sex: sex.value,
                 birthdate: birthday.value,
                 identityDocument: identity.value,
                 address: address.value,
@@ -31,13 +36,12 @@ const CreateYourProfile = () => {
                 toast.success("Administrator registered successfully!");
                 navigate("/createYourHospital");
             } catch (err) {
-                toast.error(err?.email ? err.email.join(", ") : "Registration failed");
+                toast.error(err?.email ? err.email.join(", ") : "Something's odd, are all the fields filled?");
             }
                 
                 
         } else {
-            toast("Wrong");
-            console.log("Wrong");
+            toast.error("Something's odd...");
         }
     
     }
@@ -83,7 +87,7 @@ const CreateYourProfile = () => {
                   color: "#374151"
                   
                 }}>Your Name</Typography>
-                  <TextField type="text" id="name" name="name" placeholder='John Doe' variant="outlined"
+                  <TextField type="text" id="name" name="name" placeholder='John' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -102,7 +106,7 @@ const CreateYourProfile = () => {
                   color: "#374151"
                   
                 }}>First Name</Typography>
-                  <TextField type="text" id="firstName" name="firstName" placeholder='John Doe' variant="outlined"
+                  <TextField type="text" id="firstSurname" name="firstSurname" placeholder='Doe' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -121,7 +125,7 @@ const CreateYourProfile = () => {
                   color: "#374151"
                   
                 }}>Second Name (if any)</Typography>
-                  <TextField type="text" id="secondName" name="secondName" placeholder='John Doe' variant="outlined"
+                  <TextField type="text" id="secondSurname" name="secondSurname" placeholder='Does' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -133,15 +137,34 @@ const CreateYourProfile = () => {
                   }}
                 />
               </Box>
-                
-                Sex: Male
+
+              <Box>
+                <Typography variant='h6' sx={{
+                  fontWeight: 600,
+                  color: "#374151"
+                  
+                }}>Sex</Typography>
+                <FormControl variant="standard" fullWidth>
+                  <Select
+                    labelId="sex"
+                    id="sex"
+                    value={sex}
+                    label="Sex"
+                    onChange={handleChange}
+                    fullWidth
+                  >
+                    <MenuItem value={"M"}>Male</MenuItem>
+                    <MenuItem value={"F"}>Female</MenuItem>
+                  </Select>
+                  </FormControl>
+              </Box>
             
               <Box>
                 <Typography variant='h6' sx={{
                   fontWeight: 600,
                   color: "#374151"
                 }}>Birthday</Typography>
-                <TextField type='date' id='birthday' name='birthday' placeholder='user@gmail.com' variant="outlined"
+                <TextField type='date' id='birthday' name='birthday' variant="outlined"
                 sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -179,7 +202,7 @@ const CreateYourProfile = () => {
                   color: "#374151"
                   
                 }}>Address</Typography>
-                  <TextField type="text" id="address" name="address" placeholder='John Doe' variant="outlined"
+                  <TextField type="text" id="address" name="address" placeholder='Madrid Street' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -198,7 +221,7 @@ const CreateYourProfile = () => {
                   color: "#374151"
                   
                 }}>City</Typography>
-                  <TextField type="text" id="city" name="city" placeholder='John Doe' variant="outlined"
+                  <TextField type="text" id="city" name="city" placeholder='Madrid' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -236,7 +259,7 @@ const CreateYourProfile = () => {
                   color: "#374151"
                   
                 }}>Country</Typography>
-                  <TextField type="text" id="country" name="country" placeholder='John Doe' variant="outlined"
+                  <TextField type="text" id="country" name="country" placeholder='Spain' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -255,7 +278,7 @@ const CreateYourProfile = () => {
                   color: "#374151"
                   
                 }}>Telephone</Typography>
-                  <TextField type="text" id="telephone" name="telephone" placeholder='John Doe' variant="outlined"
+                  <TextField type="tel" id="telephone" name="telephone" placeholder='(+34)152567171' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",

@@ -30,12 +30,11 @@ const HospitalRegister = () => {
         toast.success("Hospital registered successfully!");
         navigate("/login");
       } catch (err) {
-        toast.error(err?.email ? err.email.join(", ") : "Registration failed");
+        toast.error(err?.email ? err.email.join(", ") : "Something's odd, are all the fields filled?");
       }
 
     } else {
-      toast("Wrong");
-      console.log("Wrong");
+      toast.error("Something's odd...");
     }
   }
 
@@ -81,7 +80,7 @@ const HospitalRegister = () => {
                   color: "#374151"
                   
                 }}>Identity Code</Typography>
-                  <TextField type="text" id="identityCode" name="identityCode" placeholder='John Doe' variant="outlined"
+                  <TextField type="text" id="identityCode" name="identityCode" placeholder='A001' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -99,8 +98,8 @@ const HospitalRegister = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Your Name</Typography>
-                  <TextField type="text" id="name" name="name" placeholder='John Doe' variant="outlined"
+                }}>Hospital's Name</Typography>
+                  <TextField type="text" id="name" name="name" placeholder='Mayo Clinic' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -119,7 +118,7 @@ const HospitalRegister = () => {
                   color: "#374151"
                   
                 }}>Address</Typography>
-                  <TextField type="text" id="address" name="address" placeholder='John Doe' variant="outlined"
+                  <TextField type="text" id="address" name="address" placeholder='201 W Center St, Rochester, MN 55902' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -138,7 +137,7 @@ const HospitalRegister = () => {
                   color: "#374151"
                   
                 }}>City</Typography>
-                  <TextField type="text" id="city" name="city" placeholder='John Doe' variant="outlined"
+                  <TextField type="text" id="city" name="city" placeholder='Madrid' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -157,7 +156,7 @@ const HospitalRegister = () => {
                   color: "#374151"
                   
                 }}>Country</Typography>
-                  <TextField type="text" id="country" name="country" placeholder='John Doe' variant="outlined"
+                  <TextField type="text" id="country" name="country" placeholder='Spain' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -176,7 +175,7 @@ const HospitalRegister = () => {
                   color: "#374151"
                   
                 }}>Post Code</Typography>
-                  <TextField type="text" id="postCode" name="postCode" placeholder='John Doe' variant="outlined"
+                  <TextField type="text" id="postCode" name="postCode" placeholder='12345' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -195,7 +194,7 @@ const HospitalRegister = () => {
                   color: "#374151"
                   
                 }}>Telephone</Typography>
-                  <TextField type="text" id="telephone" name="telephone" placeholder='John Doe' variant="outlined"
+                  <TextField type="tel" id="telephone" name="telephone" placeholder='(+34)152567171' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -214,7 +213,7 @@ const HospitalRegister = () => {
                   color: "#374151"
                   
                 }}>Fax</Typography>
-                  <TextField type="text" id="fax" name="fax" placeholder='John Doe' variant="outlined"
+                  <TextField type="text" id="fax" name="fax" placeholder='(+34)152567171' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
