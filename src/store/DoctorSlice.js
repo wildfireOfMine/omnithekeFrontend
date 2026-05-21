@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const initialState = {
-  session: JSON.parse(localStorage.getItem("currentSession")) || {},
   loading: false,
   error: null,
 };
@@ -15,7 +14,7 @@ export const myDoctorProfile = createAsyncThunk(
   async (user, { getState, rejectWithValue }) => {
     try {
     const state = getState();
-    const session = state.hospital.session
+    const session = state.account.session
     console.log(session);
     const res = await axios.get(`${BACKEND_URL}doctor/api/myDoctorProfile/`, {
       headers: {

@@ -5,7 +5,6 @@ import axios from "axios";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const initialState = {
-    session: JSON.parse(localStorage.getItem("currentSession")) || {},
     loading: false,
     error: null,
 }
@@ -15,7 +14,7 @@ export const administratorPost = createAsyncThunk(
   async (user, { getState, rejectWithValue }) => {
     try {
     const state = getState();
-    const session = state.hospital.session;
+    const session = state.account.session;
     console.log(state);
     console.log(session);
     const res = await axios.post(`${BACKEND_URL}hospital/api/administrator/`, user, {
@@ -37,7 +36,7 @@ export const hospitalPost = createAsyncThunk(
   async (hospital, { getState, rejectWithValue }) => {
     try {
     const state = getState();
-    const session = state.hospital.session;
+    const session = state.account.session;
     console.log(session);
     const res = await axios.post(`${BACKEND_URL}hospital/api/hospital/`, hospital, {
         headers: {

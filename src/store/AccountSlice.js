@@ -40,9 +40,6 @@ export const login = createAsyncThunk(
         token: res.data.access,
         role: res.data.role,
       };
-      console.log(res);
-      console.log(res.data);
-      console.log(sessionData);
       localStorage.setItem("currentSession", JSON.stringify(sessionData));
       return sessionData;
     } catch (err) {

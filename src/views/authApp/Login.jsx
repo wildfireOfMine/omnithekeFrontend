@@ -77,7 +77,7 @@ const Login = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>E-mail</Typography>
+                }}>Name</Typography>
                   <TextField type="text" id="email" name="email" placeholder='user@gmail.com' variant="outlined"
                   sx={{
                     borderRadius: "8px",

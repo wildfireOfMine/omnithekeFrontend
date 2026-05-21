@@ -26,6 +26,8 @@ import MyHospitalPatients from '../views/adminApp/MyHospitalPatients'
 import HospitalRegister from '../views/hospitalApp/HospitalRegister'
 import HospitalDashboard from '../views/hospitalApp/HospitalDashboard'
 import CreateYourProfile from '../views/hospitalApp/CreateYourProfile'
+import DoctorForm from '../views/adminApp/DoctorForm'
+import PatientForm from '../views/adminApp/PatientForm'
 
 const AppRoute = () => {
   return (
@@ -43,7 +45,9 @@ const AppRoute = () => {
           <Route path="/admin/dashboard" element={<AdminDashboard/>}/>
           <Route path="/admin/myProfile" element={<MyProfile/>}/>
           <Route path="/admin/myHospitalDoctors" element={<MyHospitalDoctors/>}/>
+          <Route path="/admin/doctorForm" element={<DoctorForm/>}/>
           <Route path="/admin/myHospitalPatients" element={<MyHospitalPatients/>}/>
+          <Route path="/admin/patientForm" element={<PatientForm/>}/>
           <Route path="/admin/hospitalDashboard" element={<HospitalDashboard/>}/>
         </Route>
 

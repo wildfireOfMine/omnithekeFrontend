@@ -1,23 +1,28 @@
 import { Box, TextField, Typography } from '@mui/material'
 import React from 'react'
 import CustomButton from '../../components/CustomButton';
-import { useDispatch } from 'react-redux';
-import { administratorPost } from '../../store/HospitalSlice';
+import { doctorPost } from '../../store/AdminSlice';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
-const CreateYourProfile = () => {
+const DoctorForm = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const handleCustomButton = () => {
+        navigate(-1);
+    }
     
     const handleForm = async (e) => {
         e.preventDefault();
-        
-        const {name, firstName, secondName, sex, birthday, identity, address, city, postCode, country, telephone} = e.currentTarget;
+        const {name, firstName, secondName, sex, email, birthday, identity, address, city, postCode, country, telephone, educationalBackground, cv} = e.currentTarget;
         if (true) {
-            const user = {name: name.value, 
+            const user = {
+                name: name.value, 
                 firstName: firstName.value,
                 secondName: secondName.value,
+                email: email.value,
                 sex: "M",
                 birthdate: birthday.value,
                 identityDocument: identity.value,
@@ -25,21 +30,16 @@ const CreateYourProfile = () => {
                 city: city.value,
                 postCode: postCode.value,
                 country: country.value,
-                telephone: telephone.value}
+                telephone: telephone.value,
+                educationalBackground: educationalBackground.value}
             try {
-                await dispatch(administratorPost(user)).unwrap();
-                toast.success("Administrator registered successfully!");
-                navigate("/createYourHospital");
+                await dispatch(doctorPost(user)).unwrap();
+                toast.success("Doctor registered successfully!");
             } catch (err) {
+                console.log(err);
                 toast.error(err?.email ? err.email.join(", ") : "Registration failed");
             }
-                
-                
-        } else {
-            toast("Wrong");
-            console.log("Wrong");
         }
-    
     }
 
   return (
@@ -56,7 +56,7 @@ const CreateYourProfile = () => {
           color: "#1f2933",
           margin: "12px",
           fontWeight: 800
-        }}>Create your Administrator Profile</Typography>
+        }}>Add a Doctor</Typography>
       </Box>
 
       <Box component="form" onSubmit={handleForm} 
@@ -135,6 +135,24 @@ const CreateYourProfile = () => {
               </Box>
                 
                 Sex: Male
+
+              <Box>
+                <Typography variant='h6' sx={{
+                  fontWeight: 600,
+                  color: "#374151"
+                }}>Email</Typography>
+                <TextField type='email' id='email' name='email' placeholder='user@gmail.com' variant="outlined"
+                sx={{
+                    borderRadius: "8px",
+                    color: "#1f2933",
+                    transition: "border-color 0.15s",
+                    fontFamily: "inherit",
+                    width: "100%",
+                    border: "1.5px solid #fff",
+                    fontSize: "0.95rem"
+                  }}
+              />
+              </Box>
             
               <Box>
                 <Typography variant='h6' sx={{
@@ -267,9 +285,48 @@ const CreateYourProfile = () => {
                   }}
                 />
               </Box>
+
+              <Box>
+                <Typography variant='h6' sx={{
+                  fontWeight: 600,
+                  color: "#374151"
+                  
+                }}>Educational Background</Typography>
+                  <TextField type="text" id="educationalBackground" name="educationalBackground" placeholder='John Doe' variant="outlined"
+                  sx={{
+                    borderRadius: "8px",
+                    color: "#1f2933",
+                    transition: "border-color 0.15s",
+                    fontFamily: "inherit",
+                    width: "100%",
+                    border: "1.5px solid #fff",
+                    fontSize: "0.95rem"
+                  }}
+                />
+              </Box>
+
+              <Box>
+                <Typography variant='h6' sx={{
+                  fontWeight: 600,
+                  color: "#374151"
+                  
+                }}>CV</Typography>
+                  <TextField type="file" id="cv" name="cv" placeholder='John Doe' variant="outlined"
+                  sx={{
+                    borderRadius: "8px",
+                    color: "#1f2933",
+                    transition: "border-color 0.15s",
+                    fontFamily: "inherit",
+                    width: "100%",
+                    border: "1.5px solid #fff",
+                    fontSize: "0.95rem"
+                  }}
+                />
+              </Box>
               
 
               <CustomButton color="#fff" text="Register" backgroundColor='#2563eb' type='submit'/>
+              <CustomButton color="#fff" text="Go Back" backgroundColor='#2563eb' onClick={handleCustomButton}/>
           </Box>
 
       </Box>
@@ -277,4 +334,4 @@ const CreateYourProfile = () => {
   )
 }
 
-export default CreateYourProfile
+export default DoctorForm
