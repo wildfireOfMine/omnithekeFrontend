@@ -52,7 +52,7 @@ const HospitalRegister = () => {
           color: "#1f2933",
           margin: "12px",
           fontWeight: 800
-        }}>Create your Hospital</Typography>
+        }}>Crea tu Consulta</Typography>
       </Box>
 
       <Box component="form" onSubmit={handleForm} 
@@ -79,7 +79,7 @@ const HospitalRegister = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Identity Code</Typography>
+                }}>Código de Identificación</Typography>
                   <TextField type="text" id="identityCode" name="identityCode" placeholder='A001' variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -98,7 +98,7 @@ const HospitalRegister = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Hospital's Name</Typography>
+                }}>Nombre del Hospital</Typography>
                   <TextField type="text" id="name" name="name" placeholder='Mayo Clinic' variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -117,7 +117,7 @@ const HospitalRegister = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Address</Typography>
+                }}>Dirección</Typography>
                   <TextField type="text" id="address" name="address" placeholder='201 W Center St, Rochester, MN 55902' variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -136,7 +136,7 @@ const HospitalRegister = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>City</Typography>
+                }}>Ciudad</Typography>
                   <TextField type="text" id="city" name="city" placeholder='Madrid' variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -155,7 +155,7 @@ const HospitalRegister = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Country</Typography>
+                }}>País</Typography>
                   <TextField type="text" id="country" name="country" placeholder='Spain' variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -174,7 +174,7 @@ const HospitalRegister = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Post Code</Typography>
+                }}>Código Postal</Typography>
                   <TextField type="text" id="postCode" name="postCode" placeholder='12345' variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -193,7 +193,7 @@ const HospitalRegister = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Telephone</Typography>
+                }}>Teléfono</Typography>
                   <TextField type="tel" id="telephone" name="telephone" placeholder='(+34)152567171' variant="outlined"
                   sx={{
                     borderRadius: "8px",

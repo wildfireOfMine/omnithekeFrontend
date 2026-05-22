@@ -1,5 +1,5 @@
 import { Box, TextField, Typography } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import CustomButton from '../../components/CustomButton';
 import { patientPost } from '../../store/AdminSlice';
 import { toast } from 'react-toastify';
@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 const PatientForm = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [sex, setSex] = useState("M")
 
     const handleCustomButton = () => {
         navigate(-1);
@@ -58,7 +59,7 @@ const PatientForm = () => {
           color: "#1f2933",
           margin: "12px",
           fontWeight: 800
-        }}>Add a Patient</Typography>
+        }}>Añadir un Paciente</Typography>
       </Box>
 
       <Box component="form" onSubmit={handleForm} 
@@ -84,7 +85,7 @@ const PatientForm = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Your Name</Typography>
+                }}>Nombre</Typography>
                   <TextField type="text" id="name" name="name" placeholder='John Doe' variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -103,7 +104,7 @@ const PatientForm = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>First Name</Typography>
+                }}>Primer Apellido</Typography>
                   <TextField type="text" id="firstName" name="firstName" placeholder='John Doe' variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -122,7 +123,7 @@ const PatientForm = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Second Name (if any)</Typography>
+                }}>Segundo Apellido (si existe)</Typography>
                   <TextField type="text" id="secondName" name="secondName" placeholder='John Doe' variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -136,7 +137,26 @@ const PatientForm = () => {
                 />
               </Box>
                 
-                Sex: Male
+              <Box>
+                <Typography variant='h6' sx={{
+                  fontWeight: 600,
+                  color: "#374151"
+                  
+                }}>Sexo</Typography>
+                <FormControl variant="standard" fullWidth>
+                  <Select
+                    labelId="sex"
+                    id="sex"
+                    value={sex}
+                    label="Sex"
+                    onChange={handleChange}
+                    fullWidth
+                  >
+                    <MenuItem value={"M"}>Varón</MenuItem>
+                    <MenuItem value={"F"}>Mujer</MenuItem>
+                  </Select>
+                  </FormControl>
+              </Box>
 
               <Box>
                 <Typography variant='h6' sx={{
@@ -160,7 +180,7 @@ const PatientForm = () => {
                 <Typography variant='h6' sx={{
                   fontWeight: 600,
                   color: "#374151"
-                }}>Birthday</Typography>
+                }}>Fecha de Nacimiento</Typography>
                 <TextField type='date' id='birthday' name='birthday' placeholder='user@gmail.com' variant="outlined"
                 sx={{
                     borderRadius: "8px",
@@ -179,7 +199,7 @@ const PatientForm = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Identity Document (if any)</Typography>
+                }}>Documento de Identidad (si existe)</Typography>
                   <TextField type="text" id="identity" name="identity" placeholder='123456789X' variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -198,7 +218,7 @@ const PatientForm = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Address</Typography>
+                }}>Dirección</Typography>
                   <TextField type="text" id="address" name="address" placeholder='John Doe' variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -217,7 +237,7 @@ const PatientForm = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>City</Typography>
+                }}>Ciudad</Typography>
                   <TextField type="text" id="city" name="city" placeholder='John Doe' variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -236,7 +256,7 @@ const PatientForm = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Post Code</Typography>
+                }}>Código Postal</Typography>
                   <TextField type="text" id="postCode" name="postCode" placeholder='12345' variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -255,7 +275,7 @@ const PatientForm = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Country</Typography>
+                }}>País</Typography>
                   <TextField type="text" id="country" name="country" placeholder='John Doe' variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -274,7 +294,7 @@ const PatientForm = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Telephone</Typography>
+                }}>Teléfono</Typography>
                   <TextField type="text" id="telephone" name="telephone" placeholder='John Doe' variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -293,7 +313,7 @@ const PatientForm = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Blood Type</Typography>
+                }}>Tipo de Sangre</Typography>
                   <TextField type="text" id="bloodType" name="bloodTYpe" placeholder='John Doe' variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -312,7 +332,7 @@ const PatientForm = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Unrelated Clinical Data</Typography>
+                }}>Otra Información Médica</Typography>
                   <TextField type="text" id="unrelatedClinicalData" name="unrelatedClinicalData" placeholder='John Doe' variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -327,8 +347,8 @@ const PatientForm = () => {
               </Box>
               
 
-              <CustomButton color="#fff" text="Register" backgroundColor='#2563eb' type='submit'/>
-              <CustomButton color="#fff" text="Go Back" backgroundColor='#2563eb' onClick={handleCustomButton}/>
+              <CustomButton color="#fff" text="Registrar" backgroundColor='#2563eb' type='submit'/>
+              <CustomButton color="#fff" text="Volver Atrás" backgroundColor='#2563eb' onClick={handleCustomButton}/>
           </Box>
 
       </Box>

@@ -37,19 +37,19 @@ const MyHospitalPatients = () => {
           color: "#1f2933",
           margin: "12px",
           fontWeight: 800
-        }}>Your Patients</Typography>
+        }}>Pacientes del Hospital</Typography>
       </Box>
-        <CustomButton color="#fff" text="Add a Patient" backgroundColor='#2563eb' onClick={handlePatientForm}/>
+        <CustomButton color="#fff" text="Añadir un Paciente" backgroundColor='#2563eb' onClick={handlePatientForm}/>
 
       {data && data.length > 0 && (
         <>
           {data.map((doctor) => (
-            <Typography key={doctor.id}>Patient: {JSON.stringify(doctor)}</Typography>
+            <Typography key={doctor.id}>Paciente: {JSON.stringify(doctor)}</Typography>
           ))}
         </>
       )}
       
-      <CustomButton color="#fff" text="Go Back" backgroundColor='#2563eb' onClick={handleCustomButton}/>
+      <CustomButton color="#fff" text="Volver atrás" backgroundColor='#2563eb' onClick={handleCustomButton}/>
     </Box>
   )
 }

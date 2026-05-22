@@ -1,5 +1,5 @@
-import { Box, TextField, Typography } from '@mui/material'
-import React from 'react'
+import { Box, FormControl, MenuItem, Select, TextField, Typography } from '@mui/material'
+import React, { useState } from 'react'
 import CustomButton from '../../components/CustomButton';
 import { doctorPost } from '../../store/AdminSlice';
 import { toast } from 'react-toastify';
@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 const DoctorForm = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [sex, setSex] = useState("M")
 
     const handleCustomButton = () => {
         navigate(-1);
@@ -23,7 +24,7 @@ const DoctorForm = () => {
                 firstName: firstName.value,
                 secondName: secondName.value,
                 email: email.value,
-                sex: "M",
+                sex: sex,
                 birthdate: birthday.value,
                 identityDocument: identity.value,
                 address: address.value,
@@ -56,7 +57,7 @@ const DoctorForm = () => {
           color: "#1f2933",
           margin: "12px",
           fontWeight: 800
-        }}>Add a Doctor</Typography>
+        }}>Añadir un Doctor</Typography>
       </Box>
 
       <Box component="form" onSubmit={handleForm} 
@@ -82,7 +83,7 @@ const DoctorForm = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Your Name</Typography>
+                }}>Nombre</Typography>
                   <TextField type="text" id="name" name="name" placeholder='John Doe' variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -101,7 +102,7 @@ const DoctorForm = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>First Name</Typography>
+                }}>Primer Apellido</Typography>
                   <TextField type="text" id="firstName" name="firstName" placeholder='John Doe' variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -120,7 +121,7 @@ const DoctorForm = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Second Name (if any)</Typography>
+                }}>Segundo Apellido (si existe)</Typography>
                   <TextField type="text" id="secondName" name="secondName" placeholder='John Doe' variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -134,7 +135,26 @@ const DoctorForm = () => {
                 />
               </Box>
                 
-                Sex: Male
+              <Box>
+                <Typography variant='h6' sx={{
+                  fontWeight: 600,
+                  color: "#374151"
+                  
+                }}>Sexo</Typography>
+                <FormControl variant="standard" fullWidth>
+                  <Select
+                    labelId="sex"
+                    id="sex"
+                    value={sex}
+                    label="Sex"
+                    onChange={handleChange}
+                    fullWidth
+                  >
+                    <MenuItem value={"M"}>Varón</MenuItem>
+                    <MenuItem value={"F"}>Mujer</MenuItem>
+                  </Select>
+                  </FormControl>
+              </Box>
 
               <Box>
                 <Typography variant='h6' sx={{
@@ -158,7 +178,7 @@ const DoctorForm = () => {
                 <Typography variant='h6' sx={{
                   fontWeight: 600,
                   color: "#374151"
-                }}>Birthday</Typography>
+                }}>Fecha de Nacimiento</Typography>
                 <TextField type='date' id='birthday' name='birthday' placeholder='user@gmail.com' variant="outlined"
                 sx={{
                     borderRadius: "8px",
@@ -177,7 +197,7 @@ const DoctorForm = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Identity Document (if any)</Typography>
+                }}>Documento de Identidad (si existe)</Typography>
                   <TextField type="text" id="identity" name="identity" placeholder='123456789X' variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -196,7 +216,7 @@ const DoctorForm = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Address</Typography>
+                }}>Dirección</Typography>
                   <TextField type="text" id="address" name="address" placeholder='John Doe' variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -215,7 +235,7 @@ const DoctorForm = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>City</Typography>
+                }}>Ciudad</Typography>
                   <TextField type="text" id="city" name="city" placeholder='John Doe' variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -234,7 +254,7 @@ const DoctorForm = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Post Code</Typography>
+                }}>Código Postal</Typography>
                   <TextField type="text" id="postCode" name="postCode" placeholder='12345' variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -253,7 +273,7 @@ const DoctorForm = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Country</Typography>
+                }}>País</Typography>
                   <TextField type="text" id="country" name="country" placeholder='John Doe' variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -272,7 +292,7 @@ const DoctorForm = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Telephone</Typography>
+                }}>Teléfono</Typography>
                   <TextField type="text" id="telephone" name="telephone" placeholder='John Doe' variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -291,7 +311,7 @@ const DoctorForm = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Educational Background</Typography>
+                }}>Estudios</Typography>
                   <TextField type="text" id="educationalBackground" name="educationalBackground" placeholder='John Doe' variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -325,8 +345,8 @@ const DoctorForm = () => {
               </Box>
               
 
-              <CustomButton color="#fff" text="Register" backgroundColor='#2563eb' type='submit'/>
-              <CustomButton color="#fff" text="Go Back" backgroundColor='#2563eb' onClick={handleCustomButton}/>
+              <CustomButton color="#fff" text="Registrar" backgroundColor='#2563eb' type='submit'/>
+              <CustomButton color="#fff" text="Volver atrás" backgroundColor='#2563eb' onClick={handleCustomButton}/>
           </Box>
 
       </Box>

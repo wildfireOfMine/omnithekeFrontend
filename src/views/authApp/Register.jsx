@@ -54,7 +54,7 @@ const Register = () => {
           color: "#1f2933",
           margin: "12px",
           fontWeight: 800
-        }}>Register</Typography>
+        }}>Registrarse</Typography>
       </Box>
 
       <Box component="form" onSubmit={handleForm} 
@@ -80,7 +80,7 @@ const Register = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Your Username</Typography>
+                }}>Tu Nombre de Usuario</Typography>
                   <TextField type="text" id="name" name="name" placeholder='John Doe' variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -98,7 +98,7 @@ const Register = () => {
                 <Typography variant='h6' sx={{
                   fontWeight: 600,
                   color: "#374151"
-                }}>E-mail</Typography>
+                }}>Email</Typography>
                 <TextField type='email' id='email' name='email' placeholder='user@gmail.com' variant="outlined"
                 sx={{
                     borderRadius: "8px",
@@ -116,7 +116,7 @@ const Register = () => {
                 <Typography variant='h6' sx={{
                   fontWeight: 600,
                   color: "#374151"
-                }}>Password</Typography>
+                }}>Contraseña</Typography>
                 <TextField type='password' id='password' name='password' placeholder='*******' variant="outlined"
                 sx={{
                     borderRadius: "8px",
@@ -134,7 +134,7 @@ const Register = () => {
                 <Typography variant='h6' sx={{
                   fontWeight: 600,
                   color: "#374151"
-                }}>Confirm Password</Typography>
+                }}>Confirmar Contraseña</Typography>
                 <TextField type='password' id='confirmPassword' name='confirmPassword' placeholder='*******' variant="outlined"
                 sx={{
                     borderRadius: "8px",

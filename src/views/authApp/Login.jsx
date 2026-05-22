@@ -51,7 +51,7 @@ const Login = () => {
           color: "#1f2933",
           margin: "12px",
           fontWeight: 800
-        }}>Log-in</Typography>
+        }}>Iniciar Sesión</Typography>
       </Box>
 
       <Box component="form" onSubmit={handleForm} 
@@ -77,8 +77,8 @@ const Login = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Name</Typography>
-                  <TextField type="text" id="email" name="email" placeholder='user@gmail.com' variant="outlined"
+                }}>Nombre</Typography>
+                  <TextField type="text" id="email" name="email" placeholder='user' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -95,7 +95,7 @@ const Login = () => {
                 <Typography variant='h6' sx={{
                   fontWeight: 600,
                   color: "#374151"
-                }}>Password</Typography>
+                }}>Contraseña</Typography>
                 <TextField type='password' id='password' name='password' placeholder='*******' variant="outlined"
                 sx={{
                     borderRadius: "8px",
@@ -109,8 +109,8 @@ const Login = () => {
               />
               </Box>
               
-              <Typography component={RouterLink} to="/register">Looking to create your hospital?</Typography>
-              <CustomButton color="#fff" text="Log-in" backgroundColor='#2563eb' type='submit'/>
+              <Typography component={RouterLink} to="/register">¿Buscar crear tu consultorio médico?</Typography>
+              <CustomButton color="#fff" text="Iniciar sesión" backgroundColor='#2563eb' type='submit'/>
           </Box>
 
       </Box>

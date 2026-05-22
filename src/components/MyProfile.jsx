@@ -44,7 +44,7 @@ const MyProfile = () => {
           color: "#1f2933",
           margin: "12px",
           fontWeight: 800
-        }}>My Profile</Typography>
+        }}>Mi Perfil</Typography>
       </Box>
 
       <Box sx={{

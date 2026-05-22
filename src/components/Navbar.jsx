@@ -54,11 +54,11 @@ const Navbar = () => {
           >
             {session ?
               <>
-                <Typography sx={{ color: "black"}}>Hello, {session}</Typography>
-                <CustomButton color="red" text="Log Out" variant="contained" onClick={()=>dispatch(logout())}/>
+                <Typography sx={{ color: "black"}}>Hola, {session}</Typography>
+                <CustomButton color="red" text="Cerrar Sesión" variant="contained" onClick={()=>dispatch(logout())}/>
               </>
               : 
-              <CustomButton color="#2563eb" text="Log-in" variant="contained" onClick={()=>navigate("/login")}/>
+              <CustomButton color="#2563eb" text="Iniciar Sesión" variant="contained" onClick={()=>navigate("/login")}/>
             }
           </Box>
         </Toolbar>
