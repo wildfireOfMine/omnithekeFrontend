@@ -13,14 +13,11 @@ import MyPatients from '../views/doctorApp/MyPatients'
 import { ProtectedAdminRoute } from './ProtectedAdminRoute'
 import { ProtectedDoctorRoute } from './ProtectedDoctorRoute'
 import { ProtectedPatientRoute } from './ProtectedPatientRoute'
-import Vaccines from '../views/doctorApp/Vaccines'
-import AttachNewDoctors from '../views/doctorApp/AttachNewDoctors'
 import MyAppointments from '../views/doctorApp/MyAppointments'
 import MyMessages from '../views/doctorApp/MyMessages'
 import Messages from '../views/patientApp/Messages'
 import MyDoctors from '../views/patientApp/MyDoctors'
 import MyIncidents from '../views/patientApp/MyIncidents'
-import MyVaccines from '../views/patientApp/MyVaccines'
 import MyHospitalDoctors from '../views/adminApp/MyHospitalDoctors'
 import MyHospitalPatients from '../views/adminApp/MyHospitalPatients'
 import HospitalRegister from '../views/hospitalApp/HospitalRegister'
@@ -28,6 +25,12 @@ import HospitalDashboard from '../views/hospitalApp/HospitalDashboard'
 import CreateYourProfile from '../views/hospitalApp/CreateYourProfile'
 import DoctorForm from '../views/adminApp/DoctorForm'
 import PatientForm from '../views/adminApp/PatientForm'
+import AttachNewDoctors from '../views/adminApp/AttachNewDoctors'
+import MyDoctorProfile from '../views/doctorApp/MyDoctorProfileView'
+import MyDoctorProfileView from '../views/doctorApp/MyDoctorProfileView'
+import MyAdminProfileView from '../views/adminApp/MyAdminProfileView'
+import MyPatientProfileView from '../views/patientApp/MyPatientProfileView'
+
 
 const AppRoute = () => {
   return (
@@ -43,32 +46,30 @@ const AppRoute = () => {
 
         <Route element={<ProtectedAdminRoute/>}>
           <Route path="/admin/dashboard" element={<AdminDashboard/>}/>
-          <Route path="/admin/myProfile" element={<MyProfile/>}/>
+          <Route path="/admin/myProfile" element={<MyAdminProfileView/>}/>
           <Route path="/admin/myHospitalDoctors" element={<MyHospitalDoctors/>}/>
           <Route path="/admin/doctorForm" element={<DoctorForm/>}/>
           <Route path="/admin/myHospitalPatients" element={<MyHospitalPatients/>}/>
           <Route path="/admin/patientForm" element={<PatientForm/>}/>
-          <Route path="/admin/hospitalDashboard" element={<HospitalDashboard/>}/>
+          <Route path="/hospital/dashboard" element={<HospitalDashboard/>}/>
+          <Route path="/doctor/attachDoctors" element={<AttachNewDoctors/>}/>
         </Route>
 
         <Route element={<ProtectedDoctorRoute/>}>
           <Route path="/doctor/dashboard" element={<DoctorDashboard/>}/>
-          <Route path="/doctor/myProfile" element={<MyProfile/>}/>
+          <Route path="/doctor/myProfile" element={<MyDoctorProfileView/>}/>
           <Route path="/doctor/myPatients" element={<MyPatients/>}/>
-          <Route path="/doctor/vaccines" element={<Vaccines/>}/>
-          <Route path="/doctor/attachDoctors" element={<AttachNewDoctors/>}/>
           <Route path="/doctor/myAppointments" element={<MyAppointments/>}/>
           <Route path="/doctor/myMessages" element={<MyMessages/>}/>
         </Route>
 
         <Route element={<ProtectedPatientRoute/>}>
           <Route path="/patient/dashboard" element={<PatientDashboard/>}/>
-          <Route path="/patient/myProfile" element={<MyProfile/>}/>
+          <Route path="/patient/myProfile" element={<MyPatientProfileView/>}/>
           <Route path="/patient/appointments" element={<Appointments/>}/>
           <Route path="/patient/messages" element={<Messages/>}/>
           <Route path="/patient/myDoctors" element={<MyDoctors/>}/>
           <Route path="/patient/myIncidents" element={<MyIncidents/>}/>
-          <Route path="/patient/myVaccines" element={<MyVaccines/>}/>
         </Route>
 
         <Route path="*" element={<Error404/>}/>

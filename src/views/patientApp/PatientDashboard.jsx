@@ -31,35 +31,35 @@ const PatientDashboard = () => {
         }}>
           <Grid size={5}>
             <CustomCard>
-              <Typography component={RouterLink} to="/patient/appointments">Appointments</Typography>
+              <Typography component={RouterLink} to="/patient/appointments">Citas</Typography>
               <img src="/favicon.svg"/>
             </CustomCard>
           </Grid>
 
           <Grid size={5}>
             <CustomCard>
-              <Typography component={RouterLink} to="/patient/myProfile">My Profile</Typography>
+              <Typography component={RouterLink} to="/patient/myProfile">Mi Perfil</Typography>
               <img src="/favicon.svg"/>
             </CustomCard>
           </Grid>
 
           <Grid size={5}>
             <CustomCard>
-              <Typography component={RouterLink} to="/patient/incidents">My Incidents</Typography>
+              <Typography component={RouterLink} to="/patient/myIncidents">Mis Episodios</Typography>
               <img src="/favicon.svg"/>
             </CustomCard>
           </Grid>
 
           <Grid size={5}>
             <CustomCard>
-              <Typography component={RouterLink} to="/patient/messages">Send a Message</Typography>
+              <Typography component={RouterLink} to="/patient/messages">Enviar un Mensaje</Typography>
               <img src="/favicon.svg"/>
             </CustomCard>
           </Grid>
 
           <Grid size={5}>
             <CustomCard>
-              <Typography component={RouterLink} to="/patient/vaccines">My Vaccines</Typography>
+              <Typography component={RouterLink} to="/patient/myDoctors">Mis Doctores</Typography>
               <img src="/favicon.svg"/>
             </CustomCard>
           </Grid>

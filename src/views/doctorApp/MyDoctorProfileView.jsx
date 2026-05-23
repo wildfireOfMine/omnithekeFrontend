@@ -1,55 +1,88 @@
-import { Box, FormControl, MenuItem, Select, TextField, Typography } from '@mui/material'
-import React, { useState } from 'react'
-import CustomButton from '../../components/CustomButton';
-import { doctorPost } from '../../store/AdminSlice';
-import { toast } from 'react-toastify';
+import { Box, FormControl, Grid, MenuItem, Select, TextField, Typography } from '@mui/material'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { doctorPut, myDoctorProfile } from '../../store/DoctorSlice';
+import CustomButton from '../../components/CustomButton';
+import { toast } from 'react-toastify';
 
-const DoctorForm = () => {
-    const navigate = useNavigate();
+const MyDoctorProfileView = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const loading = useSelector(state => state.doctor.loading);
+    const [data, setData] = useState({});
     const [sex, setSex] = useState("M");
-
-    const handleChange = (e) => {
-      setSex(e.target.value);
-    };
-
+    const [edit, setEdit] = useState(false);
+    console.log("LOADING", loading);
+    useEffect(() => {
+        dispatch(myDoctorProfile()).unwrap().then(data => setData({
+          name: data.name,
+          firstSurname: data.firstSurname,
+          secondSurname: data.secondSurname,
+          sex: data.sex,
+          email: data.email,
+          birthdate: data.birthdate,
+          identityDocument: data.identityDocument,
+          address: data.address,
+          city: data.city,
+          postCode: data.postCode,
+          country: data.country,
+          telephone: data.telephone,
+          educationalBackground: data.educationalBackground,
+          cv: data.cv
+        }));
+    }, [dispatch]);
+    
+    console.log(data);
     const handleCustomButton = () => {
         navigate(-1);
     }
-    
-    const handleForm = async (e) => {
-        e.preventDefault();
-        const {name, firstName, secondName, sex, email, birthday, identity, address, city, postCode, country, telephone, educationalBackground, cv} = e.currentTarget;
-        if (true) {
-            const user = {
-                name: name.value, 
-                firstName: firstName.value,
-                secondName: secondName.value,
-                email: email.value,
-                sex: sex,
-                birthdate: birthday.value,
-                identityDocument: identity.value,
-                address: address.value,
-                city: city.value,
-                postCode: postCode.value,
-                country: country.value,
-                telephone: telephone.value,
-                educationalBackground: educationalBackground.value}
+
+    const handlePutMethod = () => {
+      if (!edit) {
+        setEdit(true);
+      }
+    }
+
+    const handleInputChange = (e) => {
+      const { name, value } = e.target
+      setData((prev) => ({
+        ...prev,
+        [name]: value
+      }))
+    }
+
+    const handleConfirmPut = async (e) => {
+      e.preventDefault();
+      if (true) {
+          const user = {
+            name: data.name, 
+            firstSurname: data.firstSurname,
+            secondSurname: data.secondSurname,
+            email: data.email,
+            sex: data.sex,
+            birthdate: data.birthdate,
+            identityDocument: data.identityDocument,
+            address: data.address,
+            city: data.city,
+            postCode: data.postCode,
+            country: data.country,
+            telephone: data.telephone,
+            educationalBackground: data.educationalBackground}
             try {
-                await dispatch(doctorPost(user)).unwrap();
-                toast.success("Doctor registered successfully!");
+              await dispatch(doctorPut(user)).unwrap();
+              toast.success("PUT exitoso");
             } catch (err) {
-                console.log(err);
-                toast.error(err?.email ? err.email.join(", ") : "Registration failed");
-            }
+              console.log(err);
+              toast.error(err?.email ? err.email.join(", ") : "PUT fallido");
         }
+      }
+      setEdit(false);
     }
 
   return (
     <Box sx={{
-      maxWidth: "860px",
+      maxWidth: "1660px",
       margin: "0 auto",
       padding: "10px 16px 64px"
     }}>
@@ -61,11 +94,10 @@ const DoctorForm = () => {
           color: "#1f2933",
           margin: "12px",
           fontWeight: 800
-        }}>Añadir un Doctor</Typography>
+        }}>Mi Perfil de Doctor</Typography>
       </Box>
 
-      <Box component="form" onSubmit={handleForm} 
-      sx={{
+      <Box sx={{
         display: "flex", 
         flexDirection: "column",
         background: "white",
@@ -73,22 +105,18 @@ const DoctorForm = () => {
         padding: "24px 28px 10px",
         boxShadow: "0 4px 16px rgba(0,0,0,0.06)",
         marginBottom: "20px",
-        }}> 
-            <Box component="div"
-            sx={{
-              padding: "50px 0",
-              marginBottom: "16px",
-              display: "flex",
-              flexDirection: "column",
-              gap: "30px"
-            }}>
-              <Box>
+        }}>
+        <Grid container spacing={2}>
+          {data && <>
+            <Box>
                 <Typography variant='h6' sx={{
                   fontWeight: 600,
                   color: "#374151"
                   
                 }}>Nombre</Typography>
-                  <TextField type="text" id="name" name="name" placeholder='John Doe' variant="outlined"
+                  <TextField type="text" id="name" name="name" placeholder='John' variant="outlined" value={data.name} 
+                  onChange={handleInputChange}
+                  disabled={!edit}
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -107,7 +135,9 @@ const DoctorForm = () => {
                   color: "#374151"
                   
                 }}>Primer Apellido</Typography>
-                  <TextField type="text" id="firstName" name="firstName" placeholder='John Doe' variant="outlined"
+                  <TextField type="text" id="firstSurname" name="firstSurname" placeholder='Doe' variant="outlined" value={data.firstSurname}
+                  onChange={handleInputChange}
+                  disabled={!edit}
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -126,7 +156,9 @@ const DoctorForm = () => {
                   color: "#374151"
                   
                 }}>Segundo Apellido (si existe)</Typography>
-                  <TextField type="text" id="secondName" name="secondName" placeholder='John Doe' variant="outlined"
+                  <TextField type="text" id="secondSurname" name="secondSurname" placeholder='Does' variant="outlined" value={data.secondSurname}
+                  onChange={handleInputChange}
+                  disabled={!edit}
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -147,11 +179,13 @@ const DoctorForm = () => {
                 }}>Sexo</Typography>
                 <FormControl variant="standard" fullWidth>
                   <Select
+                    disabled={!edit}
                     labelId="sex"
                     id="sex"
-                    value={sex}
+                    name="sex"
+                    value={data.sex || "M"}
                     label="Sex"
-                    onChange={handleChange}
+                    onChange={handleInputChange}
                     fullWidth
                   >
                     <MenuItem value={"M"}>Varón</MenuItem>
@@ -165,7 +199,9 @@ const DoctorForm = () => {
                   fontWeight: 600,
                   color: "#374151"
                 }}>Email</Typography>
-                <TextField type='email' id='email' name='email' placeholder='user@gmail.com' variant="outlined"
+                <TextField type='email' id='email' name='email' placeholder='user@gmail.com' variant="outlined" value={data.email}
+                onChange={handleInputChange}
+                disabled={!edit}
                 sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -183,7 +219,9 @@ const DoctorForm = () => {
                   fontWeight: 600,
                   color: "#374151"
                 }}>Fecha de Nacimiento</Typography>
-                <TextField type='date' id='birthday' name='birthday' placeholder='user@gmail.com' variant="outlined"
+                <TextField type='date' id='birthdate' name='birthdate' variant="outlined" value={data.birthdate}
+                onChange={handleInputChange}
+                disabled={!edit}
                 sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -202,7 +240,9 @@ const DoctorForm = () => {
                   color: "#374151"
                   
                 }}>Documento de Identidad (si existe)</Typography>
-                  <TextField type="text" id="identity" name="identity" placeholder='123456789X' variant="outlined"
+                  <TextField type="text" id="identity" name="identity" placeholder='123456789X' variant="outlined" value={data.identityDocument}
+                  onChange={handleInputChange}
+                  disabled={!edit}
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -221,7 +261,9 @@ const DoctorForm = () => {
                   color: "#374151"
                   
                 }}>Dirección</Typography>
-                  <TextField type="text" id="address" name="address" placeholder='John Doe' variant="outlined"
+                  <TextField type="text" id="address" name="address" placeholder='Calle de Madrid' variant="outlined" value={data.address}
+                  onChange={handleInputChange}
+                  disabled={!edit}
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -240,7 +282,9 @@ const DoctorForm = () => {
                   color: "#374151"
                   
                 }}>Ciudad</Typography>
-                  <TextField type="text" id="city" name="city" placeholder='John Doe' variant="outlined"
+                  <TextField type="text" id="city" name="city" placeholder='Madrid' variant="outlined" value={data.city}
+                  onChange={handleInputChange}
+                  disabled={!edit}
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -259,7 +303,9 @@ const DoctorForm = () => {
                   color: "#374151"
                   
                 }}>Código Postal</Typography>
-                  <TextField type="text" id="postCode" name="postCode" placeholder='12345' variant="outlined"
+                  <TextField type="text" id="postCode" name="postCode" placeholder='12345' variant="outlined" value={data.postCode}
+                  onChange={handleInputChange}
+                  disabled={!edit}
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -278,7 +324,9 @@ const DoctorForm = () => {
                   color: "#374151"
                   
                 }}>País</Typography>
-                  <TextField type="text" id="country" name="country" placeholder='John Doe' variant="outlined"
+                  <TextField type="text" id="country" name="country" placeholder='España' variant="outlined" value={data.country}
+                  onChange={handleInputChange}
+                  disabled={!edit}
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -297,7 +345,9 @@ const DoctorForm = () => {
                   color: "#374151"
                   
                 }}>Teléfono</Typography>
-                  <TextField type="text" id="telephone" name="telephone" placeholder='John Doe' variant="outlined"
+                  <TextField type="text" id="telephone" name="telephone" placeholder='(+34)152567171' variant="outlined" value={data.telephone}
+                  onChange={handleInputChange}
+                  disabled={!edit}
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -316,7 +366,10 @@ const DoctorForm = () => {
                   color: "#374151"
                   
                 }}>Estudios</Typography>
-                  <TextField type="text" id="educationalBackground" name="educationalBackground" placeholder='John Doe' variant="outlined"
+                  <TextField type="text" id="educationalBackground" name="educationalBackground" placeholder='Diploma en la UMU' variant="outlined" 
+                  onChange={handleInputChange}
+                  value={data.educationalBackground}
+                  disabled={!edit}
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -335,7 +388,8 @@ const DoctorForm = () => {
                   color: "#374151"
                   
                 }}>CV</Typography>
-                  <TextField type="file" id="cv" name="cv" placeholder='John Doe' variant="outlined"
+                  <TextField type="file" id="cv" name="cv" variant="outlined" value={data.cv}
+                  disabled={!edit}
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -347,15 +401,19 @@ const DoctorForm = () => {
                   }}
                 />
               </Box>
-              
-
-              <CustomButton color="#fff" text="Registrar" backgroundColor='#2563eb' type='submit'/>
-              <CustomButton color="#fff" text="Volver atrás" backgroundColor='#2563eb' onClick={handleCustomButton}/>
-          </Box>
-
+          </>
+          }
+        </Grid>
+        <Grid spacing={2} sx={{textAlign:"center"}}>
+          {!edit ? <CustomButton color="#fff" text="Modificar" backgroundColor='#2563eb' onClick={handlePutMethod}/> : 
+          <CustomButton color="#fff" text="Confirmar" backgroundColor='#2563eb' onClick={handleConfirmPut}/>}
+          
+          <CustomButton color="#fff" text="Volver Atrás" backgroundColor='#2563eb' onClick={handleCustomButton}/>
+        </Grid>
       </Box>
+      
     </Box>
   )
 }
 
-export default DoctorForm
+export default MyDoctorProfileView

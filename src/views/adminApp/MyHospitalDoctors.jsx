@@ -36,10 +36,10 @@ const MyHospitalDoctors = () => {
           color: "#1f2933",
           margin: "12px",
           fontWeight: 800
-        }}>Your Doctors</Typography>
+        }}>Doctores del Hospital</Typography>
       </Box>
 
-      <CustomButton color="#fff" text="Add a Doctor" backgroundColor='#2563eb' onClick={handleDoctorForm}/>
+      <CustomButton color="#fff" text="Añadir un doctor" backgroundColor='#2563eb' onClick={handleDoctorForm}/>
 
       {data && data.length > 0 && (
         <>
@@ -49,7 +49,7 @@ const MyHospitalDoctors = () => {
         </>
       )}
       
-      <CustomButton color="#fff" text="Go Back" backgroundColor='#2563eb' onClick={handleCustomButton}/>
+      <CustomButton color="#fff" text="Volver atrás" backgroundColor='#2563eb' onClick={handleCustomButton}/>
     </Box>
   )
 }

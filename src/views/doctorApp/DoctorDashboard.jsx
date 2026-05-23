@@ -18,7 +18,7 @@ const DoctorDashboard = () => {
               color: "#1f2933",
               margin: "12px",
               fontWeight: 800
-            }}>Doctor Dashboard</Typography>
+            }}>Panel de Doctor</Typography>
             <Box sx={{
               padding: "100px 0",
               maxWidth: "900px",
@@ -29,49 +29,35 @@ const DoctorDashboard = () => {
               }}>
                 <Grid size={5}>
                   <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/attachDoctors">Attach New Doctors</Typography>
+                    <Typography component={RouterLink} to="/doctor/myProfile">Mi Perfil</Typography>
                     <img src="/favicon.svg"/>
                   </CustomCard>
                 </Grid>
 
                 <Grid size={5}>
                   <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/myProfile">My Profile</Typography>
+                    <Typography component={RouterLink} to="/doctor/myAppointments">Mis Citas</Typography>
                     <img src="/favicon.svg"/>
                   </CustomCard>
                 </Grid>
 
                 <Grid size={5}>
                   <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/appointments">My Appointments</Typography>
+                    <Typography component={RouterLink} to="/doctor/myReports">Añadir un Nuevo Informe</Typography>
                     <img src="/favicon.svg"/>
                   </CustomCard>
                 </Grid>
 
                 <Grid size={5}>
                   <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/myReports">Add a New Report</Typography>
+                    <Typography component={RouterLink} to="/doctor/myPatients">Mis Pacientes</Typography>
                     <img src="/favicon.svg"/>
                   </CustomCard>
                 </Grid>
 
                 <Grid size={5}>
                   <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/vaccines">Vaccines</Typography>
-                    <img src="/favicon.svg"/>
-                  </CustomCard>
-                </Grid>
-
-                <Grid size={5}>
-                  <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/myPatients">My Patients</Typography>
-                    <img src="/favicon.svg"/>
-                  </CustomCard>
-                </Grid>
-
-                <Grid size={5}>
-                  <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/messages">My Messages</Typography>
+                    <Typography component={RouterLink} to="/doctor/messages">Mis Mensajes</Typography>
                     <img src="/favicon.svg"/>
                   </CustomCard>
                 </Grid>
