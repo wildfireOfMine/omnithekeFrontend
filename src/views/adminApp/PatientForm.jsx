@@ -1,4 +1,4 @@
-import { Box, TextField, Typography } from '@mui/material'
+import { Box, FormControl, MenuItem, Select, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import CustomButton from '../../components/CustomButton';
 import { patientPost } from '../../store/AdminSlice';
@@ -9,7 +9,11 @@ import { useDispatch } from 'react-redux';
 const PatientForm = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [sex, setSex] = useState("M")
+    const [sex, setSex] = useState("M");
+
+    const handleChange = (e) => {
+      setSex(e.target.value);
+    };
 
     const handleCustomButton = () => {
         navigate(-1);
@@ -24,7 +28,7 @@ const PatientForm = () => {
                 firstName: firstName.value,
                 secondName: secondName.value,
                 email: email.value,
-                sex: "M",
+                sex: sex,
                 birthdate: birthday.value,
                 identityDocument: identity.value,
                 address: address.value,

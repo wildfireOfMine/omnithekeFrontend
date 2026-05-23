@@ -23,7 +23,7 @@ const CreateYourProfile = () => {
             const user = {name: name.value, 
                 firstSurname: firstSurname.value,
                 secondSurname: secondSurname.value,
-                sex: sex.value,
+                sex: sex,
                 birthdate: birthday.value,
                 identityDocument: identity.value,
                 address: address.value,

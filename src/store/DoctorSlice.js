@@ -49,6 +49,26 @@ export const myPatientsAsDoctor = createAsyncThunk(
   }
 );
 
+export const myAppointments = createAsyncThunk(
+  "doctor/myPatientsAsDoctor",
+  async (appointments, { getState, rejectWithValue }) => {
+    try {
+    const state = getState();
+    const session = state.account.session
+    console.log(session);
+    const res = await axios.get(`${BACKEND_URL}doctor/api/myAppointments/`, {
+      headers: {
+        Authorization: `Bearer ${session.token}`
+      }
+    });
+      console.log(res);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || "Couldn't extract the data");
+    }
+  }
+);
+
 export const doctorSlice = createSlice({
     name: "doctor",
     initialState,

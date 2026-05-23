@@ -36,7 +36,7 @@ const DoctorDashboard = () => {
 
                 <Grid size={5}>
                   <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/appointments">Mis Citas</Typography>
+                    <Typography component={RouterLink} to="/doctor/myAppointments">Mis Citas</Typography>
                     <img src="/favicon.svg"/>
                   </CustomCard>
                 </Grid>

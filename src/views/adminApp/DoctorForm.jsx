@@ -9,7 +9,11 @@ import { useDispatch } from 'react-redux';
 const DoctorForm = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [sex, setSex] = useState("M")
+    const [sex, setSex] = useState("M");
+
+    const handleChange = (e) => {
+      setSex(e.target.value);
+    };
 
     const handleCustomButton = () => {
         navigate(-1);
