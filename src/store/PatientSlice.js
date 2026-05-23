@@ -74,6 +74,26 @@ export const myIncidentsAsPatient = createAsyncThunk(
   }
 );
 
+export const patientPut = createAsyncThunk(
+  "patient/patientPut",
+  async (patient, { getState, rejectWithValue }) => {
+    try {
+    const state = getState();
+    const session = state.account.session
+    console.log(session);
+    const res = await axios.put(`${BACKEND_URL}patient/api/myPatientProfile/`, patient, {
+      headers: {
+        Authorization: `Bearer ${session.token}`
+      }
+    });
+      console.log(res);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || "Couldn't extract the data");
+    }
+  }
+);
+
 export const patientSlice = createSlice({
     name: "patient",
     initialState,

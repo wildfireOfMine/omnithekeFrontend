@@ -109,6 +109,26 @@ export const patientPost = createAsyncThunk(
   }
 );
 
+export const adminPut = createAsyncThunk(
+  "admin/adminPut",
+  async (admin, { getState, rejectWithValue }) => {
+    try {
+    const state = getState();
+    const session = state.account.session
+    console.log(session);
+    const res = await axios.put(`${BACKEND_URL}admin/api/myProfile/`, admin, {
+      headers: {
+        Authorization: `Bearer ${session.token}`
+      }
+    });
+      console.log(res);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || "Couldn't extract the data");
+    }
+  }
+);
+
 export const adminSlice = createSlice({
     name: "admin",
     initialState,

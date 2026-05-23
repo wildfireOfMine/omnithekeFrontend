@@ -30,14 +30,14 @@ const Dashboard = () => {
               }}>
                 <Grid size={5}>
                   <CustomCard>
-                    <Typography component={RouterLink} to="/admin/myHospitalDoctors">My Doctors</Typography>
+                    <Typography component={RouterLink} to="/admin/myHospitalDoctors">Doctores del Consultorio</Typography>
                     <img src="/favicon.svg"/>
                   </CustomCard>
                 </Grid>
 
                 <Grid size={5}>
                   <CustomCard>
-                    <Typography component={RouterLink} to="/admin/myHospitalPatients">My Patients</Typography>
+                    <Typography component={RouterLink} to="/admin/myHospitalPatients">Pacientes del Consultorio</Typography>
                     <img src="/favicon.svg"/>
                   </CustomCard>
                 </Grid>
@@ -58,21 +58,14 @@ const Dashboard = () => {
 
                 <Grid size={5}>
                   <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/myProfile">Hospital's Doctors</Typography>
+                    <Typography component={RouterLink} to="/doctor/myReports">Añadir Nuevos Doctores a un Paciente</Typography>
                     <img src="/favicon.svg"/>
                   </CustomCard>
                 </Grid>
 
                 <Grid size={5}>
                   <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/appointments">Hospital's Patients</Typography>
-                    <img src="/favicon.svg"/>
-                  </CustomCard>
-                </Grid>
-
-                <Grid size={5}>
-                  <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/myReports">Attach New Doctors to a Patient</Typography>
+                    <Typography component={RouterLink} to="/doctor/myReports">Añadir un Nuevo Administrador</Typography>
                     <img src="/favicon.svg"/>
                   </CustomCard>
                 </Grid>

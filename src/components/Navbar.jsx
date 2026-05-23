@@ -13,6 +13,9 @@ const Navbar = () => {
   )
   console.log(session);
   console.log(JSON.stringify(session));
+  const role = useSelector(
+    (state) => state.account.session.role
+  )
 
   return (
     <AppBar
@@ -34,16 +37,16 @@ const Navbar = () => {
            <Typography 
             variant="h4" 
             component={RouterLink}
-            to="/" 
+            to={role ? `/${role}/dashboard` : '/login'} 
             sx={{ 
               color:"black",
               fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
               textDecoration: "none"
              }}
             >
-            Omnitheke
+            Omnitheke 
+            
           </Typography>
-
           <Box
             sx={{
               display: "flex",
