@@ -52,7 +52,45 @@ export const hospitalPost = createAsyncThunk(
   }
 );
 
+export const hospitalGet = createAsyncThunk(
+  "hospital/hospitalGet",
+  async (hospital, { getState, rejectWithValue }) => {
+    try {
+    const state = getState();
+    const session = state.account.session
+    console.log(session);
+    const res = await axios.get(`${BACKEND_URL}hospital/api/hospital/`, {
+      headers: {
+        Authorization: `Bearer ${session.token}`
+      }
+    });
+      console.log(res);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || "Couldn't extract the data");
+    }
+  }
+);
 
+export const hospitalPut = createAsyncThunk(
+  "hospital/hospitalPut",
+  async (hospital, { getState, rejectWithValue }) => {
+    try {
+    const state = getState();
+    const session = state.account.session
+    console.log(session);
+    const res = await axios.put(`${BACKEND_URL}hospital/api/hospital/`, hospital, {
+      headers: {
+        Authorization: `Bearer ${session.token}`
+      }
+    });
+      console.log(res);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || "Couldn't extract the data");
+    }
+  }
+);
 
 export const hospitalSlice = createSlice({
     name: "hospital",

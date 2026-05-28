@@ -22,13 +22,16 @@ import MyHospitalPatients from '../views/adminApp/MyHospitalPatients'
 import HospitalRegister from '../views/hospitalApp/HospitalRegister'
 import HospitalDashboard from '../views/hospitalApp/HospitalDashboard'
 import CreateYourProfile from '../views/hospitalApp/CreateYourProfile'
-import DoctorForm from '../views/adminApp/DoctorForm'
-import PatientForm from '../views/adminApp/PatientForm'
+import DoctorForm from '../views/hospitalApp/DoctorForm'
+import PatientForm from '../views/hospitalApp/PatientForm'
 import AttachNewDoctors from '../views/adminApp/AttachNewDoctors'
 import MyDoctorProfile from '../views/doctorApp/MyDoctorProfileView'
 import MyDoctorProfileView from '../views/doctorApp/MyDoctorProfileView'
 import MyAdminProfileView from '../views/adminApp/MyAdminProfileView'
 import MyPatientProfileView from '../views/patientApp/MyPatientProfileView'
+import MyHospital from '../views/adminApp/MyHospital'
+import Reports from '../views/doctorApp/Reports'
+import ReportForm from '../views/doctorApp/ReportForm'
 
 
 const AppRoute = () => {
@@ -50,7 +53,7 @@ const AppRoute = () => {
           <Route path="/admin/doctorForm" element={<DoctorForm/>}/>
           <Route path="/admin/myHospitalPatients" element={<MyHospitalPatients/>}/>
           <Route path="/admin/patientForm" element={<PatientForm/>}/>
-          <Route path="/hospital/dashboard" element={<HospitalDashboard/>}/>
+          <Route path="/admin/myHospital" element={<MyHospital/>}/>
           <Route path="/doctor/attachDoctors" element={<AttachNewDoctors/>}/>
         </Route>
 
@@ -59,6 +62,8 @@ const AppRoute = () => {
           <Route path="/doctor/myProfile" element={<MyDoctorProfileView/>}/>
           <Route path="/doctor/myPatients" element={<MyPatients/>}/>
           <Route path="/doctor/myAppointments" element={<MyAppointments/>}/>
+          <Route path="/doctor/myReports" element={<Reports/>}/>
+          <Route path="/doctor/reportForm" element={<ReportForm/>}/>
           <Route path="/doctor/myMessages" element={<MyMessages/>}/>
         </Route>
 
