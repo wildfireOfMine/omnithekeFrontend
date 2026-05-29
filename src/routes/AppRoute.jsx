@@ -18,18 +18,21 @@ import MyMessages from '../views/doctorApp/MyMessages'
 import Messages from '../views/patientApp/Messages'
 import MyDoctors from '../views/patientApp/MyDoctors'
 import MyIncidents from '../views/patientApp/MyIncidents'
-import MyHospitalDoctors from '../views/adminApp/MyHospitalDoctors'
-import MyHospitalPatients from '../views/adminApp/MyHospitalPatients'
-import HospitalRegister from '../views/hospitalApp/HospitalRegister'
-import HospitalDashboard from '../views/hospitalApp/HospitalDashboard'
-import CreateYourProfile from '../views/hospitalApp/CreateYourProfile'
-import DoctorForm from '../views/adminApp/DoctorForm'
-import PatientForm from '../views/adminApp/PatientForm'
+import MyOfficeDoctors from '../views/adminApp/MyOfficeDoctors'
+import MyOfficePatients from '../views/adminApp/MyOfficePatients'
+import OfficeRegister from '../views/officeApp/OfficeRegister'
+import OfficeDashboard from '../views/officeApp/OfficeDashboard'
+import CreateYourProfile from '../views/officeApp/CreateYourProfile'
+import DoctorForm from '../views/officeApp/DoctorForm'
+import PatientForm from '../views/officeApp/PatientForm'
 import AttachNewDoctors from '../views/adminApp/AttachNewDoctors'
 import MyDoctorProfile from '../views/doctorApp/MyDoctorProfileView'
 import MyDoctorProfileView from '../views/doctorApp/MyDoctorProfileView'
 import MyAdminProfileView from '../views/adminApp/MyAdminProfileView'
 import MyPatientProfileView from '../views/patientApp/MyPatientProfileView'
+import MyOffice from '../views/adminApp/MyOffice'
+import Reports from '../views/doctorApp/Reports'
+import ReportForm from '../views/doctorApp/ReportForm'
 
 
 const AppRoute = () => {
@@ -42,16 +45,16 @@ const AppRoute = () => {
         <Route path="/login" element={<Login/>}/>
 
         <Route path="/createYourProfile" element={<CreateYourProfile/>}/>
-        <Route path="/createYourHospital" element={<HospitalRegister/>}/>
+        <Route path="/createYourOffice" element={<OfficeRegister/>}/>
 
         <Route element={<ProtectedAdminRoute/>}>
           <Route path="/admin/dashboard" element={<AdminDashboard/>}/>
           <Route path="/admin/myProfile" element={<MyAdminProfileView/>}/>
-          <Route path="/admin/myHospitalDoctors" element={<MyHospitalDoctors/>}/>
+          <Route path="/admin/myOfficeDoctors" element={<MyOfficeDoctors/>}/>
           <Route path="/admin/doctorForm" element={<DoctorForm/>}/>
-          <Route path="/admin/myHospitalPatients" element={<MyHospitalPatients/>}/>
+          <Route path="/admin/myOfficePatients" element={<MyOfficePatients/>}/>
           <Route path="/admin/patientForm" element={<PatientForm/>}/>
-          <Route path="/hospital/dashboard" element={<HospitalDashboard/>}/>
+          <Route path="/admin/myOffice" element={<MyOffice/>}/>
           <Route path="/doctor/attachDoctors" element={<AttachNewDoctors/>}/>
         </Route>
 
@@ -60,6 +63,8 @@ const AppRoute = () => {
           <Route path="/doctor/myProfile" element={<MyDoctorProfileView/>}/>
           <Route path="/doctor/myPatients" element={<MyPatients/>}/>
           <Route path="/doctor/myAppointments" element={<MyAppointments/>}/>
+          <Route path="/doctor/myReports" element={<Reports/>}/>
+          <Route path="/doctor/reportForm" element={<ReportForm/>}/>
           <Route path="/doctor/myMessages" element={<MyMessages/>}/>
         </Route>
 

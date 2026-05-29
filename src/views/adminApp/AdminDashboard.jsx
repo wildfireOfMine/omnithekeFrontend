@@ -30,14 +30,14 @@ const Dashboard = () => {
               }}>
                 <Grid size={5}>
                   <CustomCard>
-                    <Typography component={RouterLink} to="/admin/myHospitalDoctors">Doctores del Consultorio</Typography>
+                    <Typography component={RouterLink} to="/admin/myOfficeDoctors">Doctores del Consultorio</Typography>
                     <img src="/favicon.svg"/>
                   </CustomCard>
                 </Grid>
 
                 <Grid size={5}>
                   <CustomCard>
-                    <Typography component={RouterLink} to="/admin/myHospitalPatients">Pacientes del Consultorio</Typography>
+                    <Typography component={RouterLink} to="/admin/myOfficePatients">Pacientes del Consultorio</Typography>
                     <img src="/favicon.svg"/>
                   </CustomCard>
                 </Grid>
@@ -51,24 +51,18 @@ const Dashboard = () => {
 
                 <Grid size={5}>
                   <CustomCard>
-                    <Typography component={RouterLink} to="/hospital/dashboard">Datos del Hospital</Typography>
+                    <Typography component={RouterLink} to="/doctor/myReports">Recepcionistas del Consultorio</Typography>
                     <img src="/favicon.svg"/>
                   </CustomCard>
                 </Grid>
 
                 <Grid size={5}>
                   <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/myReports">Añadir Nuevos Doctores a un Paciente</Typography>
+                    <Typography component={RouterLink} to="/admin/myOffice">Datos del Consultorio</Typography>
                     <img src="/favicon.svg"/>
                   </CustomCard>
                 </Grid>
 
-                <Grid size={5}>
-                  <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/myReports">Añadir un Nuevo Administrador</Typography>
-                    <img src="/favicon.svg"/>
-                  </CustomCard>
-                </Grid>
               </Grid>
             </Box>
     </Box>

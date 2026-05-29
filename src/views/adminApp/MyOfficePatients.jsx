@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import CustomButton from '../../components/CustomButton';
 
-const MyHospitalPatients = () => {
+const MyOfficePatients = () => {
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ const MyHospitalPatients = () => {
           color: "#1f2933",
           margin: "12px",
           fontWeight: 800
-        }}>Pacientes del Hospital</Typography>
+        }}>Pacientes del Consultorio</Typography>
       </Box>
         <CustomButton color="#fff" text="Añadir un Paciente" backgroundColor='#2563eb' onClick={handlePatientForm}/>
 
@@ -54,4 +54,4 @@ const MyHospitalPatients = () => {
   )
 }
 
-export default MyHospitalPatients
+export default MyOfficePatients

@@ -2,7 +2,7 @@ import { Box, FormControl, InputLabel, MenuItem, Select, TextField, Typography }
 import React, { useState } from 'react'
 import CustomButton from '../../components/CustomButton';
 import { useDispatch } from 'react-redux';
-import { administratorPost } from '../../store/HospitalSlice';
+import { administratorPost } from '../../store/OfficeSlice';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
@@ -34,7 +34,7 @@ const CreateYourProfile = () => {
             try {
                 await dispatch(administratorPost(user)).unwrap();
                 toast.success("Administrator registered successfully!");
-                navigate("/createYourHospital");
+                navigate("/createYourOffice");
             } catch (err) {
                 toast.error(err?.email ? err.email.join(", ") : "Something's odd, are all the fields filled?");
             }

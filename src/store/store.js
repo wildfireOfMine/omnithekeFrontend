@@ -3,7 +3,7 @@ import { accountSlice } from "./AccountSlice";
 import { patientSlice } from "./PatientSlice";
 import { doctorSlice } from "./DoctorSlice";
 import { adminSlice } from "./AdminSlice";
-import { hospitalSlice } from "./HospitalSlice";
+import { officeSlice } from "./OfficeSlice";
 
 
 export const store = configureStore({
@@ -12,7 +12,7 @@ export const store = configureStore({
         patient: patientSlice.reducer,
         doctor: doctorSlice.reducer,
         admin: adminSlice.reducer,
-        hospital: hospitalSlice.reducer
+        office: officeSlice.reducer
     },
 })
 

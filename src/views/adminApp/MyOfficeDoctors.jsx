@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { myDoctors } from '../../store/AdminSlice';
 import CustomButton from '../../components/CustomButton';
 
-const MyHospitalDoctors = () => {
+const MyOfficeDoctors = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [data, setData] = useState({});
@@ -36,7 +36,7 @@ const MyHospitalDoctors = () => {
           color: "#1f2933",
           margin: "12px",
           fontWeight: 800
-        }}>Doctores del Hospital</Typography>
+        }}>Doctores del Consultorio</Typography>
       </Box>
 
       <CustomButton color="#fff" text="Añadir un doctor" backgroundColor='#2563eb' onClick={handleDoctorForm}/>
@@ -54,4 +54,4 @@ const MyHospitalDoctors = () => {
   )
 }
 
-export default MyHospitalDoctors
+export default MyOfficeDoctors

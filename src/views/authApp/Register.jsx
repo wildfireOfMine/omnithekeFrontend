@@ -23,7 +23,7 @@ const Register = () => {
         console.log(e.target);
         const {name, email, password, confirmPassword} = e.currentTarget;
         if (checkPassword(password, confirmPassword)) {
-            const user = {name: name.value, email: email.value, password: password.value}
+            const user = {name: email.value, email: email.value, password: password.value}
             console.log(user);
             try {
                 await dispatch(register(user)).unwrap();

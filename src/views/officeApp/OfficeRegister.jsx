@@ -4,9 +4,9 @@ import CustomButton from '../../components/CustomButton'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { hospitalPost } from '../../store/HospitalSlice'
+import { officePost } from '../../store/OfficeSlice'
 
-const HospitalRegister = () => {
+const OfficeRegister = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -15,7 +15,7 @@ const HospitalRegister = () => {
     console.log(e.target);
     const {identityCode, name, address, city, country, postCode, telephone, fax} = e.currentTarget;
     if (true){
-      const hospital = {
+      const office = {
         identityCode: identityCode.value,
         name: name.value,
         address: address.value,
@@ -26,8 +26,8 @@ const HospitalRegister = () => {
         fax: fax.value,
       }
       try {
-        await dispatch(hospitalPost(hospital)).unwrap();
-        toast.success("Hospital registered successfully!");
+        await dispatch(officePost(office)).unwrap();
+        toast.success("Office registered successfully!");
         navigate("/login");
       } catch (err) {
         toast.error(err?.email ? err.email.join(", ") : "Something's odd, are all the fields filled?");
@@ -98,7 +98,7 @@ const HospitalRegister = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Nombre del Hospital</Typography>
+                }}>Nombre del Consultorio</Typography>
                   <TextField type="text" id="name" name="name" placeholder='Mayo Clinic' variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -236,4 +236,4 @@ const HospitalRegister = () => {
   )
 }
 
-export default HospitalRegister
+export default OfficeRegister
