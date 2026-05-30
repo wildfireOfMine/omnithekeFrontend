@@ -61,7 +61,7 @@ export const myAppointments = createAsyncThunk(
         Authorization: `Bearer ${session.token}`
       }
     });
-      console.log(res);
+      console.log(res.data);
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response?.data || "Couldn't extract the data");

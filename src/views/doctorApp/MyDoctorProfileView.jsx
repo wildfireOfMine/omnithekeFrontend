@@ -1,10 +1,11 @@
-import { Box, FormControl, Grid, MenuItem, Select, TextField, Typography } from '@mui/material'
+import { Box, Button, Divider, FormControl, Grid, MenuItem, Select, TextField, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { doctorPut, myDoctorProfile } from '../../store/DoctorSlice';
 import CustomButton from '../../components/CustomButton';
 import { toast } from 'react-toastify';
+import CustomField from '../../components/CustomField';
 
 const MyDoctorProfileView = () => {
     const dispatch = useDispatch();
@@ -32,6 +33,15 @@ const MyDoctorProfileView = () => {
           cv: data.cv
         }));
     }, [dispatch]);
+
+    const fieldStyle = {
+      borderRadius: "8px",
+      color: "#1f2933",
+      transition: "border-color 0.15s",
+      fontFamily: "inherit",
+      width: "100%",
+      fontSize: "0.95rem"
+    };
     
     console.log(data);
     const handleCustomButton = () => {
@@ -106,304 +116,321 @@ const MyDoctorProfileView = () => {
         boxShadow: "0 4px 16px rgba(0,0,0,0.06)",
         marginBottom: "20px",
         }}>
-        <Grid container spacing={2}>
           {data && <>
-            <Box>
-                <Typography variant='h6' sx={{
-                  fontWeight: 600,
-                  color: "#374151"
-                  
-                }}>Nombre</Typography>
-                  <TextField type="text" id="name" name="name" placeholder='John' variant="outlined" value={data.name} 
-                  onChange={handleInputChange}
-                  disabled={!edit}
-                  sx={{
-                    borderRadius: "8px",
-                    color: "#1f2933",
-                    transition: "border-color 0.15s",
-                    fontFamily: "inherit",
-                    width: "100%",
-                    border: "1.5px solid #fff",
-                    fontSize: "0.95rem"
-                  }}
-                />
-              </Box>
+              <Grid container spacing={3}>
 
-              <Box>
-                <Typography variant='h6' sx={{
-                  fontWeight: 600,
-                  color: "#374151"
-                  
-                }}>Primer Apellido</Typography>
-                  <TextField type="text" id="firstSurname" name="firstSurname" placeholder='Doe' variant="outlined" value={data.firstSurname}
-                  onChange={handleInputChange}
-                  disabled={!edit}
-                  sx={{
-                    borderRadius: "8px",
-                    color: "#1f2933",
-                    transition: "border-color 0.15s",
-                    fontFamily: "inherit",
-                    width: "100%",
-                    border: "1.5px solid #fff",
-                    fontSize: "0.95rem"
-                  }}
-                />
-              </Box>
-
-              <Box>
-                <Typography variant='h6' sx={{
-                  fontWeight: 600,
-                  color: "#374151"
-                  
-                }}>Segundo Apellido (si existe)</Typography>
-                  <TextField type="text" id="secondSurname" name="secondSurname" placeholder='Does' variant="outlined" value={data.secondSurname}
-                  onChange={handleInputChange}
-                  disabled={!edit}
-                  sx={{
-                    borderRadius: "8px",
-                    color: "#1f2933",
-                    transition: "border-color 0.15s",
-                    fontFamily: "inherit",
-                    width: "100%",
-                    border: "1.5px solid #fff",
-                    fontSize: "0.95rem"
-                  }}
-                />
-              </Box>
-                
-              <Box>
-                <Typography variant='h6' sx={{
-                  fontWeight: 600,
-                  color: "#374151"
-                  
-                }}>Sexo</Typography>
-                <FormControl variant="standard" fullWidth>
-                  <Select
-                    disabled={!edit}
-                    labelId="sex"
-                    id="sex"
-                    name="sex"
-                    value={data.sex || "M"}
-                    label="Sex"
-                    onChange={handleInputChange}
-                    fullWidth
+                <Grid size={12}>
+                  <Typography
+                    variant="h5"
+                    sx={{
+                      fontWeight: 700,
+                      color: "#1f2933",
+                      mb: 1
+                    }}
                   >
-                    <MenuItem value={"M"}>Varón</MenuItem>
-                    <MenuItem value={"F"}>Mujer</MenuItem>
-                  </Select>
-                  </FormControl>
-              </Box>
+                    Datos Personales
+                  </Typography>
+                </Grid>
 
-              <Box>
-                <Typography variant='h6' sx={{
-                  fontWeight: 600,
-                  color: "#374151"
-                }}>Email</Typography>
-                <TextField type='email' id='email' name='email' placeholder='user@gmail.com' variant="outlined" value={data.email}
-                onChange={handleInputChange}
-                disabled={!edit}
-                sx={{
-                    borderRadius: "8px",
-                    color: "#1f2933",
-                    transition: "border-color 0.15s",
-                    fontFamily: "inherit",
-                    width: "100%",
-                    border: "1.5px solid #fff",
-                    fontSize: "0.95rem"
-                  }}
-              />
-              </Box>
-            
-              <Box>
-                <Typography variant='h6' sx={{
-                  fontWeight: 600,
-                  color: "#374151"
-                }}>Fecha de Nacimiento</Typography>
-                <TextField type='date' id='birthdate' name='birthdate' variant="outlined" value={data.birthdate}
-                onChange={handleInputChange}
-                disabled={!edit}
-                sx={{
-                    borderRadius: "8px",
-                    color: "#1f2933",
-                    transition: "border-color 0.15s",
-                    fontFamily: "inherit",
-                    width: "100%",
-                    border: "1.5px solid #fff",
-                    fontSize: "0.95rem"
-                  }}
-              />
-              </Box>
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <Box>
+                    <Typography variant='h6' sx={{
+                      fontWeight: 600,
+                      color: "#374151"
+                      
+                    }}>Nombre</Typography>
+                      <CustomField
+                        name="name"
+                        value={data.name}
+                        edit={edit}
+                        handleInputChange={handleInputChange}
+                        fieldStyle={fieldStyle}
+                      />
+                  </Box>
+                </Grid>
 
-              <Box>
-                <Typography variant='h6' sx={{
-                  fontWeight: 600,
-                  color: "#374151"
-                  
-                }}>Documento de Identidad (si existe)</Typography>
-                  <TextField type="text" id="identity" name="identity" placeholder='123456789X' variant="outlined" value={data.identityDocument}
-                  onChange={handleInputChange}
-                  disabled={!edit}
-                  sx={{
-                    borderRadius: "8px",
-                    color: "#1f2933",
-                    transition: "border-color 0.15s",
-                    fontFamily: "inherit",
-                    width: "100%",
-                    border: "1.5px solid #fff",
-                    fontSize: "0.95rem"
-                  }}
-                />
-              </Box>
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <Box>
+                    <Typography variant='h6' sx={{
+                      fontWeight: 600,
+                      color: "#374151"
+                      
+                    }}>Sexo</Typography>
+                    <FormControl variant="standard" fullWidth>
+                      <Select
+                        disabled={!edit}
+                        labelId="sex"
+                        id="sex"
+                        name="sex"
+                        value={data.sex || "M"}
+                        label="Sex"
+                        onChange={handleInputChange}
+                        fullWidth
+                      >
+                        <MenuItem value={"M"}>Varón</MenuItem>
+                        <MenuItem value={"F"}>Mujer</MenuItem>
+                      </Select>
+                      </FormControl>
+                  </Box>
+                </Grid>
 
-              <Box>
-                <Typography variant='h6' sx={{
-                  fontWeight: 600,
-                  color: "#374151"
-                  
-                }}>Dirección</Typography>
-                  <TextField type="text" id="address" name="address" placeholder='Calle de Madrid' variant="outlined" value={data.address}
-                  onChange={handleInputChange}
-                  disabled={!edit}
-                  sx={{
-                    borderRadius: "8px",
-                    color: "#1f2933",
-                    transition: "border-color 0.15s",
-                    fontFamily: "inherit",
-                    width: "100%",
-                    border: "1.5px solid #fff",
-                    fontSize: "0.95rem"
-                  }}
-                />
-              </Box>
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <Box>
+                    <Typography variant='h6' sx={{
+                      fontWeight: 600,
+                      color: "#374151"
+                      
+                    }}>Primer Apellido</Typography>
+                      <CustomField
+                        name="firstSurname"
+                        value={data.firstSurname}
+                        edit={edit}
+                        handleInputChange={handleInputChange}
+                        fieldStyle={fieldStyle}
+                      />
+                  </Box>
+                </Grid>
 
-              <Box>
-                <Typography variant='h6' sx={{
-                  fontWeight: 600,
-                  color: "#374151"
-                  
-                }}>Ciudad</Typography>
-                  <TextField type="text" id="city" name="city" placeholder='Madrid' variant="outlined" value={data.city}
-                  onChange={handleInputChange}
-                  disabled={!edit}
-                  sx={{
-                    borderRadius: "8px",
-                    color: "#1f2933",
-                    transition: "border-color 0.15s",
-                    fontFamily: "inherit",
-                    width: "100%",
-                    border: "1.5px solid #fff",
-                    fontSize: "0.95rem"
-                  }}
-                />
-              </Box>
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <Box>
+                    <Typography variant='h6' sx={{
+                      fontWeight: 600,
+                      color: "#374151"
+                      
+                    }}>Segundo Apellido (si existe)</Typography>
+                      <CustomField
+                        placeholder="Does"
+                        name="secondSurname"
+                        value={data.secondSurname}
+                        edit={edit}
+                        handleInputChange={handleInputChange}
+                        fieldStyle={fieldStyle}
+                      />
+                  </Box>
+                </Grid>
 
-              <Box>
-                <Typography variant='h6' sx={{
-                  fontWeight: 600,
-                  color: "#374151"
-                  
-                }}>Código Postal</Typography>
-                  <TextField type="text" id="postCode" name="postCode" placeholder='12345' variant="outlined" value={data.postCode}
-                  onChange={handleInputChange}
-                  disabled={!edit}
-                  sx={{
-                    borderRadius: "8px",
-                    color: "#1f2933",
-                    transition: "border-color 0.15s",
-                    fontFamily: "inherit",
-                    width: "100%",
-                    border: "1.5px solid #fff",
-                    fontSize: "0.95rem"
-                  }}
-                />
-              </Box>
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <Box>
+                    <Typography variant='h6' sx={{
+                      fontWeight: 600,
+                      color: "#374151"
+                    }}>Fecha de Nacimiento</Typography>
+                    <CustomField
+                        name="birthdate"
+                        value={data.birthdate}
+                        edit={edit}
+                        type="date"
+                        handleInputChange={handleInputChange}
+                        fieldStyle={fieldStyle}
+                      />
+                  </Box>
+                </Grid>
 
-              <Box>
-                <Typography variant='h6' sx={{
-                  fontWeight: 600,
-                  color: "#374151"
-                  
-                }}>País</Typography>
-                  <TextField type="text" id="country" name="country" placeholder='España' variant="outlined" value={data.country}
-                  onChange={handleInputChange}
-                  disabled={!edit}
-                  sx={{
-                    borderRadius: "8px",
-                    color: "#1f2933",
-                    transition: "border-color 0.15s",
-                    fontFamily: "inherit",
-                    width: "100%",
-                    border: "1.5px solid #fff",
-                    fontSize: "0.95rem"
-                  }}
-                />
-              </Box>
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <Box>
+                    <Typography variant='h6' sx={{
+                      fontWeight: 600,
+                      color: "#374151"
+                      
+                    }}>Documento de Identidad (si existe)</Typography>
+                      <CustomField
+                        name="identity"
+                        value={data.identityDocument}
+                        edit={edit}
+                        handleInputChange={handleInputChange}
+                        fieldStyle={fieldStyle}
+                      />
+                  </Box>
+                </Grid>
 
-              <Box>
-                <Typography variant='h6' sx={{
-                  fontWeight: 600,
-                  color: "#374151"
-                  
-                }}>Teléfono</Typography>
-                  <TextField type="text" id="telephone" name="telephone" placeholder='(+34)152567171' variant="outlined" value={data.telephone}
-                  onChange={handleInputChange}
-                  disabled={!edit}
-                  sx={{
-                    borderRadius: "8px",
-                    color: "#1f2933",
-                    transition: "border-color 0.15s",
-                    fontFamily: "inherit",
-                    width: "100%",
-                    border: "1.5px solid #fff",
-                    fontSize: "0.95rem"
-                  }}
-                />
-              </Box>
 
-              <Box>
-                <Typography variant='h6' sx={{
-                  fontWeight: 600,
-                  color: "#374151"
-                  
-                }}>Estudios</Typography>
-                  <TextField type="text" id="educationalBackground" name="educationalBackground" placeholder='Diploma en la UMU' variant="outlined" 
-                  onChange={handleInputChange}
-                  value={data.educationalBackground}
-                  disabled={!edit}
-                  sx={{
-                    borderRadius: "8px",
-                    color: "#1f2933",
-                    transition: "border-color 0.15s",
-                    fontFamily: "inherit",
-                    width: "100%",
-                    border: "1.5px solid #fff",
-                    fontSize: "0.95rem"
-                  }}
-                />
-              </Box>
+                <Grid size={12}>
+                  <Divider sx={{ my: 2 }} />
+                  <Typography
+                    variant="h5"
+                    sx={{
+                      fontWeight: 700,
+                      color: "#1f2933"
+                    }}
+                  >
+                    Contacto
+                  </Typography>
+                </Grid>
 
-              <Box>
-                <Typography variant='h6' sx={{
-                  fontWeight: 600,
-                  color: "#374151"
-                  
-                }}>CV</Typography>
-                  <TextField type="file" id="cv" name="cv" variant="outlined" value={data.cv}
-                  disabled={!edit}
-                  sx={{
-                    borderRadius: "8px",
-                    color: "#1f2933",
-                    transition: "border-color 0.15s",
-                    fontFamily: "inherit",
-                    width: "100%",
-                    border: "1.5px solid #fff",
-                    fontSize: "0.95rem"
-                  }}
-                />
-              </Box>
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <Box>
+                    <Typography variant='h6' sx={{
+                      fontWeight: 600,
+                      color: "#374151"
+                    }}>Email</Typography>
+                    <CustomField
+                        name="email"
+                        value={data.email}
+                        edit={edit}
+                        handleInputChange={handleInputChange}
+                        fieldStyle={fieldStyle}
+                      />
+                  </Box>
+                </Grid>
+
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <Box>
+                    <Typography variant='h6' sx={{
+                      fontWeight: 600,
+                      color: "#374151"
+                      
+                    }}>Teléfono</Typography>
+                      <CustomField
+                        name="identity"
+                        value={data.identityDocument}
+                        edit={edit}
+                        handleInputChange={handleInputChange}
+                        fieldStyle={fieldStyle}
+                      />
+                  </Box>
+                </Grid>
+
+                <Grid size={12}>
+                  <Box>
+                    <Typography variant='h6' sx={{
+                      fontWeight: 600,
+                      color: "#374151"
+                      
+                    }}>Dirección</Typography>
+                      <CustomField
+                        name="address"
+                        value={data.address}
+                        edit={edit}
+                        handleInputChange={handleInputChange}
+                        fieldStyle={fieldStyle}
+                      />
+                  </Box>
+                </Grid>
+
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <Box>
+                    <Typography variant='h6' sx={{
+                      fontWeight: 600,
+                      color: "#374151"
+                      
+                    }}>Ciudad</Typography>
+                      <CustomField
+                        name="city"
+                        value={data.city}
+                        edit={edit}
+                        handleInputChange={handleInputChange}
+                        fieldStyle={fieldStyle}
+                      />
+                  </Box>
+                </Grid>
+
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <Box>
+                    <Typography variant='h6' sx={{
+                      fontWeight: 600,
+                      color: "#374151"
+                      
+                    }}>Código Postal</Typography>
+                      <CustomField
+                        name="postCode"
+                        value={data.postCode}
+                        edit={edit}
+                        handleInputChange={handleInputChange}
+                        fieldStyle={fieldStyle}
+                      />
+                  </Box>
+                </Grid>
+
+                <Grid size={12}>
+                  <Box>
+                    <Typography variant='h6' sx={{
+                      fontWeight: 600,
+                      color: "#374151"
+                      
+                    }}>País</Typography>
+                      <CustomField
+                        name="country"
+                        value={data.country}
+                        edit={edit}
+                        handleInputChange={handleInputChange}
+                        fieldStyle={fieldStyle}
+                      />
+                  </Box>
+                </Grid>
+
+
+                <Grid size={12}>
+                  <Divider sx={{ my: 2 }} />
+                  <Typography
+                    variant="h5"
+                    sx={{
+                      fontWeight: 700,
+                      color: "#1f2933"
+                    }}
+                  >
+                    Información Profesional
+                  </Typography>
+                </Grid>
+
+                <Grid size={12}>
+                  <Box>
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        fontWeight: 600,
+                        color: "#374151"
+                      }}
+                    >
+                      Estudios
+                    </Typography>
+
+                    <TextField
+                      multiline
+                      rows={4}
+                      id="educationalBackground"
+                      name="educationalBackground"
+                      value={data.educationalBackground}
+                      onChange={handleInputChange}
+                      disabled={!edit}
+                      fullWidth
+                    />
+                  </Box>
+                </Grid>
+
+                <Grid size={12}>
+                  <Box>
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        fontWeight: 600,
+                        color: "#374151"
+                      }}
+                    >
+                      Curriculum Vitae
+                    </Typography>
+
+                    <Button
+                      component="label"
+                      variant="outlined"
+                      disabled={!edit}
+                      sx={{
+                        mt: 1
+                      }}
+                    >
+                      Subir CV
+
+                      <input
+                        hidden
+                        type="file"
+                        name="cv"
+                      />
+                    </Button>
+                  </Box>
+                </Grid>
+
+              </Grid>
           </>
           }
-        </Grid>
         <Grid spacing={2} sx={{textAlign:"center"}}>
           {!edit ? <CustomButton color="#fff" text="Modificar" backgroundColor='#2563eb' onClick={handlePutMethod}/> : 
           <CustomButton color="#fff" text="Confirmar" backgroundColor='#2563eb' onClick={handleConfirmPut}/>}
