@@ -52,7 +52,7 @@ const ReportForm = () => {
         e.preventDefault();
         const {subject, content} = e.currentTarget;
         let report;
-        if (true) {
+
           if (incident) {
             report = {
                 patient, 
@@ -75,8 +75,8 @@ const ReportForm = () => {
                 console.log(err);
                 toast.error(err?.email ? err.email.join(", ") : "Informe fallido");
             }
-        }
     }
+    
   return (
     <Box sx={{
       maxWidth: "860px",

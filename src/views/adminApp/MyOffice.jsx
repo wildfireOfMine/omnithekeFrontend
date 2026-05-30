@@ -6,6 +6,7 @@ import CustomButton from '../../components/CustomButton';
 import { myAdminProfile } from '../../store/AdminSlice';
 import { officeGet, officePut } from '../../store/OfficeSlice';
 import { toast } from 'react-toastify';
+import CustomField from '../../components/CustomField';
 
 const MyOffice = () => {
     const dispatch = useDispatch();
@@ -49,7 +50,6 @@ const MyOffice = () => {
     
     const handleConfirmPut = async (e) => {
       e.preventDefault();
-      if (true) {
         const office = {
           identityCode: data.identityCode,
           name: data.name,
@@ -66,9 +66,12 @@ const MyOffice = () => {
             console.log(err);
             toast.error(err?.email ? err.email.join(", ") : "PUT fallido");
           }
-        }
       setEdit(false);
     }
+
+    const fieldStyle = {
+      width: "100%"
+    };
   return (
     <Box sx={{
       maxWidth: "1660px",
@@ -95,142 +98,123 @@ const MyOffice = () => {
         boxShadow: "0 4px 16px rgba(0,0,0,0.06)",
         marginBottom: "20px",
         }}>
-        <Grid container spacing={2}>
           {data && <>
-            <Box>
-                <Typography variant='h6' sx={{
-                  fontWeight: 600,
-                  color: "#374151"
-                  
-                }}>Nombre</Typography>
-                  <TextField type="text" id="name" name="name" placeholder='John' variant="outlined" value={data.name} 
-                  onChange={handleInputChange}
-                  disabled={!edit}
-                  sx={{
-                    borderRadius: "8px",
-                    color: "#1f2933",
-                    transition: "border-color 0.15s",
-                    fontFamily: "inherit",
-                    width: "100%",
-                    border: "1.5px solid #fff",
-                    fontSize: "0.95rem"
-                  }}
+            <Grid container spacing={3}>
+              <Grid size={{ xs: 12, md: 6 }}>
+                <CustomField
+                  label="Nombre"
+                  name="name"
+                  value={data.name}
+                  edit={edit}
+                  fieldStyle={fieldStyle}
+                  handleInputChange={handleInputChange}
+                  placeholder="Consultorio Central"
                 />
-              </Box>
+              </Grid>
 
-              <Box>
-                <Typography variant='h6' sx={{
-                  fontWeight: 600,
-                  color: "#374151"
-                  
-                }}>Dirección</Typography>
-                  <TextField type="text" id="address" name="address" placeholder='Calle de Madrid' variant="outlined" value={data.address}
-                  onChange={handleInputChange}
-                  disabled={!edit}
-                  sx={{
-                    borderRadius: "8px",
-                    color: "#1f2933",
-                    transition: "border-color 0.15s",
-                    fontFamily: "inherit",
-                    width: "100%",
-                    border: "1.5px solid #fff",
-                    fontSize: "0.95rem"
-                  }}
+              <Grid size={{ xs: 12, md: 6 }}>
+                <CustomField
+                  label="Código Identificativo"
+                  name="identityCode"
+                  value={data.identityCode}
+                  edit={edit}
+                  fieldStyle={fieldStyle}
+                  handleInputChange={handleInputChange}
+                  placeholder="OFF001"
                 />
-              </Box>
+              </Grid>
 
-              <Box>
-                <Typography variant='h6' sx={{
-                  fontWeight: 600,
-                  color: "#374151"
-                  
-                }}>Ciudad</Typography>
-                  <TextField type="text" id="city" name="city" placeholder='Madrid' variant="outlined" value={data.city}
-                  onChange={handleInputChange}
-                  disabled={!edit}
-                  sx={{
-                    borderRadius: "8px",
-                    color: "#1f2933",
-                    transition: "border-color 0.15s",
-                    fontFamily: "inherit",
-                    width: "100%",
-                    border: "1.5px solid #fff",
-                    fontSize: "0.95rem"
-                  }}
+              <Grid size={{ xs: 12 }}>
+                <CustomField
+                  label="Dirección"
+                  name="address"
+                  value={data.address}
+                  edit={edit}
+                  fieldStyle={fieldStyle}
+                  handleInputChange={handleInputChange}
+                  placeholder="Calle Mayor 12"
                 />
-              </Box>
+              </Grid>
 
-              <Box>
-                <Typography variant='h6' sx={{
-                  fontWeight: 600,
-                  color: "#374151"
-                  
-                }}>Código Postal</Typography>
-                  <TextField type="text" id="postCode" name="postCode" placeholder='12345' variant="outlined" value={data.postCode}
-                  onChange={handleInputChange}
-                  disabled={!edit}
-                  sx={{
-                    borderRadius: "8px",
-                    color: "#1f2933",
-                    transition: "border-color 0.15s",
-                    fontFamily: "inherit",
-                    width: "100%",
-                    border: "1.5px solid #fff",
-                    fontSize: "0.95rem"
-                  }}
+              <Grid size={{ xs: 12, md: 4 }}>
+                <CustomField
+                  label="Ciudad"
+                  name="city"
+                  value={data.city}
+                  edit={edit}
+                  fieldStyle={fieldStyle}
+                  handleInputChange={handleInputChange}
+                  placeholder="Murcia"
                 />
-              </Box>
+              </Grid>
 
-              <Box>
-                <Typography variant='h6' sx={{
-                  fontWeight: 600,
-                  color: "#374151"
-                  
-                }}>País</Typography>
-                  <TextField type="text" id="country" name="country" placeholder='España' variant="outlined" value={data.country}
-                  onChange={handleInputChange}
-                  disabled={!edit}
-                  sx={{
-                    borderRadius: "8px",
-                    color: "#1f2933",
-                    transition: "border-color 0.15s",
-                    fontFamily: "inherit",
-                    width: "100%",
-                    border: "1.5px solid #fff",
-                    fontSize: "0.95rem"
-                  }}
+              <Grid size={{ xs: 12, md: 4 }}>
+                <CustomField
+                  label="Código Postal"
+                  name="postCode"
+                  value={data.postCode}
+                  edit={edit}
+                  fieldStyle={fieldStyle}
+                  handleInputChange={handleInputChange}
+                  placeholder="30001"
                 />
-              </Box>
+              </Grid>
 
-              <Box>
-                <Typography variant='h6' sx={{
-                  fontWeight: 600,
-                  color: "#374151"
-                  
-                }}>Teléfono</Typography>
-                  <TextField type="text" id="telephone" name="telephone" placeholder='(+34)152567171' variant="outlined" value={data.telephone}
-                  onChange={handleInputChange}
-                  disabled={!edit}
-                  sx={{
-                    borderRadius: "8px",
-                    color: "#1f2933",
-                    transition: "border-color 0.15s",
-                    fontFamily: "inherit",
-                    width: "100%",
-                    border: "1.5px solid #fff",
-                    fontSize: "0.95rem"
-                  }}
+              <Grid size={{ xs: 12, md: 4 }}>
+                <CustomField
+                  label="País"
+                  name="country"
+                  value={data.country}
+                  edit={edit}
+                  fieldStyle={fieldStyle}
+                  handleInputChange={handleInputChange}
+                  placeholder="España"
                 />
-              </Box>
+              </Grid>
+
+              <Grid size={{ xs: 12, md: 6 }}>
+                <CustomField
+                  label="Teléfono"
+                  name="telephone"
+                  value={data.telephone}
+                  edit={edit}
+                  fieldStyle={fieldStyle}
+                  handleInputChange={handleInputChange}
+                  placeholder="+34 600123123"
+                />
+              </Grid>
+
+              <Grid size={{ xs: 12, md: 6 }}>
+                <CustomField
+                  label="Fax"
+                  name="fax"
+                  value={data.fax}
+                  edit={edit}
+                  fieldStyle={fieldStyle}
+                  handleInputChange={handleInputChange}
+                  placeholder="968123456"
+                />
+              </Grid>
+            </Grid>
           </>
           }
-        </Grid>
-        <Grid spacing={2} sx={{textAlign:"center"}}>
-          {!edit ? <CustomButton color="#fff" text="Modificar" backgroundColor='#2563eb' onClick={handlePutMethod}/> : 
-          <CustomButton color="#fff" text="Confirmar" backgroundColor='#2563eb' onClick={handleConfirmPut}/>}
-          
-          <CustomButton color="#fff" text="Volver Atrás" backgroundColor='#2563eb' onClick={handleCustomButton}/>
-        </Grid>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            gap: 2,
+            mt: 4,
+            flexWrap: "wrap"
+          }}
+        >
+          {!edit ? (
+            <CustomButton color="#fff" text="Modificar" backgroundColor="#2563eb" onClick={handlePutMethod}/>
+          ) : (
+            <CustomButton color="#fff" text="Confirmar" backgroundColor="#16a34a" onClick={handleConfirmPut}/>
+          )}
+
+          <CustomButton color="#fff" text="Volver Atrás" backgroundColor="#6b7280" onClick={handleCustomButton}/>
+        </Box>
       </Box>
       
     </Box>

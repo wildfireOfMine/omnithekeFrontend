@@ -64,7 +64,6 @@ const MyDoctorProfileView = () => {
 
     const handleConfirmPut = async (e) => {
       e.preventDefault();
-      if (true) {
           const user = {
             name: data.name, 
             firstSurname: data.firstSurname,
@@ -86,7 +85,6 @@ const MyDoctorProfileView = () => {
               console.log(err);
               toast.error(err?.email ? err.email.join(", ") : "PUT fallido");
         }
-      }
       setEdit(false);
     }
 
@@ -372,7 +370,7 @@ const MyDoctorProfileView = () => {
                   </Typography>
                 </Grid>
 
-                <Grid size={12}>
+                <Grid size={12} sx={{padding: "10px 0"}}>
                   <Box>
                     <Typography
                       variant="h6"
@@ -397,46 +395,27 @@ const MyDoctorProfileView = () => {
                   </Box>
                 </Grid>
 
-                <Grid size={12}>
-                  <Box>
-                    <Typography
-                      variant="h6"
-                      sx={{
-                        fontWeight: 600,
-                        color: "#374151"
-                      }}
-                    >
-                      Curriculum Vitae
-                    </Typography>
-
-                    <Button
-                      component="label"
-                      variant="outlined"
-                      disabled={!edit}
-                      sx={{
-                        mt: 1
-                      }}
-                    >
-                      Subir CV
-
-                      <input
-                        hidden
-                        type="file"
-                        name="cv"
-                      />
-                    </Button>
-                  </Box>
-                </Grid>
 
               </Grid>
           </>
           }
-        <Grid spacing={2} sx={{textAlign:"center"}}>
-          {!edit ? <CustomButton color="#fff" text="Modificar" backgroundColor='#2563eb' onClick={handlePutMethod}/> : 
-          <CustomButton color="#fff" text="Confirmar" backgroundColor='#2563eb' onClick={handleConfirmPut}/>}
-          
-          <CustomButton color="#fff" text="Volver Atrás" backgroundColor='#2563eb' onClick={handleCustomButton}/>
-        </Grid>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            gap: 2,
+            mt: 4,
+            flexWrap: "wrap"
+          }}
+        >
+          {!edit ? (
+            <CustomButton color="#fff" text="Modificar" backgroundColor="#2563eb" onClick={handlePutMethod}/>
+          ) : (
+            <CustomButton color="#fff" text="Confirmar" backgroundColor="#16a34a" onClick={handleConfirmPut}/>
+          )}
+
+          <CustomButton color="#fff" text="Volver Atrás" backgroundColor="#6b7280" onClick={handleCustomButton}/>
+        </Box>
       </Box>
       
     </Box>

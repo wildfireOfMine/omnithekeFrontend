@@ -52,7 +52,6 @@ const MyAdminProfileView = () => {
     
     const handleConfirmPut = async (e) => {
       e.preventDefault();
-      if (true) {
         const user = {
           name: data.name, 
           firstSurname: data.firstSurname,
@@ -73,7 +72,6 @@ const MyAdminProfileView = () => {
             console.log(err);
             toast.error(err?.email ? err.email.join(", ") : "PUT fallido");
           }
-        }
       setEdit(false);
     }
 

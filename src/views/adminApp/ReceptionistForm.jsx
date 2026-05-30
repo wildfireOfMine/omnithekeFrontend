@@ -22,7 +22,6 @@ const ReceptionistForm = () => {
     const handleForm = async (e) => {
         e.preventDefault();
         const {name, firstName, secondName, sex, email, birthday, identity, address, city, postCode, country, telephone, receptionistCode} = e.currentTarget;
-        if (true) {
             const user = {
                 name: name.value, 
                 firstName: firstName.value,
@@ -45,7 +44,6 @@ const ReceptionistForm = () => {
                 console.log(err);
                 toast.error(err?.email ? err.email.join(", ") : "Registration failed");
             }
-        }
     }
 
   return (

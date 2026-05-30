@@ -19,7 +19,6 @@ const CreateYourProfile = () => {
         e.preventDefault();
         
         const {name, firstSurname, secondSurname, sex, birthday, identity, address, city, postCode, country, telephone} = e.currentTarget;
-        if (true) {
             const user = {name: name.value, 
                 firstSurname: firstSurname.value,
                 secondSurname: secondSurname.value,
@@ -38,12 +37,6 @@ const CreateYourProfile = () => {
             } catch (err) {
                 toast.error(err?.email ? err.email.join(", ") : "Something's odd, are all the fields filled?");
             }
-                
-                
-        } else {
-            toast.error("Something's odd...");
-        }
-    
     }
 
   return (

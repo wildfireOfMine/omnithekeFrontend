@@ -73,6 +73,7 @@ const AppRoute = () => {
           <Route path="/doctor/dashboard" element={<DoctorDashboard/>}/>
           <Route path="/doctor/myProfile" element={<MyDoctorProfileView/>}/>
           <Route path="/doctor/myPatients" element={<MyPatients/>}/>
+          <Route path="/doctor/myPatients/:id" element={<MyPatients/>}/>
           <Route path="/doctor/myAppointments" element={<MyAppointments/>}/>
           <Route path="/doctor/myReports" element={<Reports/>}/>
           <Route path="/doctor/reportForm" element={<ReportForm/>}/>

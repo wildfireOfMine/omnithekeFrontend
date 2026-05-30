@@ -24,7 +24,6 @@ const Appointments = () => {
     const ending = beginning.add(1, "hour");
     console.log(beginning.toISOString());
     console.log(ending.toISOString());
-    if (true) {
         const appointment = {
           comments: "Test", 
           beginning: beginning,
@@ -37,7 +36,6 @@ const Appointments = () => {
         console.log(err);
         toast.error(err?.email ? err.email.join(", ") : "Ha fallado la cita");
       }
-    }
   }
 
   const generateHours = () => {

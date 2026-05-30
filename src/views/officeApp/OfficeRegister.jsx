@@ -14,7 +14,6 @@ const OfficeRegister = () => {
     e.preventDefault();
     console.log(e.target);
     const {identityCode, name, address, city, country, postCode, telephone, fax} = e.currentTarget;
-    if (true){
       const office = {
         identityCode: identityCode.value,
         name: name.value,
@@ -32,10 +31,6 @@ const OfficeRegister = () => {
       } catch (err) {
         toast.error(err?.email ? err.email.join(", ") : "Something's odd, are all the fields filled?");
       }
-
-    } else {
-      toast.error("Something's odd...");
-    }
   }
 
   return (

@@ -21,8 +21,7 @@ const DoctorForm = () => {
     
     const handleForm = async (e) => {
         e.preventDefault();
-        const {name, firstName, secondName, sex, email, birthday, identity, address, city, postCode, country, telephone, educationalBackground, cv} = e.currentTarget;
-        if (true) {
+        const {name, firstName, secondName, sex, email, birthday, identity, address, city, postCode, country, telephone, educationalBackground} = e.currentTarget;
             const user = {
                 name: name.value, 
                 firstName: firstName.value,
@@ -44,7 +43,7 @@ const DoctorForm = () => {
                 console.log(err);
                 toast.error(err?.email ? err.email.join(", ") : "Registration failed");
             }
-        }
+  
     }
 
   return (
@@ -317,25 +316,6 @@ const DoctorForm = () => {
                   
                 }}>Estudios</Typography>
                   <TextField type="text" id="educationalBackground" name="educationalBackground" placeholder='John Doe' variant="outlined"
-                  sx={{
-                    borderRadius: "8px",
-                    color: "#1f2933",
-                    transition: "border-color 0.15s",
-                    fontFamily: "inherit",
-                    width: "100%",
-                    border: "1.5px solid #fff",
-                    fontSize: "0.95rem"
-                  }}
-                />
-              </Box>
-
-              <Box>
-                <Typography variant='h6' sx={{
-                  fontWeight: 600,
-                  color: "#374151"
-                  
-                }}>CV</Typography>
-                  <TextField type="file" id="cv" name="cv" placeholder='John Doe' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
