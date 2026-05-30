@@ -3,7 +3,7 @@ import { Link, Link as RouterLink, useNavigate } from 'react-router-dom';
 import React from 'react'
 import CustomCard from '../../components/CustomCard'
 
-const Dashboard = () => {
+const ReceptionistDashboard = () => {
   return (
     <Box sx={{
           maxWidth: "860px",
@@ -70,4 +70,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+export default ReceptionistDashboard

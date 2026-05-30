@@ -22,8 +22,8 @@ import MyOfficePatients from '../views/adminApp/MyOfficePatients'
 import OfficeRegister from '../views/officeApp/OfficeRegister'
 import OfficeDashboard from '../views/officeApp/OfficeDashboard'
 import CreateYourProfile from '../views/officeApp/CreateYourProfile'
-import DoctorForm from '../views/officeApp/DoctorForm'
-import PatientForm from '../views/officeApp/PatientForm'
+import DoctorForm from '../views/adminApp/DoctorForm'
+import PatientForm from '../views/adminApp/PatientForm'
 import AttachNewDoctors from '../views/adminApp/AttachNewDoctors'
 import MyDoctorProfile from '../views/doctorApp/MyDoctorProfileView'
 import MyDoctorProfileView from '../views/doctorApp/MyDoctorProfileView'
@@ -32,6 +32,9 @@ import MyPatientProfileView from '../views/patientApp/MyPatientProfileView'
 import MyOffice from '../views/adminApp/MyOffice'
 import Reports from '../views/doctorApp/Reports'
 import ReportForm from '../views/doctorApp/ReportForm'
+import MyOfficeReceptionists from '../views/adminApp/MyOfficeReceptionists'
+import ReceptionistForm from '../views/adminApp/ReceptionistForm'
+import ReceptionistDashboard from '../views/officeApp/ReceptionistDashboard'
 
 
 const AppRoute = () => {
@@ -54,8 +57,12 @@ const AppRoute = () => {
           <Route path="/admin/myOfficePatients" element={<MyOfficePatients/>}/>
           <Route path="/admin/patientForm" element={<PatientForm/>}/>
           <Route path="/admin/myOffice" element={<MyOffice/>}/>
-          <Route path="/doctor/attachDoctors" element={<AttachNewDoctors/>}/>
+          <Route path="/admin/myReceptionists" element={<MyOfficeReceptionists/>}/>
+          <Route path="/admin/receptionistForm" element={<ReceptionistForm/>}/>
         </Route>
+
+        <Route path="/receptionist/dashboard" element={<ReceptionistDashboard/>}/>
+        <Route path="/receptionist/attachDoctors" element={<AttachNewDoctors/>}/>
 
         <Route element={<ProtectedDoctorRoute/>}>
           <Route path="/doctor/dashboard" element={<DoctorDashboard/>}/>

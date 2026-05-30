@@ -51,7 +51,7 @@ const Dashboard = () => {
 
                 <Grid size={5}>
                   <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/myReports">Recepcionistas del Consultorio</Typography>
+                    <Typography component={RouterLink} to="/admin/myReceptionists">Recepcionistas del Consultorio</Typography>
                     <img src="/favicon.svg"/>
                   </CustomCard>
                 </Grid>

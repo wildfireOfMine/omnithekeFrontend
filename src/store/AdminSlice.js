@@ -29,6 +29,26 @@ export const myAdminProfile = createAsyncThunk(
   }
 );
 
+export const adminPut = createAsyncThunk(
+  "admin/adminPut",
+  async (admin, { getState, rejectWithValue }) => {
+    try {
+    const state = getState();
+    const session = state.account.session
+    console.log(session);
+    const res = await axios.put(`${BACKEND_URL}admin/api/myProfile/`, admin, {
+      headers: {
+        Authorization: `Bearer ${session.token}`
+      }
+    });
+      console.log(res);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || "Couldn't extract the data");
+    }
+  }
+);
+
 export const myDoctors = createAsyncThunk(
   "admin/myDoctors",
   async (doctors, { getState, rejectWithValue }) => {
@@ -109,14 +129,34 @@ export const patientPost = createAsyncThunk(
   }
 );
 
-export const adminPut = createAsyncThunk(
-  "admin/adminPut",
-  async (admin, { getState, rejectWithValue }) => {
+export const myReceptionists = createAsyncThunk(
+  "admin/myReceptionists",
+  async (receptionists, { getState, rejectWithValue }) => {
     try {
-    const state = getState();
-    const session = state.account.session
+      const state = getState();
+    const session = state.account.session;
     console.log(session);
-    const res = await axios.put(`${BACKEND_URL}admin/api/myProfile/`, admin, {
+    const res = await axios.get(`${BACKEND_URL}admin/api/receptionist/`, {
+      headers: {
+        Authorization: `Bearer ${session.token}`
+      }
+    });
+      console.log(res);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || "Couldn't extract the data");
+    }
+  }
+);
+
+export const receptionistPost = createAsyncThunk(
+  "admin/receptionistPost",
+  async (receptionist, { getState, rejectWithValue }) => {
+    try {
+      const state = getState();
+    const session = state.account.session;
+    console.log(session);
+    const res = await axios.post(`${BACKEND_URL}admin/api/receptionist/`, receptionist, {
       headers: {
         Authorization: `Bearer ${session.token}`
       }
