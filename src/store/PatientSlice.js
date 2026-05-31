@@ -94,6 +94,46 @@ export const patientPut = createAsyncThunk(
   }
 );
 
+export const appointmentGet = createAsyncThunk(
+  "patient/appointmentGet",
+  async (appointments, { getState, rejectWithValue }) => {
+    try {
+    const state = getState();
+    const session = state.account.session
+    console.log(session);
+    const res = await axios.get(`${BACKEND_URL}patient/api/appointments/`, {
+      headers: {
+        Authorization: `Bearer ${session.token}`
+      }
+    });
+      console.log(res);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || "Couldn't extract the data");
+    }
+  }
+);
+
+export const appointmentPost = createAsyncThunk(
+  "patient/appointmentPost",
+  async (appointment, { getState, rejectWithValue }) => {
+    try {
+    const state = getState();
+    const session = state.account.session
+    console.log(session);
+    const res = await axios.post(`${BACKEND_URL}patient/api/appointments/`, appointment, {
+      headers: {
+        Authorization: `Bearer ${session.token}`
+      }
+    });
+      console.log(res);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || "Couldn't extract the data");
+    }
+  }
+);
+
 export const patientSlice = createSlice({
     name: "patient",
     initialState,

@@ -19,7 +19,7 @@ const PatientDashboard = () => {
           color: "#1f2933",
           margin: "12px",
           fontWeight: 800
-        }}>Patient Dashboard</Typography>
+        }}>Bienvenido al Panel del Paciente</Typography>
       </Box>
       <Box sx={{
         padding: "100px 0",
@@ -31,7 +31,7 @@ const PatientDashboard = () => {
         }}>
           <Grid size={5}>
             <CustomCard>
-              <Typography component={RouterLink} to="/patient/appointments">Citas</Typography>
+              <Typography component={RouterLink} to="/patient/myAppointments">Citas</Typography>
               <img src="/favicon.svg"/>
             </CustomCard>
           </Grid>
@@ -52,17 +52,11 @@ const PatientDashboard = () => {
 
           <Grid size={5}>
             <CustomCard>
-              <Typography component={RouterLink} to="/patient/messages">Enviar un Mensaje</Typography>
-              <img src="/favicon.svg"/>
-            </CustomCard>
-          </Grid>
-
-          <Grid size={5}>
-            <CustomCard>
               <Typography component={RouterLink} to="/patient/myDoctors">Mis Doctores</Typography>
               <img src="/favicon.svg"/>
             </CustomCard>
           </Grid>
+
         </Grid>
       </Box>
     </Box>

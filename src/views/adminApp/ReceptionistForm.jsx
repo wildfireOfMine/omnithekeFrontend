@@ -1,12 +1,12 @@
 import { Box, FormControl, MenuItem, Select, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import CustomButton from '../../components/CustomButton';
-import { doctorPost } from '../../store/AdminSlice';
+import { patientPost, receptionistPost } from '../../store/AdminSlice';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-const DoctorForm = () => {
+const ReceptionistForm = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [sex, setSex] = useState("M");
@@ -21,8 +21,7 @@ const DoctorForm = () => {
     
     const handleForm = async (e) => {
         e.preventDefault();
-        const {name, firstName, secondName, sex, email, birthday, identity, address, city, postCode, country, telephone, educationalBackground, cv} = e.currentTarget;
-        if (true) {
+        const {name, firstName, secondName, sex, email, birthday, identity, address, city, postCode, country, telephone, receptionistCode} = e.currentTarget;
             const user = {
                 name: name.value, 
                 firstName: firstName.value,
@@ -36,15 +35,15 @@ const DoctorForm = () => {
                 postCode: postCode.value,
                 country: country.value,
                 telephone: telephone.value,
-                educationalBackground: educationalBackground.value}
+                receptionistCode: receptionistCode.value}
             try {
-                await dispatch(doctorPost(user)).unwrap();
-                toast.success("Doctor registered successfully!");
+                console.log(user);
+                await dispatch(receptionistPost(user)).unwrap();
+                toast.success("Recepcionista agregado con éxito");
             } catch (err) {
                 console.log(err);
                 toast.error(err?.email ? err.email.join(", ") : "Registration failed");
             }
-        }
     }
 
   return (
@@ -61,7 +60,7 @@ const DoctorForm = () => {
           color: "#1f2933",
           margin: "12px",
           fontWeight: 800
-        }}>Añadir un Doctor</Typography>
+        }}>Añadir un Recepcionista</Typography>
       </Box>
 
       <Box component="form" onSubmit={handleForm} 
@@ -315,27 +314,8 @@ const DoctorForm = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Estudios</Typography>
-                  <TextField type="text" id="educationalBackground" name="educationalBackground" placeholder='John Doe' variant="outlined"
-                  sx={{
-                    borderRadius: "8px",
-                    color: "#1f2933",
-                    transition: "border-color 0.15s",
-                    fontFamily: "inherit",
-                    width: "100%",
-                    border: "1.5px solid #fff",
-                    fontSize: "0.95rem"
-                  }}
-                />
-              </Box>
-
-              <Box>
-                <Typography variant='h6' sx={{
-                  fontWeight: 600,
-                  color: "#374151"
-                  
-                }}>CV</Typography>
-                  <TextField type="file" id="cv" name="cv" placeholder='John Doe' variant="outlined"
+                }}>Código de Recepcionista</Typography>
+                  <TextField type="text" id="receptionistCode" name="receptionistCode" placeholder='A001' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -350,7 +330,7 @@ const DoctorForm = () => {
               
 
               <CustomButton color="#fff" text="Registrar" backgroundColor='#2563eb' type='submit'/>
-              <CustomButton color="#fff" text="Volver atrás" backgroundColor='#2563eb' onClick={handleCustomButton}/>
+              <CustomButton color="#fff" text="Volver Atrás" backgroundColor='#2563eb' onClick={handleCustomButton}/>
           </Box>
 
       </Box>
@@ -358,4 +338,4 @@ const DoctorForm = () => {
   )
 }
 
-export default DoctorForm
+export default ReceptionistForm

@@ -17,21 +17,27 @@ import MyMessages from '../views/doctorApp/MyMessages'
 import Messages from '../views/patientApp/Messages'
 import MyDoctors from '../views/patientApp/MyDoctors'
 import MyIncidents from '../views/patientApp/MyIncidents'
-import MyHospitalDoctors from '../views/adminApp/MyHospitalDoctors'
-import MyHospitalPatients from '../views/adminApp/MyHospitalPatients'
-import HospitalRegister from '../views/hospitalApp/HospitalRegister'
-import HospitalDashboard from '../views/hospitalApp/HospitalDashboard'
-import CreateYourProfile from '../views/hospitalApp/CreateYourProfile'
-import DoctorForm from '../views/hospitalApp/DoctorForm'
-import PatientForm from '../views/hospitalApp/PatientForm'
+import MyOfficeDoctors from '../views/adminApp/MyOfficeDoctors'
+import MyOfficePatients from '../views/adminApp/MyOfficePatients'
+import OfficeRegister from '../views/officeApp/OfficeRegister'
+import OfficeDashboard from '../views/officeApp/OfficeDashboard'
+import CreateYourProfile from '../views/officeApp/CreateYourProfile'
+import DoctorForm from '../views/adminApp/DoctorForm'
+import PatientForm from '../views/adminApp/PatientForm'
 import AttachNewDoctors from '../views/adminApp/AttachNewDoctors'
 import MyDoctorProfile from '../views/doctorApp/MyDoctorProfileView'
 import MyDoctorProfileView from '../views/doctorApp/MyDoctorProfileView'
 import MyAdminProfileView from '../views/adminApp/MyAdminProfileView'
 import MyPatientProfileView from '../views/patientApp/MyPatientProfileView'
-import MyHospital from '../views/adminApp/MyHospital'
+import MyOffice from '../views/adminApp/MyOffice'
 import Reports from '../views/doctorApp/Reports'
 import ReportForm from '../views/doctorApp/ReportForm'
+import MyOfficeReceptionists from '../views/adminApp/MyOfficeReceptionists'
+import ReceptionistForm from '../views/adminApp/ReceptionistForm'
+import ReceptionistDashboard from '../views/officeApp/ReceptionistDashboard'
+import MyPatientAppointments from '../views/patientApp/MyAppointments'
+import DetailPatient from '../views/doctorApp/DetailPatient'
+import IncidentForm from '../views/doctorApp/IncidentForm'
 
 
 const AppRoute = () => {
@@ -44,25 +50,35 @@ const AppRoute = () => {
         <Route path="/login" element={<Login/>}/>
 
         <Route path="/createYourProfile" element={<CreateYourProfile/>}/>
-        <Route path="/createYourHospital" element={<HospitalRegister/>}/>
+        <Route path="/createYourOffice" element={<OfficeRegister/>}/>
 
         <Route element={<ProtectedAdminRoute/>}>
           <Route path="/admin/dashboard" element={<AdminDashboard/>}/>
           <Route path="/admin/myProfile" element={<MyAdminProfileView/>}/>
-          <Route path="/admin/myHospitalDoctors" element={<MyHospitalDoctors/>}/>
+          <Route path="/admin/myOfficeDoctors" element={<MyOfficeDoctors/>}/>
           <Route path="/admin/doctorForm" element={<DoctorForm/>}/>
-          <Route path="/admin/myHospitalPatients" element={<MyHospitalPatients/>}/>
+          <Route path="/admin/myOfficePatients" element={<MyOfficePatients/>}/>
           <Route path="/admin/patientForm" element={<PatientForm/>}/>
-          <Route path="/admin/myHospital" element={<MyHospital/>}/>
-          <Route path="/doctor/attachDoctors" element={<AttachNewDoctors/>}/>
+          <Route path="/admin/myOffice" element={<MyOffice/>}/>
+          <Route path="/admin/myReceptionists" element={<MyOfficeReceptionists/>}/>
+          <Route path="/admin/receptionistForm" element={<ReceptionistForm/>}/>
         </Route>
+
+        <Route path="/receptionist/dashboard" element={<ReceptionistDashboard/>}/>
+        <Route path="/receptionist/myOfficeDoctors" element={<MyOfficeDoctors/>}/>
+        <Route path="/receptionist/doctorForm" element={<DoctorForm/>}/>
+        <Route path="/receptionist/myOfficePatients" element={<MyOfficePatients/>}/>
+        <Route path="/receptionist/patientForm" element={<PatientForm/>}/>
+        <Route path="/receptionist/attachNewDoctors" element={<AttachNewDoctors/>}/>
 
         <Route element={<ProtectedDoctorRoute/>}>
           <Route path="/doctor/dashboard" element={<DoctorDashboard/>}/>
           <Route path="/doctor/myProfile" element={<MyDoctorProfileView/>}/>
           <Route path="/doctor/myPatients" element={<MyPatients/>}/>
+          <Route path="/doctor/myPatients/:id" element={<DetailPatient/>}/>
           <Route path="/doctor/myAppointments" element={<MyAppointments/>}/>
           <Route path="/doctor/myReports" element={<Reports/>}/>
+          <Route path="/doctor/incidentForm" element={<IncidentForm/>}/>
           <Route path="/doctor/reportForm" element={<ReportForm/>}/>
           <Route path="/doctor/myMessages" element={<MyMessages/>}/>
         </Route>
@@ -70,6 +86,7 @@ const AppRoute = () => {
         <Route element={<ProtectedPatientRoute/>}>
           <Route path="/patient/dashboard" element={<PatientDashboard/>}/>
           <Route path="/patient/myProfile" element={<MyPatientProfileView/>}/>
+          <Route path="/patient/myAppointments" element={<MyPatientAppointments/>}/>
           <Route path="/patient/appointments" element={<Appointments/>}/>
           <Route path="/patient/messages" element={<Messages/>}/>
           <Route path="/patient/myDoctors" element={<MyDoctors/>}/>

@@ -1,71 +1,116 @@
-import { Box, Grid, Typography } from '@mui/material';
-import { Link, Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Box, Grid, Paper, Typography } from "@mui/material";
+import { Person, Event, Description, Groups } from "@mui/icons-material";
+import { Link as RouterLink } from "react-router-dom";
 import React from 'react'
 import CustomCard from '../../components/CustomCard'
 
 const DoctorDashboard = () => {
+  const cards = [
+    {
+      title: "Mi Perfil",
+      description: "Consulta y edita tu información profesional",
+      icon: <Person sx={{ fontSize: 60, color: "#2563eb" }} />,
+      route: "/doctor/myProfile"
+    },
+    {
+      title: "Mis Citas",
+      description: "Revisa tu agenda y próximas consultas",
+      icon: <Event sx={{ fontSize: 60, color: "#2563eb" }} />,
+      route: "/doctor/myAppointments"
+    },
+    {
+      title: "Mis Informes",
+      description: "Consulta y crea informes clínicos",
+      icon: <Description sx={{ fontSize: 60, color: "#2563eb" }} />,
+      route: "/doctor/myReports"
+    },
+    {
+      title: "Mis Pacientes",
+      description: "Accede a la lista de tus pacientes",
+      icon: <Groups sx={{ fontSize: 60, color: "#2563eb" }} />,
+      route: "/doctor/myPatients"
+    }
+  ];
+
+  const fieldStyle = {
+    
+  }
+
   return (
-    <Box sx={{
-          maxWidth: "860px",
-          margin: "0 auto",
-          padding: "10px 16px 64px"
-        }}>
-          <Box component="div" sx={{
-            textAlign: "center"
-          }}>
-            <Typography variant='h1' sx={{
-              fontSize: "clamp(1.6rem, 4vw, 2.2rem)",
-              color: "#1f2933",
-              margin: "12px",
-              fontWeight: 800
-            }}>Panel de Doctor</Typography>
-            <Box sx={{
-              padding: "100px 0",
-              maxWidth: "900px",
-              margin: "0 auto",
-            }}>
-              <Grid container spacing={2} sx={{
-                justifyContent: "center"
-              }}>
-                <Grid size={5}>
-                  <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/myProfile">Mi Perfil</Typography>
-                    <img src="/favicon.svg"/>
-                  </CustomCard>
-                </Grid>
+    <Box
+      sx={{
+        maxWidth: "1000px",
+        margin: "0 auto",
+        padding: "24px 16px 64px"
+      }}
+    >
+      <Box component="div"
+        sx={{
+          textAlign: "center",
+          mb: 6
+        }}
+      >
+        <Typography
+          variant="h1"
+          sx={{
+            fontSize: "clamp(2rem, 4vw, 2.8rem)",
+            fontWeight: 800,
+            color: "#1f2933"
+          }}
+        >
+          Panel de Doctor
+        </Typography>
 
-                <Grid size={5}>
-                  <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/myAppointments">Mis Citas</Typography>
-                    <img src="/favicon.svg"/>
-                  </CustomCard>
-                </Grid>
+        <Typography
+          sx={{
+            color: "#6b7280",
+            mt: 1
+          }}
+        >
+          Gestiona tus pacientes, citas e informes
+        </Typography>
+      </Box>
 
-                <Grid size={5}>
-                  <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/myReports">Mis Informes</Typography>
-                    <img src="/favicon.svg"/>
-                  </CustomCard>
-                </Grid>
+      <Grid container spacing={3}>
+        {cards.map((card) => (
+          <Grid
+            key={card.title}
+            size={{ xs: 12, sm: 6 }}
+          >
+            <Paper
+              component={RouterLink}
+              to={card.route}
+              elevation={2}
+              sx={{
+                height: 220,
+                p: 4,
+                borderRadius: 4,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: 2,
+                textDecoration: "none",
+                color: "inherit",
+                transition: "0.2s",
 
-                <Grid size={5}>
-                  <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/myPatients">Mis Pacientes</Typography>
-                    <img src="/favicon.svg"/>
-                  </CustomCard>
-                </Grid>
+                "&:hover": {
+                  transform: "translateY(-4px)",
+                  boxShadow: 8
+                }
+              }}
+            >
+              {card.icon}
 
-                <Grid size={5}>
-                  <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/messages">Mis Mensajes</Typography>
-                    <img src="/favicon.svg"/>
-                  </CustomCard>
-                </Grid>
-              </Grid>
-            </Box>
-          </Box>
+              <Typography variant="h5" sx={{fontWeight: 700}}>{card.title}</Typography>
+              
+              <Typography textAlign="center" color="text.secondary">{card.description}</Typography>
+            </Paper>
+          </Grid>
+        ))}
+      </Grid>
     </Box>
-  )
-}
+  );
+};
 
-export default DoctorDashboard
+export default DoctorDashboard;

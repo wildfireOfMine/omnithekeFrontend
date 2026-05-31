@@ -3,30 +3,44 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import CustomButton from '../../components/CustomButton';
-import { myPatientsAsDoctor, reportsPost } from '../../store/DoctorSlice';
+import { incidentGetAsDoctor, myPatientsAsDoctor, reportsPost } from '../../store/DoctorSlice';
 import { toast } from 'react-toastify';
+
 
 const ReportForm = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [patient, setPatient] = useState(0);
-    const [appointment, setAppointment] = useState(false);
+    const [incident, setIncident] = useState(false);
     const [data, setData] = useState([]);
+    const [chosenIncident, setChosenIncident] = useState([]);
+    const [incidents, setIncidents] = useState([]);
     useEffect(() =>{
         dispatch(myPatientsAsDoctor()).unwrap().then(data => setData(data));
     }, [dispatch])
 
+    useEffect(() => {
+      if (incident && patient) {
+          dispatch(incidentGetAsDoctor(patient)).unwrap().then(data => setIncidents(data));
+      }
+    }, [incident, patient, dispatch]);
+    console.log(incidents);
+
     const handlePatient = (e) => {
         setPatient(e.target.value);
+    }
+
+    const handleIncident = (e) => {
+      setChosenIncident(e.target.value);
     }
 
     const handleBoolean = (e) => {
         console.log("Test");
         console.log(e.target.value);
         if (e.target.value == true) {
-            setAppointment(true);
+            setIncident(true);
         } else {
-            setAppointment(false);
+            setIncident(false);
         }
     }
 
@@ -37,21 +51,32 @@ const ReportForm = () => {
     const handleForm = async (e) => {
         e.preventDefault();
         const {subject, content} = e.currentTarget;
-        if (true) {
-            const report = {
+        let report;
+
+          if (incident) {
+            report = {
+                patient, 
+                subject: subject.value,
+                content: content.value,
+                incident: chosenIncident
+            }
+          } else {
+            report = {
                 patient, 
                 subject: subject.value,
                 content: content.value,
             }
+          }
+
             try {
                 await dispatch(reportsPost(report)).unwrap();
-                toast.success("Patient registered successfully!");
+                toast.success("Informe creado con éxito");
             } catch (err) {
                 console.log(err);
-                toast.error(err?.email ? err.email.join(", ") : "Registration failed");
+                toast.error(err?.email ? err.email.join(", ") : "Informe fallido");
             }
-        }
     }
+    
   return (
     <Box sx={{
       maxWidth: "860px",
@@ -134,7 +159,7 @@ const ReportForm = () => {
                   color: "#374151"
                   
                 }}>Contenido</Typography>
-                  <TextField type="text" id="content" name="content" placeholder='Tienes algo...' variant="outlined"
+                  <TextField type="text" id="content" name="content" placeholder='Tienes algo...' variant="outlined" multiline rows={6}
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -152,14 +177,14 @@ const ReportForm = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>¿Está relacionado con alguna cita?</Typography>
+                }}>¿Está relacionado con algún episodio?</Typography>
 
                 <FormControl variant="standard" fullWidth>
                   <Select
-                    labelId="appointmentBoolean"
-                    id="appointmentBoolean"
-                    value={appointment}
-                    label="appointmentBoolean"
+                    labelId="incidentBoolean"
+                    id="incidentBoolean"
+                    value={incident}
+                    label="incidentBoolean"
                     onChange={handleBoolean}
                     fullWidth
                   > 
@@ -168,8 +193,28 @@ const ReportForm = () => {
                   </Select>
                   </FormControl>
 
-                  { appointment && <>
-                  <h1>Ola</h1>
+                  { incident && <>
+                    <Box>
+                      <Typography variant='h6' sx={{
+                        fontWeight: 600,
+                        color: "#374151"
+                        
+                      }}>Incidentes</Typography>
+                      <FormControl variant="standard" fullWidth>
+                        <Select
+                          labelId="incidents"
+                          id="incidents"
+                          value={chosenIncident}
+                          label="Incidents"
+                          onChange={handleIncident}
+                          fullWidth
+                        > 
+                          {incidents.map((incident) => {
+                              return <MenuItem value={incident.id}>{incident.description}</MenuItem>
+                          })}
+                        </Select>
+                        </FormControl>
+                    </Box>
                   </>}
               </Box>
 

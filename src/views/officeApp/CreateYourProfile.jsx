@@ -1,42 +1,43 @@
-import { Box, TextField, Typography } from '@mui/material'
-import React from 'react'
-import CustomButton from '../../components/CustomButton'
-import { toast } from 'react-toastify'
-import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { hospitalPost } from '../../store/HospitalSlice'
+import { Box, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material'
+import React, { useState } from 'react'
+import CustomButton from '../../components/CustomButton';
+import { useDispatch } from 'react-redux';
+import { administratorPost } from '../../store/OfficeSlice';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
-const HospitalRegister = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+const CreateYourProfile = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [sex, setSex] = useState("M")
 
-  const handleForm = async (e) => {
-    e.preventDefault();
-    console.log(e.target);
-    const {identityCode, name, address, city, country, postCode, telephone, fax} = e.currentTarget;
-    if (true){
-      const hospital = {
-        identityCode: identityCode.value,
-        name: name.value,
-        address: address.value,
-        city: city.value,
-        country: country.value,
-        postCode: postCode.value,
-        telephone: telephone.value,
-        fax: fax.value,
-      }
-      try {
-        await dispatch(hospitalPost(hospital)).unwrap();
-        toast.success("Hospital registered successfully!");
-        navigate("/login");
-      } catch (err) {
-        toast.error(err?.email ? err.email.join(", ") : "Something's odd, are all the fields filled?");
-      }
-
-    } else {
-      toast.error("Something's odd...");
+    const handleChange = (e) => {
+      setSex(e.target.value);
+    };
+    
+    const handleForm = async (e) => {
+        e.preventDefault();
+        
+        const {name, firstSurname, secondSurname, sex, birthday, identity, address, city, postCode, country, telephone} = e.currentTarget;
+            const user = {name: name.value, 
+                firstSurname: firstSurname.value,
+                secondSurname: secondSurname.value,
+                sex: sex,
+                birthdate: birthday.value,
+                identityDocument: identity.value,
+                address: address.value,
+                city: city.value,
+                postCode: postCode.value,
+                country: country.value,
+                telephone: telephone.value}
+            try {
+                await dispatch(administratorPost(user)).unwrap();
+                toast.success("Administrator registered successfully!");
+                navigate("/createYourOffice");
+            } catch (err) {
+                toast.error(err?.email ? err.email.join(", ") : "Something's odd, are all the fields filled?");
+            }
     }
-  }
 
   return (
     <Box sx={{
@@ -52,7 +53,7 @@ const HospitalRegister = () => {
           color: "#1f2933",
           margin: "12px",
           fontWeight: 800
-        }}>Crea tu Consulta</Typography>
+        }}>Crea tu Perfil de Administrador</Typography>
       </Box>
 
       <Box component="form" onSubmit={handleForm} 
@@ -73,14 +74,13 @@ const HospitalRegister = () => {
               flexDirection: "column",
               gap: "30px"
             }}>
-
               <Box>
                 <Typography variant='h6' sx={{
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Código de Identificación</Typography>
-                  <TextField type="text" id="identityCode" name="identityCode" placeholder='A001' variant="outlined"
+                }}>Nombre</Typography>
+                  <TextField type="text" id="name" name="name" placeholder='John' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -98,8 +98,85 @@ const HospitalRegister = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Nombre del Hospital</Typography>
-                  <TextField type="text" id="name" name="name" placeholder='Mayo Clinic' variant="outlined"
+                }}>Primer Apellido</Typography>
+                  <TextField type="text" id="firstSurname" name="firstSurname" placeholder='Doe' variant="outlined"
+                  sx={{
+                    borderRadius: "8px",
+                    color: "#1f2933",
+                    transition: "border-color 0.15s",
+                    fontFamily: "inherit",
+                    width: "100%",
+                    border: "1.5px solid #fff",
+                    fontSize: "0.95rem"
+                  }}
+                />
+              </Box>
+
+              <Box>
+                <Typography variant='h6' sx={{
+                  fontWeight: 600,
+                  color: "#374151"
+                  
+                }}>Segundo Apellido (si existe)</Typography>
+                  <TextField type="text" id="secondSurname" name="secondSurname" placeholder='Does' variant="outlined"
+                  sx={{
+                    borderRadius: "8px",
+                    color: "#1f2933",
+                    transition: "border-color 0.15s",
+                    fontFamily: "inherit",
+                    width: "100%",
+                    border: "1.5px solid #fff",
+                    fontSize: "0.95rem"
+                  }}
+                />
+              </Box>
+
+              <Box>
+                <Typography variant='h6' sx={{
+                  fontWeight: 600,
+                  color: "#374151"
+                  
+                }}>Sexo</Typography>
+                <FormControl variant="standard" fullWidth>
+                  <Select
+                    labelId="sex"
+                    id="sex"
+                    value={sex}
+                    label="Sex"
+                    onChange={handleChange}
+                    fullWidth
+                  >
+                    <MenuItem value={"M"}>Varón</MenuItem>
+                    <MenuItem value={"F"}>Mujer</MenuItem>
+                  </Select>
+                  </FormControl>
+              </Box>
+            
+              <Box>
+                <Typography variant='h6' sx={{
+                  fontWeight: 600,
+                  color: "#374151"
+                }}>Fecha de Nacimiento</Typography>
+                <TextField type='date' id='birthday' name='birthday' variant="outlined"
+                sx={{
+                    borderRadius: "8px",
+                    color: "#1f2933",
+                    transition: "border-color 0.15s",
+                    fontFamily: "inherit",
+                    width: "100%",
+                    border: "1.5px solid #fff",
+                    fontSize: "0.95rem"
+                  }}
+              />
+              </Box>
+
+              <Box>
+                <Typography variant='h6' sx={{
+                  fontWeight: 600,
+                  color: "#374151"
+                  
+                }}>Documento de Identidad (si existe)</Typography>
+                  <TextField type="text" id="identity" name="identity" placeholder='123456789X' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -118,7 +195,7 @@ const HospitalRegister = () => {
                   color: "#374151"
                   
                 }}>Dirección</Typography>
-                  <TextField type="text" id="address" name="address" placeholder='201 W Center St, Rochester, MN 55902' variant="outlined"
+                  <TextField type="text" id="address" name="address" placeholder='Madrid Street' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -155,8 +232,8 @@ const HospitalRegister = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>País</Typography>
-                  <TextField type="text" id="country" name="country" placeholder='Spain' variant="outlined"
+                }}>Código Postal</Typography>
+                  <TextField type="text" id="postCode" name="postCode" placeholder='12345' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -174,8 +251,8 @@ const HospitalRegister = () => {
                   fontWeight: 600,
                   color: "#374151"
                   
-                }}>Código Postal</Typography>
-                  <TextField type="text" id="postCode" name="postCode" placeholder='12345' variant="outlined"
+                }}>País</Typography>
+                  <TextField type="text" id="country" name="country" placeholder='Spain' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -206,29 +283,9 @@ const HospitalRegister = () => {
                   }}
                 />
               </Box>
-
-              <Box>
-                <Typography variant='h6' sx={{
-                  fontWeight: 600,
-                  color: "#374151"
-                  
-                }}>Fax</Typography>
-                  <TextField type="text" id="fax" name="fax" placeholder='(+34)152567171' variant="outlined"
-                  sx={{
-                    borderRadius: "8px",
-                    color: "#1f2933",
-                    transition: "border-color 0.15s",
-                    fontFamily: "inherit",
-                    width: "100%",
-                    border: "1.5px solid #fff",
-                    fontSize: "0.95rem"
-                  }}
-                />
-              </Box>
-
               
 
-              <CustomButton color="#fff" text="Register" backgroundColor='#2563eb' type='submit'/>
+              <CustomButton color="#fff" text="Registrarse" backgroundColor='#2563eb' type='submit'/>
           </Box>
 
       </Box>
@@ -236,4 +293,4 @@ const HospitalRegister = () => {
   )
 }
 
-export default HospitalRegister
+export default CreateYourProfile

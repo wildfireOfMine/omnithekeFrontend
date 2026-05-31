@@ -1,92 +1,63 @@
-import { Box, Button, Divider, FormControl, Grid, MenuItem, Select, TextField, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { doctorPut, myDoctorProfile } from '../../store/DoctorSlice';
+import { doctorGetPatientPK, incidentPatchPK } from '../../store/DoctorSlice';
+import { useDispatch } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Box, Divider, FormControl, Grid, MenuItem, Select, TextField, Typography } from '@mui/material';
+import CustomField from '../../components/CustomField';
 import CustomButton from '../../components/CustomButton';
 import { toast } from 'react-toastify';
-import CustomField from '../../components/CustomField';
 
-const MyDoctorProfileView = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const loading = useSelector(state => state.doctor.loading);
-    const [data, setData] = useState({});
-    const [sex, setSex] = useState("M");
-    const [edit, setEdit] = useState(false);
-    console.log("LOADING", loading);
-    useEffect(() => {
-        dispatch(myDoctorProfile()).unwrap().then(data => setData({
-          name: data.name,
-          firstSurname: data.firstSurname,
-          secondSurname: data.secondSurname,
-          sex: data.sex,
-          email: data.email,
-          birthdate: data.birthdate,
-          identityDocument: data.identityDocument,
-          address: data.address,
-          city: data.city,
-          postCode: data.postCode,
-          country: data.country,
-          telephone: data.telephone,
-          educationalBackground: data.educationalBackground,
-          cv: data.cv
-        }));
-    }, [dispatch]);
+const DetailPatient = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [data, setData] = useState({});
+  const {id} = useParams();
+  const [edit, setEdit] = useState(false);
+  const [incident, setIncident] = useState();
 
-    const fieldStyle = {
+  const fieldStyle = {
       borderRadius: "8px",
       color: "#1f2933",
       transition: "border-color 0.15s",
       fontFamily: "inherit",
       width: "100%",
       fontSize: "0.95rem"
-    };
+  };
     
-    console.log(data);
-    const handleCustomButton = () => {
+  console.log(data);
+
+  const handleCustomButton = () => {
         navigate(-1);
-    }
+  }
 
-    const handlePutMethod = () => {
-      if (!edit) {
-        setEdit(true);
-      }
-    }
+  const handleIncident = (e) => {
+    setIncident(e.target.value);
+  }
 
-    const handleInputChange = (e) => {
-      const { name, value } = e.target
-      setData((prev) => ({
-        ...prev,
-        [name]: value
-      }))
+  const handleClosingIncident = async () => {
+    try {
+      console.log(incident);
+      await dispatch(incidentPatchPK({incidentId: incident, 
+        patch: 
+        { active: false, endingDate: new Date().toISOString()}
+      })).unwrap();
+      toast.success("Episodio creado con éxito");
+    } catch (err) {
+      console.log(err);
+      toast.error(err?.email ? err.email.join(", ") : "Informe fallido");
     }
+  }
+  
+  useEffect(() =>{
+    dispatch(doctorGetPatientPK(id)).unwrap().then(data => setData(data));
+  }, [dispatch])
+  console.log(data);
 
-    const handleConfirmPut = async (e) => {
-      e.preventDefault();
-          const user = {
-            name: data.name, 
-            firstSurname: data.firstSurname,
-            secondSurname: data.secondSurname,
-            email: data.email,
-            sex: data.sex,
-            birthdate: data.birthdate,
-            identityDocument: data.identityDocument,
-            address: data.address,
-            city: data.city,
-            postCode: data.postCode,
-            country: data.country,
-            telephone: data.telephone,
-            educationalBackground: data.educationalBackground}
-            try {
-              await dispatch(doctorPut(user)).unwrap();
-              toast.success("PUT exitoso");
-            } catch (err) {
-              console.log(err);
-              toast.error(err?.email ? err.email.join(", ") : "PUT fallido");
-        }
-      setEdit(false);
-    }
+  const patientName = data.secondSurname && data.firstSurname
+    ? `${data.firstSurname} ${data.secondSurname}, ${data.name}`
+    : data.firstSurname
+    ? `${data.firstSurname}, ${data.name}`
+    : data.name;
 
   return (
     <Box sx={{
@@ -102,7 +73,7 @@ const MyDoctorProfileView = () => {
           color: "#1f2933",
           margin: "12px",
           fontWeight: 800
-        }}>Mi Perfil de Doctor</Typography>
+        }}>La información de: {patientName}</Typography>
       </Box>
 
       <Box sx={{
@@ -140,8 +111,6 @@ const MyDoctorProfileView = () => {
                       <CustomField
                         name="name"
                         value={data.name}
-                        edit={edit}
-                        handleInputChange={handleInputChange}
                         fieldStyle={fieldStyle}
                       />
                   </Box>
@@ -156,13 +125,12 @@ const MyDoctorProfileView = () => {
                     }}>Sexo</Typography>
                     <FormControl variant="standard" fullWidth>
                       <Select
-                        disabled={!edit}
+                        disabled
                         labelId="sex"
                         id="sex"
                         name="sex"
                         value={data.sex || "M"}
                         label="Sex"
-                        onChange={handleInputChange}
                         fullWidth
                       >
                         <MenuItem value={"M"}>Varón</MenuItem>
@@ -182,8 +150,6 @@ const MyDoctorProfileView = () => {
                       <CustomField
                         name="firstSurname"
                         value={data.firstSurname}
-                        edit={edit}
-                        handleInputChange={handleInputChange}
                         fieldStyle={fieldStyle}
                       />
                   </Box>
@@ -200,8 +166,6 @@ const MyDoctorProfileView = () => {
                         placeholder="Does"
                         name="secondSurname"
                         value={data.secondSurname}
-                        edit={edit}
-                        handleInputChange={handleInputChange}
                         fieldStyle={fieldStyle}
                       />
                   </Box>
@@ -216,9 +180,7 @@ const MyDoctorProfileView = () => {
                     <CustomField
                         name="birthdate"
                         value={data.birthdate}
-                        edit={edit}
                         type="date"
-                        handleInputChange={handleInputChange}
                         fieldStyle={fieldStyle}
                       />
                   </Box>
@@ -234,8 +196,6 @@ const MyDoctorProfileView = () => {
                       <CustomField
                         name="identity"
                         value={data.identityDocument}
-                        edit={edit}
-                        handleInputChange={handleInputChange}
                         fieldStyle={fieldStyle}
                       />
                   </Box>
@@ -264,8 +224,6 @@ const MyDoctorProfileView = () => {
                     <CustomField
                         name="email"
                         value={data.email}
-                        edit={edit}
-                        handleInputChange={handleInputChange}
                         fieldStyle={fieldStyle}
                       />
                   </Box>
@@ -281,8 +239,6 @@ const MyDoctorProfileView = () => {
                       <CustomField
                         name="identity"
                         value={data.identityDocument}
-                        edit={edit}
-                        handleInputChange={handleInputChange}
                         fieldStyle={fieldStyle}
                       />
                   </Box>
@@ -298,8 +254,6 @@ const MyDoctorProfileView = () => {
                       <CustomField
                         name="address"
                         value={data.address}
-                        edit={edit}
-                        handleInputChange={handleInputChange}
                         fieldStyle={fieldStyle}
                       />
                   </Box>
@@ -315,8 +269,6 @@ const MyDoctorProfileView = () => {
                       <CustomField
                         name="city"
                         value={data.city}
-                        edit={edit}
-                        handleInputChange={handleInputChange}
                         fieldStyle={fieldStyle}
                       />
                   </Box>
@@ -332,8 +284,6 @@ const MyDoctorProfileView = () => {
                       <CustomField
                         name="postCode"
                         value={data.postCode}
-                        edit={edit}
-                        handleInputChange={handleInputChange}
                         fieldStyle={fieldStyle}
                       />
                   </Box>
@@ -349,8 +299,6 @@ const MyDoctorProfileView = () => {
                       <CustomField
                         name="country"
                         value={data.country}
-                        edit={edit}
-                        handleInputChange={handleInputChange}
                         fieldStyle={fieldStyle}
                       />
                   </Box>
@@ -366,8 +314,23 @@ const MyDoctorProfileView = () => {
                       color: "#1f2933"
                     }}
                   >
-                    Información Profesional
+                    Información Médica
                   </Typography>
+                </Grid>
+
+                <Grid size={12}>
+                  <Box>
+                    <Typography variant='h6' sx={{
+                      fontWeight: 600,
+                      color: "#374151"
+                      
+                    }}>Tipo de Sangre</Typography>
+                      <CustomField
+                        name="bloodType"
+                        value={data.bloodType}
+                        fieldStyle={fieldStyle}
+                      />
+                  </Box>
                 </Grid>
 
                 <Grid size={12} sx={{padding: "10px 0"}}>
@@ -379,14 +342,42 @@ const MyDoctorProfileView = () => {
                         color: "#374151"
                       }}
                     >
-                      Estudios
+                      Otra Información Médica
                     </Typography>
 
                     <TextField multiline rows={4}
-                      id="educationalBackground" name="educationalBackground"
-                      value={data.educationalBackground} onChange={handleInputChange}
-                      disabled={!edit} fullWidth
+                      id="unrelatedClinicalData" name="unrelatedClinicalData"
+                      value={data.unrelatedClinicalData}
+                      fullWidth disabled
                     />
+                  </Box>
+                </Grid>
+
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <Box>
+                    <Typography variant='h6' sx={{
+                      fontWeight: 600,
+                      color: "#374151"
+                      
+                    }}>Episodios</Typography>
+                    <FormControl variant="standard" fullWidth>
+                      <Select
+                        labelId="incident"
+                        id="incident"
+                        name="incident"
+                        value={incident}
+                        label="Incident"
+                        fullWidth
+                        onChange={handleIncident}
+                      >
+                        {data.activeIncidents?.map((incident) => (
+                          <MenuItem key={incident.id} value={incident.id}>
+                            {incident.description}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                      <CustomButton text="Cerrar" onClick={handleClosingIncident}/>
+                      </FormControl>
                   </Box>
                 </Grid>
 
@@ -394,27 +385,12 @@ const MyDoctorProfileView = () => {
               </Grid>
           </>
           }
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            gap: 2,
-            mt: 4,
-            flexWrap: "wrap"
-          }}
-        >
-          {!edit ? (
-            <CustomButton color="#fff" text="Modificar" backgroundColor="#2563eb" onClick={handlePutMethod}/>
-          ) : (
-            <CustomButton color="#fff" text="Confirmar" backgroundColor="#16a34a" onClick={handleConfirmPut}/>
-          )}
-
-          <CustomButton color="#fff" text="Volver Atrás" backgroundColor="#6b7280" onClick={handleCustomButton}/>
+          <Box sx={{ alignSelf: "center" }}>
+            <CustomButton color="#fff" text="Volver Atrás" backgroundColor="#6b7280" onClick={handleCustomButton}/>
+          </Box>
         </Box>
-      </Box>
-      
     </Box>
   )
 }
 
-export default MyDoctorProfileView
+export default DetailPatient

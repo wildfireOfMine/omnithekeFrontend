@@ -1,72 +1,111 @@
-import { Box, Grid, Typography } from '@mui/material'
-import { Link, Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Box, Grid, Paper, Typography } from "@mui/material";
+import { MedicalServices, Badge, Groups, Business, Person } from "@mui/icons-material";
+import { Link as RouterLink } from "react-router-dom";
 import React from 'react'
 import CustomCard from '../../components/CustomCard'
 
 const Dashboard = () => {
+
+  const cards = [
+    {
+      title: "Doctores",
+      description: "Gestiona los doctores del consultorio",
+      icon: <MedicalServices sx={{ fontSize: 60, color: "#2563eb" }} />,
+      route: "/admin/myOfficeDoctors"
+    },
+    {
+      title: "Recepcionistas",
+      description: "Gestiona los recepcionistas del consultorio",
+      icon: <Badge sx={{ fontSize: 60, color: "#2563eb" }} />,
+      route: "/admin/myReceptionists"
+    },
+    {
+      title: "Pacientes",
+      description: "Consulta los pacientes del consultorio",
+      icon: <Groups sx={{ fontSize: 60, color: "#2563eb" }} />,
+      route: "/admin/myOfficePatients"
+    },
+    {
+      title: "Consultorio",
+      description: "Información y configuración",
+      icon: <Business sx={{ fontSize: 60, color: "#2563eb" }} />,
+      route: "/admin/myOffice"
+    },
+    {
+      title: "Mi Perfil",
+      description: "Consulta y edita tus datos",
+      icon: <Person sx={{ fontSize: 60, color: "#2563eb" }} />,
+      route: "/admin/myProfile"
+    }
+  ];
+
   return (
-    <Box sx={{
-          maxWidth: "860px",
-          margin: "0 auto",
-          padding: "10px 16px 64px"
-        }}>
-          <Box component="div" sx={{
-            textAlign: "center"
-          }}>
-            <Typography variant='h1' sx={{
-              fontSize: "clamp(1.6rem, 4vw, 2.2rem)",
-              color: "#1f2933",
-              margin: "12px",
-              fontWeight: 800
-            }}>Bienvenido a tu Panel</Typography>
-          </Box>
-          <Box sx={{
-              padding: "100px 0",
-              maxWidth: "900px",
-              margin: "0 auto",
-            }}>
-              <Grid container spacing={2} sx={{
-                justifyContent: "center"
-              }}>
-                <Grid size={5}>
-                  <CustomCard>
-                    <Typography component={RouterLink} to="/admin/myHospitalDoctors">Doctores del Consultorio</Typography>
-                    <img src="/favicon.svg"/>
-                  </CustomCard>
-                </Grid>
+    <Box
+      sx={{
+        maxWidth: "1000px",
+        margin: "0 auto",
+        padding: "24px 16px 64px"
+      }}
+    >
+      <Box
+        sx={{
+          textAlign: "center",
+          mb: 6
+        }}
+      >
+        <Typography
+          variant="h1"
+          sx={{
+            fontSize: "clamp(2rem, 4vw, 2.8rem)",
+            fontWeight: 800,
+            color: "#1f2933"
+          }}
+        >
+          Panel de Administración
+        </Typography>
 
-                <Grid size={5}>
-                  <CustomCard>
-                    <Typography component={RouterLink} to="/admin/myHospitalPatients">Pacientes del Consultorio</Typography>
-                    <img src="/favicon.svg"/>
-                  </CustomCard>
-                </Grid>
+        <Typography sx={{color: "#6b7280", mt: 1}}>Gestiona el consultorio, los recepcionistas y los pacientes</Typography>
+      </Box>
 
-                <Grid size={5}>
-                  <CustomCard>
-                    <Typography component={RouterLink} to="/admin/myProfile">Datos del Perfil</Typography>
-                    <img src="/favicon.svg"/>
-                  </CustomCard>
-                </Grid>
+      <Grid container spacing={3} sx={{justifyContent: "center"}}>
+        {cards.map((card) => (
+          <Grid
+            key={card.title}
+            size={{ xs: 12, md: 4 }}
+          >
+            <Paper
+              component={RouterLink}
+              to={card.route}
+              elevation={2}
+              sx={{
+                height: 220,
+                p: 4,
+                borderRadius: 4,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: 2,
+                textDecoration: "none",
+                color: "inherit",
+                transition: "0.2s",
 
-                <Grid size={5}>
-                  <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/myReports">Recepcionistas del Consultorio</Typography>
-                    <img src="/favicon.svg"/>
-                  </CustomCard>
-                </Grid>
+                "&:hover": {
+                  transform: "translateY(-4px)",
+                  boxShadow: 8
+                }
+              }}
+            >
+              {card.icon}
 
-                <Grid size={5}>
-                  <CustomCard>
-                    <Typography component={RouterLink} to="/admin/myHospital">Datos del Hospital</Typography>
-                    <img src="/favicon.svg"/>
-                  </CustomCard>
-                </Grid>
-
-              </Grid>
-            </Box>
+              <Typography variant="h5" sx={{fontWeight: 700}}>{card.title}</Typography>
+              <Typography textAlign="center" color="text.secondary">{card.description}</Typography>
+            </Paper>
+          </Grid>
+        ))}
+      </Grid>
     </Box>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;

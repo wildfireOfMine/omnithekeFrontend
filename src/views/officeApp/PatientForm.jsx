@@ -22,7 +22,6 @@ const PatientForm = () => {
     const handleForm = async (e) => {
         e.preventDefault();
         const {name, firstName, secondName, sex, email, birthday, identity, address, city, postCode, country, telephone, bloodType, unrelatedClinicalData} = e.currentTarget;
-        if (true) {
             const user = {
                 name: name.value, 
                 firstName: firstName.value,
@@ -46,7 +45,6 @@ const PatientForm = () => {
                 console.log(err);
                 toast.error(err?.email ? err.email.join(", ") : "Registration failed");
             }
-        }
     }
 
   return (

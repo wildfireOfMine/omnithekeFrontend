@@ -3,7 +3,7 @@ import { Link, Link as RouterLink, useNavigate } from 'react-router-dom';
 import React from 'react'
 import CustomCard from '../../components/CustomCard'
 
-const Dashboard = () => {
+const ReceptionistDashboard = () => {
   return (
     <Box sx={{
           maxWidth: "860px",
@@ -31,35 +31,35 @@ const Dashboard = () => {
 
                 <Grid size={5}>
                   <CustomCard>
-                    <Typography component={RouterLink} to="/admin/myProfile">Datos del Perfil</Typography>
+                    <Typography component={RouterLink} to="/receptionist/myProfile">Datos del Perfil</Typography>
                     <img src="/favicon.svg"/>
                   </CustomCard>
                 </Grid>
 
                 <Grid size={5}>
                   <CustomCard>
-                    <Typography component={RouterLink} to="/admin/myHospital">Datos del Hospital</Typography>
+                    <Typography component={RouterLink} to="/receptionist/myOfficeDoctors">Doctores del Consultorio</Typography>
                     <img src="/favicon.svg"/>
                   </CustomCard>
                 </Grid>
 
                 <Grid size={5}>
                   <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/myReports">Añadir Nuevos Doctores a un Paciente</Typography>
+                    <Typography component={RouterLink} to="/receptionist/myOfficePatients">Pacientes del Consultorio</Typography>
                     <img src="/favicon.svg"/>
                   </CustomCard>
                 </Grid>
 
                 <Grid size={5}>
                   <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/myReports">Añadir un Nuevo Administrador</Typography>
+                    <Typography component={RouterLink} to="/receptionist/appointments">Citas del Consultorio</Typography>
                     <img src="/favicon.svg"/>
                   </CustomCard>
                 </Grid>
 
                 <Grid size={5}>
                   <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/myReports">Añadir Nuevos Doctores a un Paciente</Typography>
+                    <Typography component={RouterLink} to="/receptionist/attachNewDoctors">Añadir Nuevos Doctores a un Paciente</Typography>
                     <img src="/favicon.svg"/>
                   </CustomCard>
                 </Grid>
@@ -70,4 +70,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+export default ReceptionistDashboard

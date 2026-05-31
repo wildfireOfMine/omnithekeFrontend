@@ -4,39 +4,49 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar"
 import dayjs from "dayjs"
+import 'dayjs/locale/es';
 import React from 'react'
-
-const generateHours = () => {
-
-  const hours = []
-
-  let currentHour = 8
-  let currentMinute = 0
-
-  while (
-    currentHour < 18 ||
-    (currentHour === 18 && currentMinute <= 15)
-  ) {
-
-    const hour = `${String(currentHour).padStart(2, "0")}:${String(currentMinute).padStart(2, "0")}`
-
-    hours.push(hour)
-
-    currentMinute += 60
-
-    if (currentMinute >= 60) {
-      currentMinute = 0
-      currentHour++
-    }
-  }
-
-  return hours
-}
-
+import CustomButton from "../../components/CustomButton"
+import { appointmentPost } from "../../store/PatientSlice"
+import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { toast } from "react-toastify"
 
 const Appointments = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [selectedDate, setSelectedDate] = useState(dayjs())
   const [selectedHour, setSelectedHour] = useState(null)
+
+  const handleAppointment = async () => {
+    const [hour, minute] = selectedHour.split(":");
+    const beginning = selectedDate.hour(Number(hour)).minute(Number(minute)).second(0).millisecond(0);
+    const ending = beginning.add(1, "hour");
+    console.log(beginning.toISOString());
+    console.log(ending.toISOString());
+        const appointment = {
+          comments: "Test", 
+          beginning: beginning,
+          ending: ending,
+      } 
+      try {
+          await dispatch(appointmentPost(appointment)).unwrap();
+          toast.success("Cita registrada con éxito");
+      } catch (err) {
+        console.log(err);
+        toast.error(err?.email ? err.email.join(", ") : "Ha fallado la cita");
+      }
+  }
+
+  const generateHours = () => {
+    const hours = [];
+
+    for (let hour = 8; hour < 18; hour++) {
+      hours.push(`${String(hour).padStart(2, "0")}:00`);
+    }
+
+    return hours;
+  }
 
   const hours = generateHours()
 
@@ -68,7 +78,7 @@ const Appointments = () => {
         </Typography>
       </Box>
 
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="es">
         <DateCalendar
           value={selectedDate}
           onChange={(newValue) => setSelectedDate(newValue)}
@@ -110,26 +120,21 @@ const Appointments = () => {
             marginTop: "32px"
           }}
         >
-          <Typography variant="h6">
-            Fecha:
-          </Typography>
+          <Typography variant="h6">Fecha:</Typography>
 
-          <Typography>
-            {selectedDate.format("DD/MM/YYYY")}
-          </Typography>
+          <Typography>{selectedDate.format("DD/MM/YYYY")}</Typography>
 
           <Typography
             variant="h6"
             sx={{
               marginTop: "12px"
             }}
-          >
-            Hora:
+          >Hora:
           </Typography>
 
-          <Typography>
-            {selectedHour}
-          </Typography>
+          <Typography>{selectedHour}</Typography>
+
+          <CustomButton color="#2563eb" text="Enviar" variant="contained" onClick={handleAppointment}/>
         </Box>
       )}
 

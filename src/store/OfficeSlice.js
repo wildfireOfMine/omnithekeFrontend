@@ -10,14 +10,14 @@ const initialState = {
 }
 
 export const administratorPost = createAsyncThunk(
-  "hospital/administratorPost",
+  "office/administratorPost",
   async (user, { getState, rejectWithValue }) => {
     try {
     const state = getState();
     const session = state.account.session;
     console.log(state);
     console.log(session);
-    const res = await axios.post(`${BACKEND_URL}hospital/api/administrator/`, user, {
+    const res = await axios.post(`${BACKEND_URL}office/api/administrator/`, user, {
         headers: {
             Authorization: `Bearer ${session.token}`
         }
@@ -31,14 +31,14 @@ export const administratorPost = createAsyncThunk(
   }
 );
 
-export const hospitalPost = createAsyncThunk(
-  "hospital/hospitalPost",
-  async (hospital, { getState, rejectWithValue }) => {
+export const officePost = createAsyncThunk(
+  "office/officePost",
+  async (office, { getState, rejectWithValue }) => {
     try {
     const state = getState();
     const session = state.account.session;
     console.log(session);
-    const res = await axios.post(`${BACKEND_URL}hospital/api/hospital/`, hospital, {
+    const res = await axios.post(`${BACKEND_URL}office/api/office/`, office, {
         headers: {
             Authorization: `Bearer ${session.token}`
         }
@@ -47,19 +47,20 @@ export const hospitalPost = createAsyncThunk(
     
 
     } catch (err) {
+      console.log(err);
       return rejectWithValue(err.response?.data || "Couldn't extract the data");
     }
   }
 );
 
-export const hospitalGet = createAsyncThunk(
-  "hospital/hospitalGet",
-  async (hospital, { getState, rejectWithValue }) => {
+export const officeGet = createAsyncThunk(
+  "office/officeGet",
+  async (office, { getState, rejectWithValue }) => {
     try {
     const state = getState();
     const session = state.account.session
     console.log(session);
-    const res = await axios.get(`${BACKEND_URL}hospital/api/hospital/`, {
+    const res = await axios.get(`${BACKEND_URL}office/api/office/`, {
       headers: {
         Authorization: `Bearer ${session.token}`
       }
@@ -72,14 +73,14 @@ export const hospitalGet = createAsyncThunk(
   }
 );
 
-export const hospitalPut = createAsyncThunk(
-  "hospital/hospitalPut",
-  async (hospital, { getState, rejectWithValue }) => {
+export const officePut = createAsyncThunk(
+  "office/officePut",
+  async (office, { getState, rejectWithValue }) => {
     try {
     const state = getState();
     const session = state.account.session
     console.log(session);
-    const res = await axios.put(`${BACKEND_URL}hospital/api/hospital/`, hospital, {
+    const res = await axios.put(`${BACKEND_URL}office/api/office/`, office, {
       headers: {
         Authorization: `Bearer ${session.token}`
       }
@@ -92,8 +93,8 @@ export const hospitalPut = createAsyncThunk(
   }
 );
 
-export const hospitalSlice = createSlice({
-    name: "hospital",
+export const officeSlice = createSlice({
+    name: "office",
     initialState,
     reducers: {
         
@@ -103,5 +104,5 @@ export const hospitalSlice = createSlice({
 
 export const {
 
-} = hospitalSlice.actions;
+} = officeSlice.actions;
 

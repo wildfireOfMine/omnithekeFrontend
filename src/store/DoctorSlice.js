@@ -61,7 +61,7 @@ export const myAppointments = createAsyncThunk(
         Authorization: `Bearer ${session.token}`
       }
     });
-      console.log(res);
+      console.log(res.data);
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response?.data || "Couldn't extract the data");
@@ -117,6 +117,88 @@ export const reportsPost = createAsyncThunk(
     const session = state.account.session
     console.log(session);
     const res = await axios.post(`${BACKEND_URL}doctor/api/myReports/`, report, {
+      headers: {
+        Authorization: `Bearer ${session.token}`
+      }
+    });
+      console.log(res);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || "Couldn't extract the data");
+    }
+  }
+);
+
+export const incidentGetAsDoctor = createAsyncThunk(
+  "doctor/incidentGetAsDoctor",
+  async (patientId, { getState, rejectWithValue }) => {
+    try {
+    const state = getState();
+    const session = state.account.session
+    console.log(session);
+    const res = await axios.get(`${BACKEND_URL}doctor/api/incidents/${patientId}/`, {
+      headers: {
+        Authorization: `Bearer ${session.token}`
+      }
+    });
+      console.log(res);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || "Couldn't extract the data");
+    }
+  }
+);
+
+export const doctorGetPatientPK = createAsyncThunk(
+  "doctor/doctorGetPatientPK",
+  async (patientId, { getState, rejectWithValue }) => {
+    try {
+    const state = getState();
+    const session = state.account.session
+    console.log(session);
+    console.log(patientId);
+    const res = await axios.get(`${BACKEND_URL}doctor/api/patient/${patientId}/`, {
+      headers: {
+        Authorization: `Bearer ${session.token}`
+      }
+    });
+      console.log(res);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || "Couldn't extract the data");
+    }
+  }
+);
+
+export const incidentPatchPK = createAsyncThunk(
+  "doctor/incidentPatchPK",
+  async ({incidentId, patch}, { getState, rejectWithValue }) => {
+    try {
+    const state = getState();
+    const session = state.account.session
+    console.log(session);
+    console.log(incidentId);
+    const res = await axios.patch(`${BACKEND_URL}doctor/api/myIncidents/${incidentId}/`, patch, {
+      headers: {
+        Authorization: `Bearer ${session.token}`
+      }
+    });
+      console.log(res);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || "Couldn't extract the data");
+    }
+  }
+);
+
+export const incidentPost = createAsyncThunk(
+  "doctor/incidentPost",
+  async (incident, { getState, rejectWithValue }) => {
+    try {
+    const state = getState();
+    const session = state.account.session
+    console.log(session);
+    const res = await axios.post(`${BACKEND_URL}doctor/api/myIncidents/`, incident, {
       headers: {
         Authorization: `Bearer ${session.token}`
       }

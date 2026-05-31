@@ -1,17 +1,16 @@
-import { Box, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { myPatients } from '../../store/AdminSlice';
+import { appointmentGet } from '../../store/PatientSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { Box, Typography } from '@mui/material';
 import CustomButton from '../../components/CustomButton';
 
-const MyHospitalPatients = () => {
-  
+const MyPatientAppointments = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [data, setData] = useState({});
   useEffect(() =>{
-    dispatch(myPatients()).unwrap().then(data => setData(data));
+    dispatch(appointmentGet()).unwrap().then(data => setData(data));
   }, [dispatch])
   console.log(data);
 
@@ -19,8 +18,8 @@ const MyHospitalPatients = () => {
         navigate(-1);
   }
 
-  const handlePatientForm = () => {
-        navigate("/admin/patientForm");
+  const handleAppointmentForm = () => {
+        navigate("/patient/appointments");
   }
 
   return (
@@ -37,21 +36,22 @@ const MyHospitalPatients = () => {
           color: "#1f2933",
           margin: "12px",
           fontWeight: 800
-        }}>Pacientes del Hospital</Typography>
+        }}>Tus Citas</Typography>
       </Box>
-        <CustomButton color="#fff" text="Añadir un Paciente" backgroundColor='#2563eb' onClick={handlePatientForm}/>
+
+      <CustomButton color="#fff" text="Añadir una cita" backgroundColor='#2563eb' onClick={handleAppointmentForm}/>
 
       {data && data.length > 0 && (
         <>
-          {data.map((doctor) => (
-            <Typography key={doctor.id}>Paciente: {JSON.stringify(doctor)}</Typography>
+          {data.map((appointment) => (
+            <Typography key={appointment.id}>Cita: {JSON.stringify(appointment)} - Cancelar</Typography>
           ))}
         </>
       )}
       
-      <CustomButton color="#fff" text="Volver atrás" backgroundColor='#2563eb' onClick={handleCustomButton}/>
+      <CustomButton color="#fff" text="Volver Atrás" backgroundColor='#2563eb' onClick={handleCustomButton}/>
     </Box>
   )
 }
 
-export default MyHospitalPatients
+export default MyPatientAppointments

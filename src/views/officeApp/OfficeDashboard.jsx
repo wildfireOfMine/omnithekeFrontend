@@ -4,7 +4,7 @@ import { Link, Link as RouterLink, useNavigate } from 'react-router-dom';
 import CustomCard from '../../components/CustomCard'
 
 
-const HospitalDashboard = () => {
+const OfficeDashboard = () => {
   return (
     <Box sx={{
           maxWidth: "860px",
@@ -30,14 +30,14 @@ const HospitalDashboard = () => {
               }}>
                 <Grid size={5}>
                   <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/myProfile">Hospital's Doctors</Typography>
+                    <Typography component={RouterLink} to="/doctor/myProfile">Office's Doctors</Typography>
                     <img src="/favicon.svg"/>
                   </CustomCard>
                 </Grid>
 
                 <Grid size={5}>
                   <CustomCard>
-                    <Typography component={RouterLink} to="/doctor/appointments">Hospital's Patients</Typography>
+                    <Typography component={RouterLink} to="/doctor/appointments">Office's Patients</Typography>
                     <img src="/favicon.svg"/>
                   </CustomCard>
                 </Grid>
@@ -69,4 +69,4 @@ const HospitalDashboard = () => {
   )
 }
 
-export default HospitalDashboard
+export default OfficeDashboard
