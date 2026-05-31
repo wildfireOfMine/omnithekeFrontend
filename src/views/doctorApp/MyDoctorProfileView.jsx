@@ -382,15 +382,10 @@ const MyDoctorProfileView = () => {
                       Estudios
                     </Typography>
 
-                    <TextField
-                      multiline
-                      rows={4}
-                      id="educationalBackground"
-                      name="educationalBackground"
-                      value={data.educationalBackground}
-                      onChange={handleInputChange}
-                      disabled={!edit}
-                      fullWidth
+                    <TextField multiline rows={4}
+                      id="educationalBackground" name="educationalBackground"
+                      value={data.educationalBackground} onChange={handleInputChange}
+                      disabled={!edit} fullWidth
                     />
                   </Box>
                 </Grid>

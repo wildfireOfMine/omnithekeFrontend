@@ -21,6 +21,11 @@ const Reports = () => {
   const handlePatientForm = () => {
         navigate("/doctor/reportForm");
   }
+
+  const handleIncidentForm = () => {
+        navigate("/doctor/incidentForm");
+  }
+  
   return (
     <Box sx={{
       maxWidth: "860px",
@@ -49,6 +54,7 @@ const Reports = () => {
         <Box sx={{ alignSelf: "flex-start" }}>
           <CustomButton color="#fff" text="Volver atrás" backgroundColor='#2563eb' onClick={handleCustomButton}/>
           <CustomButton color="#fff" text="Añadir un Informe" backgroundColor='#2563eb' onClick={handlePatientForm}/>
+          <CustomButton color="#fff" text="Registrar un Episodio" backgroundColor='#2563eb' onClick={handleIncidentForm}/>
         </Box>
         
 

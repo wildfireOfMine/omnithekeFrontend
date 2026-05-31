@@ -159,7 +159,7 @@ const ReportForm = () => {
                   color: "#374151"
                   
                 }}>Contenido</Typography>
-                  <TextField type="text" id="content" name="content" placeholder='Tienes algo...' variant="outlined"
+                  <TextField type="text" id="content" name="content" placeholder='Tienes algo...' variant="outlined" multiline rows={6}
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",

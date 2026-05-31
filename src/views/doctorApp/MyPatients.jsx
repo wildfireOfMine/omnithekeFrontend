@@ -92,7 +92,7 @@ const MyPatients = () => {
                   <Typography>{patient.city || "No disponible"}</Typography>
                 </Grid>
               </Grid>
-              <Link to={`/myPatients/${patient.id}`}><Typography fontWeight={600}>Ver perfil</Typography></Link>
+              <Link to={`${patient.id}`}><Typography fontWeight={600}>Ver perfil</Typography></Link>
             </Paper>
           ))}
         </Box>

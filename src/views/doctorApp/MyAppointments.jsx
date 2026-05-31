@@ -9,6 +9,7 @@ const MyAppointments = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [data, setData] = useState({});
+  
   useEffect(() =>{
     dispatch(myAppointments()).unwrap().then(data => setData(data));
   }, [dispatch])

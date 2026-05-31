@@ -36,6 +36,8 @@ import MyOfficeReceptionists from '../views/adminApp/MyOfficeReceptionists'
 import ReceptionistForm from '../views/adminApp/ReceptionistForm'
 import ReceptionistDashboard from '../views/officeApp/ReceptionistDashboard'
 import MyPatientAppointments from '../views/patientApp/MyAppointments'
+import DetailPatient from '../views/doctorApp/DetailPatient'
+import IncidentForm from '../views/doctorApp/IncidentForm'
 
 
 const AppRoute = () => {
@@ -73,9 +75,10 @@ const AppRoute = () => {
           <Route path="/doctor/dashboard" element={<DoctorDashboard/>}/>
           <Route path="/doctor/myProfile" element={<MyDoctorProfileView/>}/>
           <Route path="/doctor/myPatients" element={<MyPatients/>}/>
-          <Route path="/doctor/myPatients/:id" element={<MyPatients/>}/>
+          <Route path="/doctor/myPatients/:id" element={<DetailPatient/>}/>
           <Route path="/doctor/myAppointments" element={<MyAppointments/>}/>
           <Route path="/doctor/myReports" element={<Reports/>}/>
+          <Route path="/doctor/incidentForm" element={<IncidentForm/>}/>
           <Route path="/doctor/reportForm" element={<ReportForm/>}/>
           <Route path="/doctor/myMessages" element={<MyMessages/>}/>
         </Route>
