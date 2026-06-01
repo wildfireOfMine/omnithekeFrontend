@@ -109,7 +109,7 @@ const Login = () => {
               />
               </Box>
               
-              <Typography component={RouterLink} to="/register">¿Buscar crear tu consultorio médico?</Typography>
+              <Typography component={RouterLink} to="/register">¿Buscas crear tu consultorio médico?</Typography>
               <CustomButton color="#fff" text="Iniciar sesión" backgroundColor='#2563eb' type='submit'/>
           </Box>
 

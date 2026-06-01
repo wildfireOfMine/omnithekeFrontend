@@ -13,7 +13,7 @@ const DetailPatient = () => {
   const [data, setData] = useState({});
   const {id} = useParams();
   const [edit, setEdit] = useState(false);
-  const [incident, setIncident] = useState();
+  const [incident, setIncident] = useState("");
 
   const fieldStyle = {
       borderRadius: "8px",
@@ -369,14 +369,16 @@ const DetailPatient = () => {
                         label="Incident"
                         fullWidth
                         onChange={handleIncident}
+                        displayEmpty
                       >
+                        <MenuItem value="" disabled>Selecciona un episodio</MenuItem>
                         {data.activeIncidents?.map((incident) => (
                           <MenuItem key={incident.id} value={incident.id}>
                             {incident.description}
                           </MenuItem>
                         ))}
                       </Select>
-                      <CustomButton text="Cerrar" onClick={handleClosingIncident}/>
+                      <CustomButton text="Cerrar" onClick={handleClosingIncident} disabled={!incident}/>
                       </FormControl>
                   </Box>
                 </Grid>

@@ -113,7 +113,7 @@ const IncidentForm = () => {
 
             <Box sx={{ alignSelf: "center" }}>
                 <CustomButton color="#fff" text="Volver Atrás" backgroundColor="#6b7280" onClick={handleCustomButton}/>
-                <CustomButton color="#fff" text="Crear" backgroundColor='#2563eb' type='submit'/>
+                <CustomButton color="#fff" text="Crear" backgroundColor='#16a34a' type='submit'/>
             </Box>
         </Box>
       

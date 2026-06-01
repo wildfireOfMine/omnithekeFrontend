@@ -149,7 +149,7 @@ const Register = () => {
               </Box>
               
 
-              <CustomButton color="#fff" text="Register" backgroundColor='#2563eb' type='submit'/>
+              <CustomButton color="#fff" text="Registrarse" backgroundColor='#2563eb' type='submit'/>
           </Box>
 
       </Box>

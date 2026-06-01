@@ -52,7 +52,7 @@ const Reports = () => {
         </Box>
 
         <Box sx={{ alignSelf: "flex-start" }}>
-          <CustomButton color="#fff" text="Volver atrás" backgroundColor='#2563eb' onClick={handleCustomButton}/>
+          <CustomButton color="#fff" text="Volver atrás" backgroundColor='#6b7280' onClick={handleCustomButton}/>
           <CustomButton color="#fff" text="Añadir un Informe" backgroundColor='#2563eb' onClick={handlePatientForm}/>
           <CustomButton color="#fff" text="Registrar un Episodio" backgroundColor='#2563eb' onClick={handleIncidentForm}/>
         </Box>

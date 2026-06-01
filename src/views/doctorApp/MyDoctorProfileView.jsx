@@ -139,6 +139,7 @@ const MyDoctorProfileView = () => {
                     }}>Nombre</Typography>
                       <CustomField
                         name="name"
+                        placeholder="John"
                         value={data.name}
                         edit={edit}
                         handleInputChange={handleInputChange}
@@ -181,6 +182,7 @@ const MyDoctorProfileView = () => {
                     }}>Primer Apellido</Typography>
                       <CustomField
                         name="firstSurname"
+                        placeholder='Doe'
                         value={data.firstSurname}
                         edit={edit}
                         handleInputChange={handleInputChange}
@@ -232,6 +234,7 @@ const MyDoctorProfileView = () => {
                       
                     }}>Documento de Identidad (si existe)</Typography>
                       <CustomField
+                        placeholder='12345678X'
                         name="identity"
                         value={data.identityDocument}
                         edit={edit}
@@ -262,6 +265,7 @@ const MyDoctorProfileView = () => {
                       color: "#374151"
                     }}>Email</Typography>
                     <CustomField
+                        placeholder='user@gmail.com'
                         name="email"
                         value={data.email}
                         edit={edit}
@@ -279,6 +283,7 @@ const MyDoctorProfileView = () => {
                       
                     }}>Teléfono</Typography>
                       <CustomField
+                        placeholder='(+34)152567171'
                         name="identity"
                         value={data.identityDocument}
                         edit={edit}
@@ -296,6 +301,7 @@ const MyDoctorProfileView = () => {
                       
                     }}>Dirección</Typography>
                       <CustomField
+                        placeholder='Calle de Madrid'
                         name="address"
                         value={data.address}
                         edit={edit}
@@ -313,6 +319,7 @@ const MyDoctorProfileView = () => {
                       
                     }}>Ciudad</Typography>
                       <CustomField
+                        placeholder='Madrid'
                         name="city"
                         value={data.city}
                         edit={edit}
@@ -330,6 +337,7 @@ const MyDoctorProfileView = () => {
                       
                     }}>Código Postal</Typography>
                       <CustomField
+                        placeholder='12345'
                         name="postCode"
                         value={data.postCode}
                         edit={edit}
@@ -347,6 +355,7 @@ const MyDoctorProfileView = () => {
                       
                     }}>País</Typography>
                       <CustomField
+                        placeholder='España'
                         name="country"
                         value={data.country}
                         edit={edit}
@@ -403,13 +412,14 @@ const MyDoctorProfileView = () => {
             flexWrap: "wrap"
           }}
         >
+
+          <CustomButton color="#fff" text="Volver Atrás" backgroundColor="#6b7280" onClick={handleCustomButton}/>
           {!edit ? (
             <CustomButton color="#fff" text="Modificar" backgroundColor="#2563eb" onClick={handlePutMethod}/>
           ) : (
             <CustomButton color="#fff" text="Confirmar" backgroundColor="#16a34a" onClick={handleConfirmPut}/>
           )}
 
-          <CustomButton color="#fff" text="Volver Atrás" backgroundColor="#6b7280" onClick={handleCustomButton}/>
         </Box>
       </Box>
       

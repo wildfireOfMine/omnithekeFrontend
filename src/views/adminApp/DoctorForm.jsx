@@ -24,8 +24,8 @@ const DoctorForm = () => {
         const {name, firstName, secondName, sex, email, birthday, identity, address, city, postCode, country, telephone, educationalBackground} = e.currentTarget;
             const user = {
                 name: name.value, 
-                firstName: firstName.value,
-                secondName: secondName.value,
+                firstSurname: firstName.value,
+                secondSurname: secondName.value,
                 email: email.value,
                 sex: sex,
                 birthdate: birthday.value,
@@ -329,8 +329,18 @@ const DoctorForm = () => {
               </Box>
               
 
-              <CustomButton color="#fff" text="Registrar" backgroundColor='#2563eb' type='submit'/>
-              <CustomButton color="#fff" text="Volver atrás" backgroundColor='#2563eb' onClick={handleCustomButton}/>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            gap: 2,
+            mt: 4,
+            flexWrap: "wrap"
+          }}
+        >
+            <CustomButton color="#fff" text="Volver Atrás" backgroundColor='#6b7280' onClick={handleCustomButton}/>
+            <CustomButton color="#fff" text="Registrar" backgroundColor='#16a34a' type='submit'/>
+        </Box>
           </Box>
 
       </Box>

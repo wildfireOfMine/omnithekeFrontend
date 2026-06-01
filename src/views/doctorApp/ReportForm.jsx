@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 const ReportForm = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [patient, setPatient] = useState(0);
+    const [patient, setPatient] = useState("");
     const [incident, setIncident] = useState(false);
     const [data, setData] = useState([]);
     const [chosenIncident, setChosenIncident] = useState([]);
@@ -126,7 +126,9 @@ const ReportForm = () => {
                     label="Patient"
                     onChange={handlePatient}
                     fullWidth
+                    displayEmpty
                   > 
+                    <MenuItem value="" disabled>Selecciona un paciente</MenuItem>
                     {data.map((patient) => {
                         return <MenuItem value={patient.id}>{patient.name}</MenuItem>
                     })}
@@ -199,7 +201,7 @@ const ReportForm = () => {
                         fontWeight: 600,
                         color: "#374151"
                         
-                      }}>Incidentes</Typography>
+                      }}>Episodios</Typography>
                       <FormControl variant="standard" fullWidth>
                         <Select
                           labelId="incidents"
@@ -208,7 +210,9 @@ const ReportForm = () => {
                           label="Incidents"
                           onChange={handleIncident}
                           fullWidth
-                        > 
+                          displayEmpty
+                        >
+                          <MenuItem value="" disabled>Selecciona un episodio</MenuItem>
                           {incidents.map((incident) => {
                               return <MenuItem value={incident.id}>{incident.description}</MenuItem>
                           })}
@@ -219,10 +223,19 @@ const ReportForm = () => {
               </Box>
 
               
-              
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                gap: 1,
+                mt: 4,
+                flexWrap: "wrap"
+              }}
+            > 
+              <CustomButton color="#fff" text="Volver atrás" backgroundColor='#6b7280' onClick={handleCustomButton}/>
+              <CustomButton color="#fff" text="Crear" backgroundColor='#16a34a' type='submit'/>
+            </Box>
 
-              <CustomButton color="#fff" text="Crear" backgroundColor='#2563eb' type='submit'/>
-              <CustomButton color="#fff" text="Volver atrás" backgroundColor='#2563eb' onClick={handleCustomButton}/>
           </Box>
 
       </Box>

@@ -207,13 +207,12 @@ const MyOffice = () => {
             flexWrap: "wrap"
           }}
         >
+          <CustomButton color="#fff" text="Volver Atrás" backgroundColor="#6b7280" onClick={handleCustomButton}/>
           {!edit ? (
             <CustomButton color="#fff" text="Modificar" backgroundColor="#2563eb" onClick={handlePutMethod}/>
           ) : (
             <CustomButton color="#fff" text="Confirmar" backgroundColor="#16a34a" onClick={handleConfirmPut}/>
           )}
-
-          <CustomButton color="#fff" text="Volver Atrás" backgroundColor="#6b7280" onClick={handleCustomButton}/>
         </Box>
       </Box>
       

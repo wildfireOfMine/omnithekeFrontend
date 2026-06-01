@@ -41,7 +41,7 @@ const MyAppointments = () => {
         }}>Tus Citas</Typography>
         
         <Box sx={{ alignSelf: "flex-start" }}>
-          <CustomButton color="#fff" text="Volver Atrás" backgroundColor="#2563eb" onClick={handleCustomButton}/>
+          <CustomButton color="#fff" text="Volver Atrás" backgroundColor="#6b7280" onClick={handleCustomButton}/>
         </Box>
 
         {data.length > 0 ? (

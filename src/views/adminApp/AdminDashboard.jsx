@@ -99,7 +99,7 @@ const Dashboard = () => {
               {card.icon}
 
               <Typography variant="h5" sx={{fontWeight: 700}}>{card.title}</Typography>
-              <Typography textAlign="center" color="text.secondary">{card.description}</Typography>
+              <Typography textalign="center">{card.description}</Typography>
             </Paper>
           </Grid>
         ))}
