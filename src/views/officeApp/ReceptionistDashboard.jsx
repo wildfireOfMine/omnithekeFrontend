@@ -16,7 +16,7 @@ const ReceptionistDashboard = () => {
       title: "Citas del Consultorio",
       description: "Confirma citas pendientes",
       icon: <EventAvailable sx={{ fontSize: 60, color: "#2563eb" }} />,
-      route: "/receptionist/myAppointments"
+      route: "/receptionist/appointments"
     },
     {
       title: "Pacientes del Consultorio",

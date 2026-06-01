@@ -40,6 +40,8 @@ import DetailPatient from '../views/doctorApp/DetailPatient'
 import IncidentForm from '../views/doctorApp/IncidentForm'
 import { ProtectedReceptionistRoute } from './ProtectedReceptionistRoute'
 import MyReceptionistProfileView from '../views/officeApp/MyReceptionistProfileView'
+import InactiveAppointments from '../views/officeApp/InactiveAppointments'
+import OfficeAppointments from '../views/officeApp/OfficeAppointments'
 
 
 const AppRoute = () => {
@@ -74,6 +76,8 @@ const AppRoute = () => {
           <Route path="/receptionist/myOfficePatients" element={<MyOfficePatients/>}/>
           <Route path="/receptionist/patientForm" element={<PatientForm/>}/>
           <Route path="/receptionist/attachNewDoctors" element={<AttachNewDoctors/>}/>
+          <Route path="/receptionist/appointments" element={<OfficeAppointments/>}/>
+          <Route path="/receptionist/inactiveAppointments" element={<InactiveAppointments/>}/>
         </Route>
 
         <Route element={<ProtectedDoctorRoute/>}>

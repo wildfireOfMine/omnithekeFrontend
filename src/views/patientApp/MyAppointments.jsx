@@ -95,6 +95,10 @@ const MyPatientAppointments = () => {
                   <Typography fontWeight={600}>Final</Typography>
                   <Typography>{new Date(appointment.ending).toLocaleString("es-ES")}</Typography>
                 </Grid>
+
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <Typography fontWeight={600}>¿Confirmado?: {appointment.confirmed ? <>Sí</> : <>No</>}</Typography>
+                </Grid>
               </Grid>
             </Paper>
           })}
