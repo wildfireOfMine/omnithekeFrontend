@@ -106,7 +106,7 @@ const ReceptionistForm = () => {
                   color: "#374151"
                   
                 }}>Primer Apellido</Typography>
-                  <TextField type="text" id="firstName" name="firstName" placeholder='John Doe' variant="outlined"
+                  <TextField type="text" id="firstName" name="firstName" placeholder='Doe' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -125,7 +125,7 @@ const ReceptionistForm = () => {
                   color: "#374151"
                   
                 }}>Segundo Apellido (si existe)</Typography>
-                  <TextField type="text" id="secondName" name="secondName" placeholder='John Doe' variant="outlined"
+                  <TextField type="text" id="secondName" name="secondName" placeholder='Does' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -182,7 +182,7 @@ const ReceptionistForm = () => {
                   fontWeight: 600,
                   color: "#374151"
                 }}>Fecha de Nacimiento</Typography>
-                <TextField type='date' id='birthday' name='birthday' placeholder='user@gmail.com' variant="outlined"
+                <TextField type='date' id='birthday' name='birthday' variant="outlined"
                 sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -201,7 +201,7 @@ const ReceptionistForm = () => {
                   color: "#374151"
                   
                 }}>Documento de Identidad (si existe)</Typography>
-                  <TextField type="text" id="identity" name="identity" placeholder='123456789X' variant="outlined"
+                  <TextField type="text" id="identity" name="identity" placeholder='12345678X' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -220,7 +220,7 @@ const ReceptionistForm = () => {
                   color: "#374151"
                   
                 }}>Dirección</Typography>
-                  <TextField type="text" id="address" name="address" placeholder='John Doe' variant="outlined"
+                  <TextField type="text" id="address" name="address" placeholder='Calle de Madrid' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -239,7 +239,7 @@ const ReceptionistForm = () => {
                   color: "#374151"
                   
                 }}>Ciudad</Typography>
-                  <TextField type="text" id="city" name="city" placeholder='John Doe' variant="outlined"
+                  <TextField type="text" id="city" name="city" placeholder='Madrid' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -277,7 +277,7 @@ const ReceptionistForm = () => {
                   color: "#374151"
                   
                 }}>País</Typography>
-                  <TextField type="text" id="country" name="country" placeholder='John Doe' variant="outlined"
+                  <TextField type="text" id="country" name="country" placeholder='España' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -296,7 +296,7 @@ const ReceptionistForm = () => {
                   color: "#374151"
                   
                 }}>Teléfono</Typography>
-                  <TextField type="text" id="telephone" name="telephone" placeholder='John Doe' variant="outlined"
+                  <TextField type="text" id="telephone" name="telephone" placeholder='(+34)152567171' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
