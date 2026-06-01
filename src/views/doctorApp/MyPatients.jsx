@@ -60,8 +60,14 @@ const MyPatients = () => {
             gap: 3
           }}
         >
-          {data.map((patient) => (
-            <Paper
+          {data.map((patient) => {
+            const patientName =
+              patient.secondSurname && patient.firstSurname
+                ? `${patient.firstSurname} ${patient.secondSurname}, ${patient.name}`
+                : patient.firstSurname
+                ? `${patient.firstSurname}, ${patient.name}`
+                : patient.name;
+            return <Paper
               key={patient.id}
               elevation={2}
               sx={{
@@ -94,7 +100,7 @@ const MyPatients = () => {
               </Grid>
               <Link to={`${patient.id}`}><Typography fontWeight={600}>Ver perfil</Typography></Link>
             </Paper>
-          ))}
+          })}
         </Box>
       ) : (
         <Paper

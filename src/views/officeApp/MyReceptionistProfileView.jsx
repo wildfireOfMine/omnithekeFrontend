@@ -2,13 +2,13 @@ import { Box, Divider, FormControl, Grid, MenuItem, Select, TextField, Typograph
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { myPatientProfile, patientPut } from '../../store/PatientSlice';
 import CustomButton from '../../components/CustomButton';
+import { adminPut, myAdminProfile } from '../../store/AdminSlice';
 import { toast } from 'react-toastify';
 import CustomField from '../../components/CustomField';
+import { myReceptionistProfile, receptionistPut } from '../../store/OfficeSlice';
 
-const MyPatientProfileView = () => {
-    
+const MyReceptionistProfileView = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const loading = useSelector(state => state.doctor.loading);
@@ -16,7 +16,7 @@ const MyPatientProfileView = () => {
     const [edit, setEdit] = useState(false);
     console.log("LOADING", loading);
     useEffect(() => {
-            dispatch(myPatientProfile()).unwrap().then(data => setData({
+            dispatch(myReceptionistProfile()).unwrap().then(data => setData({
               name: data.name,
               firstSurname: data.firstSurname,
               secondSurname: data.secondSurname,
@@ -29,8 +29,7 @@ const MyPatientProfileView = () => {
               postCode: data.postCode,
               country: data.country,
               telephone: data.telephone,
-              bloodType: data.bloodType,
-              unrelatedClinicalData: data.unrelatedClinicalData
+              receptionistCode: data.receptionistCode
             }));
         }, [dispatch]);
     
@@ -56,7 +55,6 @@ const MyPatientProfileView = () => {
     
     const handleConfirmPut = async (e) => {
       e.preventDefault();
-      if (true) {
         const user = {
           name: data.name, 
           firstSurname: data.firstSurname,
@@ -70,16 +68,14 @@ const MyPatientProfileView = () => {
           postCode: data.postCode,
           country: data.country,
           telephone: data.telephone,
-          bloodType: data.bloodType,
-          unrelatedClinicalData: data.unrelatedClinicalData}
+          receptionistCode: data.receptionistCode}
           try {
-            await dispatch(patientPut(user)).unwrap();
+            await dispatch(receptionistPut(user)).unwrap();
             toast.success("PUT exitoso");
           } catch (err) {
             console.log(err);
             toast.error(err?.email ? err.email.join(", ") : "PUT fallido");
           }
-        }
       setEdit(false);
     }
 
@@ -93,7 +89,7 @@ const MyPatientProfileView = () => {
     };
 
   return (
-    <Box sx={{
+  <Box sx={{
       maxWidth: "1660px",
       margin: "0 auto",
       padding: "10px 16px 64px"
@@ -106,7 +102,7 @@ const MyPatientProfileView = () => {
           color: "#1f2933",
           margin: "12px",
           fontWeight: 800
-        }}>Mi Perfil de Paciente</Typography>
+        }}>Mi Perfil de Recepcionista</Typography>
       </Box>
 
       <Box sx={{
@@ -118,9 +114,8 @@ const MyPatientProfileView = () => {
         boxShadow: "0 4px 16px rgba(0,0,0,0.06)",
         marginBottom: "20px",
         }}>
-          {data && <>
-              <Grid container spacing={3}>
-
+        {data && <>
+          <Grid container spacing={3}>
                 <Grid size={12}>
                   <Typography
                     variant="h5"
@@ -152,32 +147,33 @@ const MyPatientProfileView = () => {
                   </Box>
                 </Grid>
 
-                <Grid size={{ xs: 12, md: 6 }}>
-                  <Box>
-                    <Typography variant='h6' sx={{
-                      fontWeight: 600,
-                      color: "#374151"
-                      
-                    }}>Sexo</Typography>
-                    <FormControl variant="standard" fullWidth>
-                      <Select
-                        disabled={!edit}
-                        labelId="sex"
-                        id="sex"
-                        name="sex"
-                        value={data.sex || "M"}
-                        label="Sex"
-                        onChange={handleInputChange}
-                        fullWidth
-                      >
-                        <MenuItem value={"M"}>Varón</MenuItem>
-                        <MenuItem value={"F"}>Mujer</MenuItem>
-                      </Select>
-                      </FormControl>
-                  </Box>
-                </Grid>
+              <Grid size={{ xs: 12, md: 6 }}>
+                <Box>
+                  <Typography variant='h6' sx={{
+                    fontWeight: 600,
+                    color: "#374151"
+                    
+                  }}>Sexo</Typography>
+                  <FormControl variant="standard" fullWidth>
+                    <Select
+                      disabled={!edit}
+                      labelId="sex"
+                      id="sex"
+                      name="sex"
+                      value={data.sex || "M"}
+                      label="Sex"
+                      onChange={handleInputChange}
+                      fullWidth
+                    >
+                      <MenuItem value={"M"}>Varón</MenuItem>
+                      <MenuItem value={"F"}>Mujer</MenuItem>
+                    </Select>
+                    </FormControl>
+                </Box>
+              </Grid>
 
-                <Grid size={{ xs: 12, md: 6 }}>
+
+              <Grid size={{ xs: 12, md: 6 }}>
                   <Box>
                     <Typography variant='h6' sx={{
                       fontWeight: 600,
@@ -195,7 +191,7 @@ const MyPatientProfileView = () => {
                   </Box>
                 </Grid>
 
-                <Grid size={{ xs: 12, md: 6 }}>
+              <Grid size={{ xs: 12, md: 6 }}>
                   <Box>
                     <Typography variant='h6' sx={{
                       fontWeight: 600,
@@ -213,7 +209,7 @@ const MyPatientProfileView = () => {
                   </Box>
                 </Grid>
 
-                <Grid size={{ xs: 12, md: 6 }}>
+              <Grid size={{ xs: 12, md: 6 }}>
                   <Box>
                     <Typography variant='h6' sx={{
                       fontWeight: 600,
@@ -228,9 +224,9 @@ const MyPatientProfileView = () => {
                         fieldStyle={fieldStyle}
                       />
                   </Box>
-                </Grid>
+              </Grid>
 
-                <Grid size={{ xs: 12, md: 6 }}>
+              <Grid size={{ xs: 12, md: 6 }}>
                   <Box>
                     <Typography variant='h6' sx={{
                       fontWeight: 600,
@@ -246,23 +242,38 @@ const MyPatientProfileView = () => {
                         fieldStyle={fieldStyle}
                       />
                   </Box>
-                </Grid>
+              </Grid>
 
+              <Grid size={12}>
+                  <Box>
+                    <Typography variant='h6' sx={{
+                      fontWeight: 600,
+                      color: "#374151"
+                      
+                    }}>Código de Recepcionista</Typography>
+                      <CustomField
+                        placeholder='RCP001'
+                        name="receptionistCode"
+                        value={data.receptionistCode}
+                        fieldStyle={fieldStyle}
+                      />
+                  </Box>
+              </Grid>
 
-                <Grid size={12}>
-                  <Divider sx={{ my: 2 }} />
-                  <Typography
-                    variant="h5"
-                    sx={{
-                      fontWeight: 700,
-                      color: "#1f2933"
-                    }}
-                  >
-                    Contacto
-                  </Typography>
-                </Grid>
+              <Grid size={12}>
+                <Divider sx={{ my: 2 }} />
+                <Typography
+                  variant="h5"
+                  sx={{
+                    fontWeight: 700,
+                    color: "#1f2933"
+                  }}
+                >
+                  Contacto
+                </Typography>
+              </Grid>
 
-                <Grid size={{ xs: 12, md: 6 }}>
+              <Grid size={{ xs: 12, md: 6 }}>
                   <Box>
                     <Typography variant='h6' sx={{
                       fontWeight: 600,
@@ -277,9 +288,9 @@ const MyPatientProfileView = () => {
                         fieldStyle={fieldStyle}
                       />
                   </Box>
-                </Grid>
+              </Grid>
 
-                <Grid size={{ xs: 12, md: 6 }}>
+              <Grid size={{ xs: 12, md: 6 }}>
                   <Box>
                     <Typography variant='h6' sx={{
                       fontWeight: 600,
@@ -295,9 +306,9 @@ const MyPatientProfileView = () => {
                         fieldStyle={fieldStyle}
                       />
                   </Box>
-                </Grid>
-
-                <Grid size={12}>
+              </Grid>
+            
+              <Grid size={12}>
                   <Box>
                     <Typography variant='h6' sx={{
                       fontWeight: 600,
@@ -315,7 +326,7 @@ const MyPatientProfileView = () => {
                   </Box>
                 </Grid>
 
-                <Grid size={{ xs: 12, md: 6 }}>
+              <Grid size={{ xs: 12, md: 6 }}>
                   <Box>
                     <Typography variant='h6' sx={{
                       fontWeight: 600,
@@ -331,9 +342,9 @@ const MyPatientProfileView = () => {
                         fieldStyle={fieldStyle}
                       />
                   </Box>
-                </Grid>
+              </Grid>
 
-                <Grid size={{ xs: 12, md: 6 }}>
+              <Grid size={{ xs: 12, md: 6 }}>
                   <Box>
                     <Typography variant='h6' sx={{
                       fontWeight: 600,
@@ -349,9 +360,9 @@ const MyPatientProfileView = () => {
                         fieldStyle={fieldStyle}
                       />
                   </Box>
-                </Grid>
+              </Grid>
 
-                <Grid size={12}>
+              <Grid size={12}>
                   <Box>
                     <Typography variant='h6' sx={{
                       fontWeight: 600,
@@ -367,62 +378,8 @@ const MyPatientProfileView = () => {
                         fieldStyle={fieldStyle}
                       />
                   </Box>
-                </Grid>
-
-
-                <Grid size={12}>
-                  <Divider sx={{ my: 2 }} />
-                  <Typography
-                    variant="h5"
-                    sx={{
-                      fontWeight: 700,
-                      color: "#1f2933"
-                    }}
-                  >
-                    Información Médica
-                  </Typography>
-                </Grid>
-
-                <Grid size={12}>
-                  <Box>
-                    <Typography variant='h6' sx={{
-                      fontWeight: 600,
-                      color: "#374151"
-                      
-                    }}>Tipo de Sangre</Typography>
-                      <CustomField
-                        placeholder='A+'
-                        name="country"
-                        value={data.bloodType}
-                        edit={edit}
-                        handleInputChange={handleInputChange}
-                        fieldStyle={fieldStyle}
-                      />
-                  </Box>
-                </Grid>
-
-                <Grid size={12} sx={{padding: "10px 0"}}>
-                  <Box>
-                    <Typography
-                      variant="h6"
-                      sx={{
-                        fontWeight: 600,
-                        color: "#374151"
-                      }}
-                    >
-                      Otra Información Médica
-                    </Typography>
-
-                    <TextField multiline rows={4}
-                      id="unrelatedClinicalData" name="unrelatedClinicalData"
-                      value={data.unrelatedClinicalData} onChange={handleInputChange}
-                      disabled={!edit} fullWidth
-                    />
-                  </Box>
-                </Grid>
-
-
               </Grid>
+            </Grid>
           </>
           }
         <Box
@@ -434,7 +391,6 @@ const MyPatientProfileView = () => {
             flexWrap: "wrap"
           }}
         >
-
           <CustomButton color="#fff" text="Volver Atrás" backgroundColor="#6b7280" onClick={handleCustomButton}/>
           {!edit ? (
             <CustomButton color="#fff" text="Modificar" backgroundColor="#2563eb" onClick={handlePutMethod}/>
@@ -449,4 +405,4 @@ const MyPatientProfileView = () => {
   )
 }
 
-export default MyPatientProfileView
+export default MyReceptionistProfileView

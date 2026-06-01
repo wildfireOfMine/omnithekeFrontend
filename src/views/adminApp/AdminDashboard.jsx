@@ -33,7 +33,7 @@ const Dashboard = () => {
     },
     {
       title: "Mi Perfil",
-      description: "Consulta y edita tus datos",
+      description: "Consulta y edita tu información profesional",
       icon: <Person sx={{ fontSize: 60, color: "#2563eb" }} />,
       route: "/admin/myProfile"
     }

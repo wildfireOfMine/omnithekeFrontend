@@ -32,10 +32,6 @@ const DoctorDashboard = () => {
     }
   ];
 
-  const fieldStyle = {
-    
-  }
-
   return (
     <Box
       sx={{
@@ -58,7 +54,7 @@ const DoctorDashboard = () => {
             color: "#1f2933"
           }}
         >
-          Panel de Doctor
+          Panel del Doctor
         </Typography>
 
         <Typography
@@ -104,7 +100,7 @@ const DoctorDashboard = () => {
 
               <Typography variant="h5" sx={{fontWeight: 700}}>{card.title}</Typography>
               
-              <Typography textAlign="center" color="text.secondary">{card.description}</Typography>
+              <Typography textalign="center">{card.description}</Typography>
             </Paper>
           </Grid>
         ))}

@@ -144,28 +144,30 @@ const MyAdminProfileView = () => {
                   </Box>
                 </Grid>
 
-              <Box>
-                <Typography variant='h6' sx={{
-                  fontWeight: 600,
-                  color: "#374151"
-                  
-                }}>Sexo</Typography>
-                <FormControl variant="standard" fullWidth>
-                  <Select
-                    disabled={!edit}
-                    labelId="sex"
-                    id="sex"
-                    name="sex"
-                    value={data.sex || "M"}
-                    label="Sex"
-                    onChange={handleInputChange}
-                    fullWidth
-                  >
-                    <MenuItem value={"M"}>Varón</MenuItem>
-                    <MenuItem value={"F"}>Mujer</MenuItem>
-                  </Select>
-                  </FormControl>
-              </Box>
+              <Grid size={{ xs: 12, md: 6 }}>
+                <Box>
+                  <Typography variant='h6' sx={{
+                    fontWeight: 600,
+                    color: "#374151"
+                    
+                  }}>Sexo</Typography>
+                  <FormControl variant="standard" fullWidth>
+                    <Select
+                      disabled={!edit}
+                      labelId="sex"
+                      id="sex"
+                      name="sex"
+                      value={data.sex || "M"}
+                      label="Sex"
+                      onChange={handleInputChange}
+                      fullWidth
+                    >
+                      <MenuItem value={"M"}>Varón</MenuItem>
+                      <MenuItem value={"F"}>Mujer</MenuItem>
+                    </Select>
+                    </FormControl>
+                </Box>
+              </Grid>
 
 
               <Grid size={{ xs: 12, md: 6 }}>

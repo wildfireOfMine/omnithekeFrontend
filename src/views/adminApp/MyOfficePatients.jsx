@@ -1,18 +1,30 @@
 import { Box, Grid, Paper, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { myPatients } from '../../store/AdminSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import CustomButton from '../../components/CustomButton';
+import { patientGet } from '../../store/OfficeSlice';
 
 const MyOfficePatients = () => {
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [data, setData] = useState({});
+  const role = useSelector(
+        (state) => state.account.session.role
+    )
+  console.log(role);
+  
   useEffect(() =>{
-    dispatch(myPatients()).unwrap().then(data => setData(data));
-  }, [dispatch])
+    if (role==="admin") {
+      dispatch(myPatients()).unwrap().then(data => setData(data));
+    } else if (role==="receptionist") {
+      console.log("Ejecutando como receptionista");
+      dispatch(patientGet()).unwrap().then(data => setData(data));
+    } 
+    
+  }, [dispatch, role])
   console.log(data);
 
   const handleCustomButton = () => {

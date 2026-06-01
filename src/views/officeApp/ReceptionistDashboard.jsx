@@ -1,71 +1,106 @@
-import { Box, Grid, Typography } from '@mui/material'
+import { Box, Grid, Paper, Typography } from '@mui/material'
 import { Link, Link as RouterLink, useNavigate } from 'react-router-dom';
 import React from 'react'
 import CustomCard from '../../components/CustomCard'
+import { EventAvailable, Groups, MedicalServices, Person, PersonAddAlt1 } from '@mui/icons-material';
 
 const ReceptionistDashboard = () => {
+  const cards = [
+    {
+      title: "Mi Perfil",
+      description: "Consulta y edita tu información profesional",
+      icon: <Person sx={{ fontSize: 60, color: "#2563eb" }} />,
+      route: "/receptionist/myProfile"
+    },
+    {
+      title: "Citas del Consultorio",
+      description: "Confirma citas pendientes",
+      icon: <EventAvailable sx={{ fontSize: 60, color: "#2563eb" }} />,
+      route: "/receptionist/myAppointments"
+    },
+    {
+      title: "Pacientes del Consultorio",
+      description: "Gestiona los pacientes del Consultorio",
+      icon: <Groups sx={{ fontSize: 60, color: "#2563eb" }} />,
+      route: "/receptionist/myOfficePatients"
+    },
+    {
+      title: "Doctores del Consultorio",
+      description: "Gestiona los doctores del consultorio",
+      icon: <MedicalServices sx={{ fontSize: 60, color: "#2563eb" }} />,
+      route: "/receptionist/myOfficeDoctors"
+    },
+    {
+      title: "Añadir un Doctor a un Paciente",
+      description: "Añade un Doctor a un Paciente",
+      icon: <PersonAddAlt1 sx={{ fontSize: 60, color: "#2563eb" }} />,
+      route: "/receptionist/attachNewDoctors"
+    }
+  ];
   return (
     <Box sx={{
-          maxWidth: "860px",
-          margin: "0 auto",
-          padding: "10px 16px 64px"
-        }}>
-          <Box component="div" sx={{
-            textAlign: "center"
-          }}>
-            <Typography variant='h1' sx={{
-              fontSize: "clamp(1.6rem, 4vw, 2.2rem)",
-              color: "#1f2933",
-              margin: "12px",
-              fontWeight: 800
-            }}>Bienvenido a tu Panel como Recepcionista</Typography>
-          </Box>
-          <Box sx={{
-              padding: "100px 0",
-              maxWidth: "900px",
-              margin: "0 auto",
-            }}>
-              <Grid container spacing={2} sx={{
-                justifyContent: "center"
-              }}>
+      maxWidth: "1000px",
+      margin: "0 auto",
+      padding: "24px 16px 64px"
+    }}>
+      <Box component="div"
+        sx={{
+          textAlign: "center",
+          mb: 6
+        }}
+      >
+        <Typography
+          variant="h1"
+          sx={{
+            fontSize: "clamp(2rem, 4vw, 2.8rem)",
+            fontWeight: 800,
+            color: "#1f2933"
+          }}
+        >
+          Panel del Recepcionista
+        </Typography>
 
-                <Grid size={5}>
-                  <CustomCard>
-                    <Typography component={RouterLink} to="/receptionist/myProfile">Datos del Perfil</Typography>
-                    <img src="/favicon.svg"/>
-                  </CustomCard>
-                </Grid>
+        <Typography sx={{color: "#6b7280", mt: 1}}>Consulta usuarios, gestiona pacientes, confirma citas</Typography>
+        
+      </Box>
+      <Grid container spacing={3} sx={{justifyContent: "center"}}>
+        {cards.map((card) => (
+          <Grid
+            key={card.title}
+            size={{ xs: 12, sm: 4 }}
+          >
+            <Paper
+              component={RouterLink}
+              to={card.route}
+              elevation={2}
+              sx={{
+                height: 220,
+                p: 4,
+                borderRadius: 4,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: 2,
+                textDecoration: "none",
+                color: "inherit",
+                transition: "0.2s",
 
-                <Grid size={5}>
-                  <CustomCard>
-                    <Typography component={RouterLink} to="/receptionist/myOfficeDoctors">Doctores del Consultorio</Typography>
-                    <img src="/favicon.svg"/>
-                  </CustomCard>
-                </Grid>
+                "&:hover": {
+                  transform: "translateY(-4px)",
+                  boxShadow: 8
+                }
+              }}
+            >
+              {card.icon}
 
-                <Grid size={5}>
-                  <CustomCard>
-                    <Typography component={RouterLink} to="/receptionist/myOfficePatients">Pacientes del Consultorio</Typography>
-                    <img src="/favicon.svg"/>
-                  </CustomCard>
-                </Grid>
-
-                <Grid size={5}>
-                  <CustomCard>
-                    <Typography component={RouterLink} to="/receptionist/appointments">Citas del Consultorio</Typography>
-                    <img src="/favicon.svg"/>
-                  </CustomCard>
-                </Grid>
-
-                <Grid size={5}>
-                  <CustomCard>
-                    <Typography component={RouterLink} to="/receptionist/attachNewDoctors">Añadir Nuevos Doctores a un Paciente</Typography>
-                    <img src="/favicon.svg"/>
-                  </CustomCard>
-                </Grid>
-
-              </Grid>
-            </Box>
+              <Typography variant="h5" sx={{fontWeight: 700}}>{card.title}</Typography>
+              
+              <Typography textalign="center" >{card.description}</Typography>
+            </Paper>
+          </Grid>
+        ))}
+        </Grid>
     </Box>
   )
 }
