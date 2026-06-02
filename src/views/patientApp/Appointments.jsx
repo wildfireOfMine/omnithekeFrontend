@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { Box, Typography, Button, Grid } from "@mui/material"
+import { useEffect, useState } from "react"
+import { Box, Typography, Button, Grid, FormControl, Select, MenuItem } from "@mui/material"
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar"
@@ -7,7 +7,7 @@ import dayjs from "dayjs"
 import 'dayjs/locale/es';
 import React from 'react'
 import CustomButton from "../../components/CustomButton"
-import { appointmentPost } from "../../store/PatientSlice"
+import { appointmentPost, availableAppointmentsGet, myDoctorsAsPatient } from "../../store/PatientSlice"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { toast } from "react-toastify"
@@ -15,8 +15,28 @@ import { toast } from "react-toastify"
 const Appointments = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [selectedDate, setSelectedDate] = useState(dayjs())
-  const [selectedHour, setSelectedHour] = useState(null)
+  const [selectedDate, setSelectedDate] = useState(dayjs());
+  const [selectedHour, setSelectedHour] = useState(null);
+  const [availableHours, setAvailableHours] = useState([]);
+  const [chosenDoctor, setChosenDoctor] = useState();
+  const [myDoctors, setMyDoctors] = useState([]);
+
+  useEffect(()=>{
+    dispatch(myDoctorsAsPatient()).unwrap().then(data => setMyDoctors(data));
+  }, [dispatch])
+
+  useEffect(()=>{
+    if (chosenDoctor && selectedDate) {
+      dispatch(availableAppointmentsGet({date: selectedDate.format("YYYY-MM-DD"), doctorId: chosenDoctor})).unwrap().then(data => setAvailableHours(data));
+    }
+  }, [dispatch, chosenDoctor, selectedDate]);
+
+  const handleDoctor = (e) => {
+    setChosenDoctor(e.target.value);
+  }
+
+  console.log(myDoctors);
+  console.log(availableHours);
 
   const handleAppointment = async () => {
     const [hour, minute] = selectedHour.split(":");
@@ -28,6 +48,7 @@ const Appointments = () => {
           comments: "Test", 
           beginning: beginning,
           ending: ending,
+          doctor: chosenDoctor
       } 
       try {
           await dispatch(appointmentPost(appointment)).unwrap();
@@ -78,11 +99,46 @@ const Appointments = () => {
         </Typography>
       </Box>
 
+      <Box>
+        <Typography variant='h6' sx={{
+          fontWeight: 600,
+          color: "#374151"
+        }}>Doctores</Typography>
+        <FormControl variant="standard" fullWidth>
+          <Select
+            labelId="doctor"
+            id="doctor"
+            value={chosenDoctor}
+            label="doctor"
+            onChange={handleDoctor}
+            fullWidth
+            displayEmpty
+          >
+          <MenuItem value="" disabled>Selecciona un doctor</MenuItem>
+            {myDoctors.map((doctor) => {
+              const doctorName = doctor.secondSurname && doctor.firstSurname
+              ? `${doctor.firstSurname} ${doctor.secondSurname}, ${doctor.name}`
+              : doctor.firstSurname
+              ? `${doctor.firstSurname}, ${doctor.name}`
+              : doctor.name;
+              return <MenuItem value={doctor.id}>{doctorName}</MenuItem>
+              })}
+              </Select>
+          </FormControl>
+        </Box>
+
+
+
       <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="es">
         <DateCalendar
           value={selectedDate}
           onChange={(newValue) => setSelectedDate(newValue)}
           disablePast
+          shouldDisableDate={(date) => {
+            const day = date.day();
+
+            return day === 0 || day === 6;
+          }}
         />
       </LocalizationProvider>
 
@@ -99,7 +155,7 @@ const Appointments = () => {
 
       <Grid container spacing={2}>
 
-        {hours.map((hour) => (
+        {availableHours.map((hour) => (
 
           <Grid item key={hour}>
             <Button
@@ -136,7 +192,7 @@ const Appointments = () => {
 
           <CustomButton color="#2563eb" text="Enviar" variant="contained" onClick={handleAppointment}/>
         </Box>
-      )}
+      )} 
 
     </Box>
   )
