@@ -233,6 +233,29 @@ export const appointmentPatch = createAsyncThunk(
   }
 );
 
+export const patientPatch = createAsyncThunk(
+  "office/patientPatch",
+  async ({patientId, doctorId}, { getState, rejectWithValue }) => {
+    try {
+      console.log(patientId);
+      console.log(doctorId);
+    const state = getState();
+    const session = state.account.session
+    console.log(session);
+    const res = await axios.patch(`${BACKEND_URL}office/api/addNewDoctors/${patientId}/`, {doctor: doctorId}, {
+      headers: {
+        Authorization: `Bearer ${session.token}`
+      }
+    });
+      console.log(res);
+      return res.data;
+    } catch (err) {
+      console.log(err);
+      return rejectWithValue(err.response?.data || "Couldn't extract the data");
+    }
+  }
+);
+
 export const officeSlice = createSlice({
     name: "office",
     initialState,

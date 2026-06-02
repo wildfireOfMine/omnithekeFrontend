@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { appointmentGet } from '../../store/PatientSlice';
+import { appointmentDelete, appointmentGet } from '../../store/PatientSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Box, Grid, Paper, Typography } from '@mui/material';
 import CustomButton from '../../components/CustomButton';
+import { toast } from 'react-toastify';
 
 const MyPatientAppointments = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,18 @@ const MyPatientAppointments = () => {
 
   const handleAppointmentForm = () => {
         navigate("/patient/appointments");
+  }
+
+  const handleDeleteAppointment = async (value) => {
+    try {
+      dispatch(appointmentDelete(value)).unwrap();
+      const updatedAppointments = await dispatch(appointmentGet()).unwrap();
+      setData(updatedAppointments);
+
+      toast.success("Borrada con éxito");
+    } catch (err) {
+      toast.error("Ha habido un error...");
+    }
   }
 
   return (
@@ -97,7 +110,14 @@ const MyPatientAppointments = () => {
                 </Grid>
 
                 <Grid size={{ xs: 12, md: 6 }}>
-                  <Typography fontWeight={600}>¿Confirmado?: {appointment.confirmed ? <>Sí</> : <>No</>}</Typography>
+                  <Typography fontWeight={600}>
+                    {appointment.confirmed ? 
+                    <CustomButton color="#fff" text="Confirmada" color='#16a34a'/> 
+                    : 
+                    <CustomButton color="#fff" text="Cancelar Cita" backgroundColor='#dc2626' onClick={()=> handleDeleteAppointment(appointment.id)}/> 
+                    }
+                    
+                    </Typography>
                 </Grid>
               </Grid>
             </Paper>
