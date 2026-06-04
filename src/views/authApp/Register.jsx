@@ -27,10 +27,11 @@ const Register = () => {
             console.log(user);
             try {
                 await dispatch(register(user)).unwrap();
-                toast.success("User registered successfully!");
+                toast.success("Usuario registrado con éxito");
                 navigate("/login");
             } catch (err) {
-                toast.error(err?.email ? err.email.join(", ") : "Registration failed");
+                toast.error(err)
+                toast.error(err?.email ? err.email.join(", ") : "Registro fallido");
             }
             
             

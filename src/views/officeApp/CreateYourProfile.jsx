@@ -32,10 +32,11 @@ const CreateYourProfile = () => {
                 telephone: telephone.value}
             try {
                 await dispatch(administratorPost(user)).unwrap();
-                toast.success("Administrator registered successfully!");
+                toast.success("Administrador registrado con éxito");
                 navigate("/createYourOffice");
             } catch (err) {
-                toast.error(err?.email ? err.email.join(", ") : "Something's odd, are all the fields filled?");
+                toast.error(err);
+                toast.error(err?.email ? err.email.join(", ") : "Algo está mal... ¿Has rellenado todos los campos?");
             }
     }
 

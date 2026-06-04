@@ -1,7 +1,7 @@
 import { Box, Grid, Paper, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { myIncidentsAsPatient } from '../../store/PatientSlice';
 import CustomButton from '../../components/CustomButton';
 
@@ -69,6 +69,7 @@ const MyIncidents = () => {
                   <Typography>{new Date(active.beginningDate).toLocaleString("es-ES")}</Typography>
                 </Grid>
               </Grid>
+              <Link to={`${active.id}`}><Typography fontWeight={600}>Ver informes asociados</Typography></Link>
             </Paper>
           ))
         ) : (
@@ -111,6 +112,7 @@ const MyIncidents = () => {
                   <Typography>{new Date(old.endingDate).toLocaleString("es-ES")}</Typography>
                 </Grid>
               </Grid>
+              <Link to={`${old.id}`}><Typography fontWeight={600}>Ver informes asociados</Typography></Link>
             </Paper>
           ))
         ) : (

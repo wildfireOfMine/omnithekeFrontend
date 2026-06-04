@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Box, Typography, Button, Grid, FormControl, Select, MenuItem } from "@mui/material"
+import { Box, Typography, Button, Grid, FormControl, Select, MenuItem, TextField } from "@mui/material"
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar"
@@ -20,6 +20,7 @@ const Appointments = () => {
   const [availableHours, setAvailableHours] = useState([]);
   const [chosenDoctor, setChosenDoctor] = useState();
   const [myDoctors, setMyDoctors] = useState([]);
+  const [comments, setComments] = useState();
 
   useEffect(()=>{
     dispatch(myDoctorsAsPatient()).unwrap().then(data => setMyDoctors(data));
@@ -34,6 +35,10 @@ const Appointments = () => {
   const handleDoctor = (e) => {
     setChosenDoctor(e.target.value);
   }
+  
+  const handleComments = (e) => {
+    setComments(e.target.value);
+  }
 
   console.log(myDoctors);
   console.log(availableHours);
@@ -45,13 +50,14 @@ const Appointments = () => {
     console.log(beginning.toISOString());
     console.log(ending.toISOString());
         const appointment = {
-          comments: "Test", 
+          comments: comments, 
           beginning: beginning,
           ending: ending,
           doctor: chosenDoctor
       } 
       try {
           await dispatch(appointmentPost(appointment)).unwrap();
+          dispatch(availableAppointmentsGet({date: selectedDate.format("YYYY-MM-DD"), doctorId: chosenDoctor})).unwrap().then(data => setAvailableHours(data));
           toast.success("Cita registrada con éxito");
       } catch (err) {
         console.log(err);
@@ -59,17 +65,9 @@ const Appointments = () => {
       }
   }
 
-  const generateHours = () => {
-    const hours = [];
-
-    for (let hour = 8; hour < 18; hour++) {
-      hours.push(`${String(hour).padStart(2, "0")}:00`);
-    }
-
-    return hours;
+  const handleCustomButton = () => {
+    navigate(-1);
   }
-
-  const hours = generateHours()
 
   return (
     <Box
@@ -98,49 +96,93 @@ const Appointments = () => {
           Citas
         </Typography>
       </Box>
+        <CustomButton color="#fff" text="Volver Atrás" backgroundColor="#6b7280" onClick={handleCustomButton}/>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "flex-start",
+          gap: 4,
+          mt: 4,
+          flexWrap: "wrap"
+        }}
+      >
 
-      <Box>
-        <Typography variant='h6' sx={{
-          fontWeight: 600,
-          color: "#374151"
-        }}>Doctores</Typography>
-        <FormControl variant="standard" fullWidth>
-          <Select
-            labelId="doctor"
-            id="doctor"
-            value={chosenDoctor}
-            label="doctor"
-            onChange={handleDoctor}
-            fullWidth
-            displayEmpty
+        <Box
+          sx={{
+            width: {
+              xs: "100%",
+              md: "300px"
+            }
+          }}
+        >
+          <Typography
+            variant="h6"
+            sx={{
+              fontWeight: 600,
+              color: "#374151",
+              mb: 2
+            }}
           >
-          <MenuItem value="" disabled>Selecciona un doctor</MenuItem>
-            {myDoctors.map((doctor) => {
-              const doctorName = doctor.secondSurname && doctor.firstSurname
-              ? `${doctor.firstSurname} ${doctor.secondSurname}, ${doctor.name}`
-              : doctor.firstSurname
-              ? `${doctor.firstSurname}, ${doctor.name}`
-              : doctor.name;
-              return <MenuItem value={doctor.id}>{doctorName}</MenuItem>
+            Doctores
+          </Typography>
+
+          <FormControl variant="standard" fullWidth>
+            <Select
+              labelId="doctor"
+              id="doctor"
+              value={chosenDoctor}
+              onChange={handleDoctor}
+              displayEmpty
+            >
+              <MenuItem value="" disabled>
+                Selecciona un doctor
+              </MenuItem>
+
+              {myDoctors.map((doctor) => {
+                const doctorName =
+                  doctor.secondSurname && doctor.firstSurname
+                    ? `${doctor.firstSurname} ${doctor.secondSurname}, ${doctor.name}`
+                    : doctor.firstSurname
+                    ? `${doctor.firstSurname}, ${doctor.name}`
+                    : doctor.name;
+
+                return (
+                  <MenuItem
+                    key={doctor.id}
+                    value={doctor.id}
+                  >
+                    {doctorName}
+                  </MenuItem>
+                );
               })}
-              </Select>
+            </Select>
           </FormControl>
         </Box>
 
-
-
-      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="es">
-        <DateCalendar
-          value={selectedDate}
-          onChange={(newValue) => setSelectedDate(newValue)}
-          disablePast
-          shouldDisableDate={(date) => {
-            const day = date.day();
-
-            return day === 0 || day === 6;
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center"
           }}
-        />
-      </LocalizationProvider>
+        >
+          <LocalizationProvider
+            dateAdapter={AdapterDayjs}
+            adapterLocale="es"
+          >
+            <DateCalendar
+              value={selectedDate}
+              onChange={(newValue) => setSelectedDate(newValue)}
+              disablePast
+              shouldDisableDate={(date) => {
+                const day = date.day();
+                return day === 0 || day === 6;
+              }}
+            />
+          </LocalizationProvider>
+        </Box>
+
+      </Box>
 
       <Typography
         variant="h5"
@@ -173,24 +215,46 @@ const Appointments = () => {
       {selectedHour && (
         <Box
           sx={{
+            display: "flex",
+            justifyContent: "space-around",
+            alignItems: "flex-start",
+            gap: 4,
+            mt: 4,
+            flexWrap: "wrap",
             marginTop: "32px"
           }}
         >
-          <Typography variant="h6">Fecha:</Typography>
+          <Box>
+            <Typography variant="h6">Fecha:</Typography>
 
-          <Typography>{selectedDate.format("DD/MM/YYYY")}</Typography>
+            <Typography>{selectedDate.format("DD/MM/YYYY")}</Typography>
 
-          <Typography
-            variant="h6"
-            sx={{
-              marginTop: "12px"
-            }}
-          >Hora:
-          </Typography>
+            <Typography
+              variant="h6"
+              sx={{
+                marginTop: "12px"
+              }}
+            >Hora:
+            </Typography>
 
-          <Typography>{selectedHour}</Typography>
+            <Typography>{selectedHour}</Typography>
 
-          <CustomButton color="#2563eb" text="Enviar" variant="contained" onClick={handleAppointment}/>
+            <CustomButton color="#2563eb" text="Enviar" variant="contained" onClick={handleAppointment}/>
+          </Box>
+          <Box>
+            <Typography
+              variant="h6"
+              sx={{
+                fontWeight: 600,
+                color: "#374151"
+              }}
+              >
+                Comentarios
+              </Typography>
+
+              <TextField multiline rows={4} value={comments} onChange={handleComments}
+              id="comments" name="comments" fullWidth/>
+            </Box>
         </Box>
       )} 
 

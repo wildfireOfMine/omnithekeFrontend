@@ -25,7 +25,8 @@ const MyPatientAppointments = () => {
 
   const handleDeleteAppointment = async (value) => {
     try {
-      dispatch(appointmentDelete(value)).unwrap();
+      await dispatch(appointmentDelete(value)).unwrap();
+
       const updatedAppointments = await dispatch(appointmentGet()).unwrap();
       setData(updatedAppointments);
 

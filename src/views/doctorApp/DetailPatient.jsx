@@ -42,10 +42,11 @@ const DetailPatient = () => {
         { active: false, endingDate: new Date().toISOString()}
       })).unwrap();
       dispatch(doctorGetPatientPK(id)).unwrap().then(data => setData(data));
-      toast.success("Episodio creado con éxito");
+      toast.success("Episodio cerrado con éxito");
     } catch (err) {
       console.log(err);
-      toast.error(err?.email ? err.email.join(", ") : "Informe fallido");
+      toast.error(err);
+      toast.error(err?.email ? err.email.join(", ") : "No se ha podido cerrar el episodio");
     }
   }
   

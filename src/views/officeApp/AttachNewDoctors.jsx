@@ -46,6 +46,7 @@ const AttachNewDoctors = () => {
       toast.success("Paciente asignado con éxito");
     } catch (err) {
       console.log(err);
+      toast.error(err);
       toast.error(err?.email ? err.email.join(", ") : "Paciente asignado sin éxito");
     }
   }

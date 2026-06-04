@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { officePost } from '../../store/OfficeSlice'
+import CustomField from '../../components/CustomField'
 
 const OfficeRegister = () => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ const OfficeRegister = () => {
   const handleForm = async (e) => {
     e.preventDefault();
     console.log(e.target);
-    const {identityCode, name, address, city, country, postCode, telephone, fax} = e.currentTarget;
+    const {identityCode, name, address, city, country, postCode, telephone, fax, openingHour, closingHour} = e.currentTarget;
       const office = {
         identityCode: identityCode.value,
         name: name.value,
@@ -23,13 +24,16 @@ const OfficeRegister = () => {
         postCode: postCode.value,
         telephone: telephone.value,
         fax: fax.value,
+        openingHour: openingHour.value,
+        closingHour: closingHour.value
       }
+      console.log(office);
       try {
         await dispatch(officePost(office)).unwrap();
-        toast.success("Office registered successfully!");
+        toast.success("Oficina registrada con éxito");
         navigate("/login");
       } catch (err) {
-        toast.error(err?.email ? err.email.join(", ") : "Something's odd, are all the fields filled?");
+        toast.error(err?.email ? err.email.join(", ") : "Algo está mal, ¿están todos los campos rellenados?");
       }
   }
 
@@ -209,6 +213,42 @@ const OfficeRegister = () => {
                   
                 }}>Fax</Typography>
                   <TextField type="text" id="fax" name="fax" placeholder='(+34)152567171' variant="outlined"
+                  sx={{
+                    borderRadius: "8px",
+                    color: "#1f2933",
+                    transition: "border-color 0.15s",
+                    fontFamily: "inherit",
+                    width: "100%",
+                    border: "1.5px solid #fff",
+                    fontSize: "0.95rem"
+                  }}
+                />
+              </Box>
+              <Box>
+                <Typography variant='h6' sx={{
+                  fontWeight: 600,
+                  color: "#374151"
+                  
+                }}>Horario de Apertura</Typography>
+                  <TextField type="time" id="openingHour" name="openingHour" placeholder='08:00' variant="outlined"
+                  sx={{
+                    borderRadius: "8px",
+                    color: "#1f2933",
+                    transition: "border-color 0.15s",
+                    fontFamily: "inherit",
+                    width: "100%",
+                    border: "1.5px solid #fff",
+                    fontSize: "0.95rem"
+                  }}
+                />
+              </Box>
+              <Box>
+                <Typography variant='h6' sx={{
+                  fontWeight: 600,
+                  color: "#374151"
+                  
+                }}>Horario de Cierre</Typography>
+                  <TextField type="time" id="closingHour" name="closingHour" placeholder='20:00' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",

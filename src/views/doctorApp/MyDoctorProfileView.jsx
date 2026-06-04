@@ -83,6 +83,7 @@ const MyDoctorProfileView = () => {
               toast.success("PUT exitoso");
             } catch (err) {
               console.log(err);
+              toast.error(err);
               toast.error(err?.email ? err.email.join(", ") : "PUT fallido");
         }
       setEdit(false);

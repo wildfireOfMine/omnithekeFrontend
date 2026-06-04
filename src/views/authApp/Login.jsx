@@ -18,7 +18,7 @@ const Login = () => {
     const passwordValue = password.value;
     try {
       await dispatch(login({emailValue, passwordValue})).unwrap();
-      toast.success("Logged in successfully!");
+      toast.success("Sesión iniciada con éxito");
       const role = JSON.parse(localStorage.getItem("currentSession")).role;
       console.log(role);
       if (role) {
@@ -29,7 +29,8 @@ const Login = () => {
       
       
     } catch (err) {
-      toast.error(err?.email ? err.email.join(", ") : "Log-in failed");
+      toast.error(err);
+      toast.error(err?.email ? err.email.join(", ") : "No se ha podido iniciar sesión");
     }
   }
 

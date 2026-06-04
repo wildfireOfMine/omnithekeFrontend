@@ -42,6 +42,7 @@ import { ProtectedReceptionistRoute } from './ProtectedReceptionistRoute'
 import MyReceptionistProfileView from '../views/officeApp/MyReceptionistProfileView'
 import InactiveAppointments from '../views/officeApp/InactiveAppointments'
 import OfficeAppointments from '../views/officeApp/OfficeAppointments'
+import RelatedReports from '../views/patientApp/RelatedReports'
 
 
 const AppRoute = () => {
@@ -100,6 +101,7 @@ const AppRoute = () => {
           <Route path="/patient/messages" element={<Messages/>}/>
           <Route path="/patient/myDoctors" element={<MyDoctors/>}/>
           <Route path="/patient/myIncidents" element={<MyIncidents/>}/>
+          <Route path="/patient/myIncidents/:id" element={<RelatedReports/>}/>
         </Route>
 
         <Route path="*" element={<Error404/>}/>

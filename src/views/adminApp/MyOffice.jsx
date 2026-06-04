@@ -24,7 +24,9 @@ const MyOffice = () => {
               country: data.country,
               postCode: data.postCode,
               telephone: data.telephone,
-              fax: data.fax
+              fax: data.fax,
+              openingHour: data.openingHour,
+              closingHour: data.closingHour
             }));
         }, [dispatch]);
     
@@ -58,12 +60,16 @@ const MyOffice = () => {
           country: data.country,
           postCode: data.postCode,
           telephone: data.telephone,
-          fax: data.fax}
+          fax: data.fax,
+          openingHour: data.openingHour,
+          closingHour: data.closingHour
+        }
           try {
             await dispatch(officePut(office)).unwrap();
             toast.success("PUT exitoso");
           } catch (err) {
             console.log(err);
+            toast.error(err);
             toast.error(err?.email ? err.email.join(", ") : "PUT fallido");
           }
       setEdit(false);
@@ -193,6 +199,30 @@ const MyOffice = () => {
                   fieldStyle={fieldStyle}
                   handleInputChange={handleInputChange}
                   placeholder="968123456"
+                />
+              </Grid>
+
+              <Grid size={{ xs: 12, md: 6 }}>
+                <CustomField
+                  label="Horario de Apertura"
+                  name="openingHour"
+                  value={data.openingHour}
+                  edit={edit}
+                  fieldStyle={fieldStyle}
+                  handleInputChange={handleInputChange}
+                  placeholder="08:00"
+                />
+              </Grid>
+
+              <Grid size={{ xs: 12, md: 6 }}>
+                <CustomField
+                  label="Horario de Cierre"
+                  name="closingHour"
+                  value={data.closingHour}
+                  edit={edit}
+                  fieldStyle={fieldStyle}
+                  handleInputChange={handleInputChange}
+                  placeholder="20:00"
                 />
               </Grid>
             </Grid>

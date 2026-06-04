@@ -20,7 +20,6 @@ const MyOfficePatients = () => {
     if (role==="admin") {
       dispatch(myPatients()).unwrap().then(data => setData(data));
     } else if (role==="receptionist") {
-      console.log("Ejecutando como receptionista");
       dispatch(patientGet()).unwrap().then(data => setData(data));
     } 
     

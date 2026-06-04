@@ -43,7 +43,8 @@ const ReceptionistForm = () => {
                 navigate("/admin/myReceptionists");
             } catch (err) {
                 console.log(err);
-                toast.error(err?.email ? err.email.join(", ") : "Registration failed");
+                toast.error(err);
+                toast.error(err?.email ? err.email.join(", ") : "Registro del recepcionista fallido");
             }
     }
 
