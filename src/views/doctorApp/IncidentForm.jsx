@@ -37,10 +37,12 @@ const IncidentForm = () => {
     
         try {
             await dispatch(incidentPost(incident)).unwrap();
-            toast.success("Informe creado con éxito");
+            toast.success("Episodio creado con éxito");
+            navigate("/doctor/myReports");
         } catch (err) {
             console.log(err);
-            toast.error(err?.email ? err.email.join(", ") : "Informe fallido");
+            toast.error(err);
+            toast.error(err?.email ? err.email.join(", ") : "Episodio fallido");
         }
     }
 

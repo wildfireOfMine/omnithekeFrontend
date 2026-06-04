@@ -71,6 +71,7 @@ const ReportForm = () => {
             try {
                 await dispatch(reportsPost(report)).unwrap();
                 toast.success("Informe creado con éxito");
+                navigate("/doctor/myReports");
             } catch (err) {
                 console.log(err);
                 toast.error(err?.email ? err.email.join(", ") : "Informe fallido");

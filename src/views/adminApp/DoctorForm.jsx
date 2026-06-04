@@ -38,10 +38,12 @@ const DoctorForm = () => {
                 educationalBackground: educationalBackground.value}
             try {
                 await dispatch(doctorPost(user)).unwrap();
-                toast.success("Doctor registered successfully!");
+                toast.success("Doctor registrado con éxito");
+                navigate("/admin/myOfficeDoctors");
             } catch (err) {
                 console.log(err);
-                toast.error(err?.email ? err.email.join(", ") : "Registration failed");
+                toast.error(err);
+                toast.error(err?.email ? err.email.join(", ") : "Registro fallido");
             }
   
     }

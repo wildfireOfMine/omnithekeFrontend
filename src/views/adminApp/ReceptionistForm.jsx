@@ -40,6 +40,7 @@ const ReceptionistForm = () => {
                 console.log(user);
                 await dispatch(receptionistPost(user)).unwrap();
                 toast.success("Recepcionista agregado con éxito");
+                navigate("/admin/myReceptionists");
             } catch (err) {
                 console.log(err);
                 toast.error(err?.email ? err.email.join(", ") : "Registration failed");

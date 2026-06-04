@@ -60,7 +60,7 @@ const MyOfficeDoctors = () => {
 
           <Box sx={{ alignSelf: "flex-start" }}>
             <CustomButton color="#fff" text="Volver atrás" backgroundColor='#6b7280' onClick={handleCustomButton}/>
-            <CustomButton color="#fff" text="Añadir un Paciente" backgroundColor='#2563eb' onClick={handleDoctorForm}/>
+            <CustomButton color="#fff" text="Añadir un Doctor" backgroundColor='#2563eb' onClick={handleDoctorForm}/>
           </Box>
 
             {data.length > 0 ? (

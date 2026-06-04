@@ -41,6 +41,7 @@ const DetailPatient = () => {
         patch: 
         { active: false, endingDate: new Date().toISOString()}
       })).unwrap();
+      dispatch(doctorGetPatientPK(id)).unwrap().then(data => setData(data));
       toast.success("Episodio creado con éxito");
     } catch (err) {
       console.log(err);

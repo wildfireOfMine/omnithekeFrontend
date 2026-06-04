@@ -41,6 +41,7 @@ const PatientForm = () => {
                 console.log(user);
                 await dispatch(patientPost(user)).unwrap();
                 toast.success("Patient registered successfully!");
+                navigate("/admin/myOfficePatients");
             } catch (err) {
                 console.log(err);
                 toast.error(err?.email ? err.email.join(", ") : "Registration failed");
