@@ -79,7 +79,7 @@ const Login = () => {
                   color: "#374151"
                   
                 }}>Email</Typography>
-                  <TextField type="text" id="email" name="email" placeholder='user' variant="outlined"
+                  <TextField type="email" id="email" name="email" placeholder='user@gmail.com' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",

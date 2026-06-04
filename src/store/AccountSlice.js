@@ -22,7 +22,7 @@ export const register = createAsyncThunk(
       console.log(res);
       return res.data;
     } catch (err) {
-      return rejectWithValue(err.response?.data || "Registration failed");
+      return rejectWithValue(err.response?.data || "Registro fallido");
     }
   }
 );
@@ -39,11 +39,29 @@ export const login = createAsyncThunk(
         emailValue: credentials.emailValue,
         token: res.data.access,
         role: res.data.role,
+        mustChangePassword: res.data.mustChangePassword
       };
       localStorage.setItem("currentSession", JSON.stringify(sessionData));
       return sessionData;
     } catch (err) {
-      return rejectWithValue(err.response?.data || "Login failed");
+      return rejectWithValue(err.response?.data || "Inicio fallido");
+    }
+  }
+);
+
+export const changePassword = createAsyncThunk(
+  "account/login",
+  async (newPassword, { getState, rejectWithValue }) => {
+    try {
+      const state = getState();
+      const session = state.account.session
+      const res = await axios.patch(`${BACKEND_URL}auth/api/changePassword/`, newPassword, {
+      headers: {
+        Authorization: `Bearer ${session.token}`
+      }});
+      console.log(res);
+    } catch (err) {
+      return rejectWithValue(err.response?.data || "Inicio fallido");
     }
   }
 );

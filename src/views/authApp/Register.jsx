@@ -36,8 +36,7 @@ const Register = () => {
             
             
         } else {
-            toast("Wrong");
-            console.log("Wrong");
+            toast.error("Las contraseñas no coinciden");
         }
 
     }

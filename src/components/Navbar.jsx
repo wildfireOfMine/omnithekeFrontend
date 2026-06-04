@@ -9,12 +9,12 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const session = useSelector(
-    (state) => state.account.session.emailValue
+    (state) => state.account.session?.emailValue
   )
   console.log(session);
   console.log(JSON.stringify(session));
   const role = useSelector(
-    (state) => state.account.session.role
+    (state) => state.account.session?.role
   )
 
   return (

@@ -20,7 +20,6 @@ import MyIncidents from '../views/patientApp/MyIncidents'
 import MyOfficeDoctors from '../views/adminApp/MyOfficeDoctors'
 import MyOfficePatients from '../views/adminApp/MyOfficePatients'
 import OfficeRegister from '../views/officeApp/OfficeRegister'
-import OfficeDashboard from '../views/officeApp/OfficeDashboard'
 import CreateYourProfile from '../views/officeApp/CreateYourProfile'
 import DoctorForm from '../views/adminApp/DoctorForm'
 import PatientForm from '../views/adminApp/PatientForm'
@@ -43,6 +42,7 @@ import MyReceptionistProfileView from '../views/officeApp/MyReceptionistProfileV
 import InactiveAppointments from '../views/officeApp/InactiveAppointments'
 import OfficeAppointments from '../views/officeApp/OfficeAppointments'
 import RelatedReports from '../views/patientApp/RelatedReports'
+import ChangeYourPassword from '../views/authApp/ChangeYourPassword'
 
 
 const AppRoute = () => {
@@ -56,6 +56,7 @@ const AppRoute = () => {
 
         <Route path="/createYourProfile" element={<CreateYourProfile/>}/>
         <Route path="/createYourOffice" element={<OfficeRegister/>}/>
+        <Route path="/changeYourPassword" element={<ChangeYourPassword/>}/>
 
         <Route element={<ProtectedAdminRoute/>}>
           <Route path="/admin/dashboard" element={<AdminDashboard/>}/>
