@@ -74,7 +74,7 @@ export const accountSlice = createSlice({
       localStorage.removeItem("currentSession");
       state.session = {};
       state.error = null;
-      toast.success("Logged out successfully!");
+      toast.success("Sesión cerrada con éxito");
     },
   },
   extraReducers: (builder) => {
