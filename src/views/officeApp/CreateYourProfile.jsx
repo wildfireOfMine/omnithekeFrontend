@@ -196,7 +196,7 @@ const CreateYourProfile = () => {
                   color: "#374151"
                   
                 }}>Dirección</Typography>
-                  <TextField type="text" id="address" name="address" placeholder='Madrid Street' variant="outlined"
+                  <TextField type="text" id="address" name="address" placeholder='Calle de Madrid' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
@@ -253,7 +253,7 @@ const CreateYourProfile = () => {
                   color: "#374151"
                   
                 }}>País</Typography>
-                  <TextField type="text" id="country" name="country" placeholder='Spain' variant="outlined"
+                  <TextField type="text" id="country" name="country" placeholder='España' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",

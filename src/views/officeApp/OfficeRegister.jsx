@@ -155,7 +155,7 @@ const OfficeRegister = () => {
                   color: "#374151"
                   
                 }}>País</Typography>
-                  <TextField type="text" id="country" name="country" placeholder='Spain' variant="outlined"
+                  <TextField type="text" id="country" name="country" placeholder='España' variant="outlined"
                   sx={{
                     borderRadius: "8px",
                     color: "#1f2933",
