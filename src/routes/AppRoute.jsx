@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import Error404 from '../views/Error404'
-import Home from '../views/Home'
+import Error404 from '../views/public/Error404'
+import Home from '../views/public/Home'
 
 
 
