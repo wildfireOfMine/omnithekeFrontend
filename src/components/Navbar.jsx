@@ -21,17 +21,25 @@ const Navbar = () => {
       <Box>
         <Toolbar
           sx={{
-            justifyContent: "space-between"
+            minHeight: { xs: "auto", md: "64px" },
+            padding: { xs: "12px 16px", md: "0 24px" },
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            justifyContent: "space-between",
+            alignItems: { xs: "stretch", md: "center" },
+            gap: { xs: 2, md: 0 },
           }}
         >
            <Typography 
             variant="h4" 
             component={RouterLink}
-            
+            to={'/'} 
             sx={{ 
               color:"black",
               fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
-              textDecoration: "none"
+              textDecoration: "none",
+              fontSize: { xs: "1.7rem", sm: "2rem", md: "2.125rem" },
+              textAlign: { xs: "center", md: "left" },
              }}
             >
             Omnitheke 
@@ -40,11 +48,16 @@ const Navbar = () => {
           <Box
             sx={{
               display: "flex",
-              flexDirection: "row",
+              flexDirection: { xs: "column", sm: "row" },
               alignItems: "center",
-              gap: "15px"
+              justifyContent: "center",
+              gap: { xs: 1.5, sm: 2.5, md: 3 },
+              width: { xs: "100%", md: "auto" },
             }}
           >
+            <Typography sx={{ color: "#D71029"}}>Encuentra tu Doctor</Typography>
+            <Typography sx={{ color: "black"}}>Quiénes Somos</Typography>
+            <Typography sx={{ color: "black"}}>Contacto</Typography>
             {true ?
               <>
                 <Typography sx={{ color: "black"}}>Hola</Typography>

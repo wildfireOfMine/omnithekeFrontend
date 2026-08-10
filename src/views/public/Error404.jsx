@@ -16,7 +16,17 @@ const Error404 = () => {
           color: "#1f2933",
           margin: "12px",
           fontWeight: 800
-        }}>No se ha encontrado el enlace insertado</Typography>
+        }}>¡No se ha encontrado el enlace insertado!</Typography>
+          <Box
+            component="img"
+            src='/advertencia.png'
+            alt='Advertencia'
+            sx={{ 
+              width: { xs: "50%", sm: "60%", md: "70%", }, 
+              maxWidth: "100%", 
+              height: "auto", 
+            }}
+          />
       </Box>
     </Box>
   )
