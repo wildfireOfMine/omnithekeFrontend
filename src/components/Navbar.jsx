@@ -3,6 +3,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, Link as RouterLink, useNavigate } from 'react-router-dom';
 import CustomButton from './CustomButton';
+import CustomLink from './CustomLink';
 
 const Navbar = () => {
 
@@ -55,17 +56,10 @@ const Navbar = () => {
               width: { xs: "100%", md: "auto" },
             }}
           >
-            <Typography sx={{ color: "#D71029"}}>Encuentra tu Doctor</Typography>
-            <Typography sx={{ color: "black"}}>Quiénes Somos</Typography>
-            <Typography sx={{ color: "black"}}>Contacto</Typography>
-            {true ?
-              <>
-                <Typography sx={{ color: "black"}}>Hola</Typography>
-                <CustomButton color="red" text="Cerrar Sesión" variant="contained" />
-              </>
-              : 
-              <CustomButton color="#2563eb" text="Iniciar Sesión" variant="contained" />
-            }
+            <CustomLink colour="#D71029" text="Encuentra tu Médico" route="/encuentraTuMedico"/>
+            <CustomLink colour="#D71029" text="Quiénes Somos" route="/quienesSomos"/>
+            <CustomLink colour="#D71029" text="Contacto" route="/contacto"/>
+
           </Box>
         </Toolbar>
       </Box>
