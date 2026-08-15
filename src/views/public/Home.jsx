@@ -3,8 +3,10 @@ import React from 'react'
 import CustomBox from '../../components/CustomBox'
 import CustomButton from '../../components/CustomButton'
 import CustomCard from '../../components/CustomCard'
+import { Link, Link as RouterLink, useNavigate } from 'react-router-dom';
 
 const Home = () => {
+  const navigate = useNavigate();
     return (
     <CustomBox>
       <Box
@@ -72,8 +74,8 @@ const Home = () => {
               flexWrap: "wrap",
             }}
           >
-            <CustomButton color="#fff" backgroundColor="#D71029" text="Pedir cita" variant="contained"/>
-            <CustomButton color="#2563eb" text="Acceder al portal" variant="outlined"/>
+            <CustomButton color="#fff" backgroundColor="#D71029" text="Pedir cita" variant="contained" onClick={()=>navigate("/iniciarSesion")}/>
+            <CustomButton color="#2563eb" text="Acceder al portal" variant="outlined" onClick={()=>navigate("/iniciarSesion")}/>
           </Box>
         </Box>
 

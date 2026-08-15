@@ -5,6 +5,8 @@ import Home from '../views/public/Home'
 import FindYourDoctor from '../views/public/FindYourDoctor'
 import WhoWeAre from '../views/public/WhoWeAre'
 import Contact from '../views/public/Contact'
+import Login from '../views/patient/Login'
+import Register from '../views/patient/Register'
 
 
 
@@ -15,8 +17,10 @@ const AppRoute = () => {
         <Route path="/" element={<Home/>}/>
         <Route path="*" element={<Error404/>}/>
         <Route path="/encuentraTuMedico" element={<FindYourDoctor/>}/>
-        <Route path="/quienesSomos" element={<WhoWeAre/>}/>
         <Route path="/contacto" element={<Contact/>}/>
+
+        <Route path="/iniciarSesion" element={<Login/>}/>
+        <Route path="/registrarse" element={<Register/>}/>
       </Routes>
     </>
   )
