@@ -57,7 +57,6 @@ const Navbar = () => {
             }}
           >
             <CustomLink colour="#D71029" text="Encuentra tu Médico" route="/encuentraTuMedico"/>
-            <CustomLink colour="#D71029" text="Quiénes Somos" route="/quienesSomos"/>
             <CustomLink colour="#D71029" text="Contacto" route="/contacto"/>
 
           </Box>

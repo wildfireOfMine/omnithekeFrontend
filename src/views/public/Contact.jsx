@@ -9,7 +9,7 @@ const Contact = () => {
       <Typography
           variant="h1"
           sx={{
-            fontSize: "clamp(2rem, 4vw, 3.8rem)",
+            fontSize: "clamp(2rem, 4vw, 2.8rem)",
             fontWeight: 800,
             color: "#1f2933",
             margin: "12px",
