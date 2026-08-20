@@ -1,11 +1,34 @@
-import React from 'react'
+import React, { useState } from 'react'
 import CustomBox from '../../components/CustomBox'
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { TextField, Typography } from '@mui/material'
+import { MenuItem, Select, TextField, Typography } from '@mui/material'
 import { Box, Grid } from '@mui/system'
 import CustomButton from '../../../../oldProyecto/omnithekeFrontendOld/src/components/CustomButton'
+import countries from "i18n-iso-countries";
+import es from "i18n-iso-countries/langs/es.json";
+
+countries.registerLocale(es);
 
 const Register = () => {
+  const [sexo, setSexo] = useState("");
+  const [tipoDocumento, setTipoDocumento] = useState("");
+  const [pais, setPais] = useState("");
+
+  const paises = Object.entries(
+    countries.getNames("es", { select: "official" })
+  );
+
+  const handlePais = (e) => {
+    setPais(e.target.value);
+  };
+
+  const handleSexo = (e) => {
+    setSexo(e.target.value);
+  }
+
+  const handleTipoDocumento = (e) => {
+    setTipoDocumento(e.target.value);
+  }
 
   const handleForm = async (e) => {
     e.preventDefault();
@@ -62,36 +85,186 @@ const Register = () => {
           <Grid container spacing={3}>
 
             <Grid size={{ xs: 12, md: 4 }}>
-              <TextField fullWidth type="text" id="nombre" label="Nombre" name="nombre" variant="outlined"/>
+              <Typography component="label" htmlFor="nombre"
+                sx={{
+                  display: "block",
+                  mb: 1,
+                  fontWeight: 600,
+                  color: "#374151",
+                  textAlign: "left"
+                }}
+              >
+                Nombre
+              </Typography>
+              <TextField fullWidth type="text" id="nombre" name="nombre"/>
             </Grid>
 
             <Grid size={{ xs: 12, md: 4 }}>
-              <TextField fullWidth label="Primer apellido" name="primerApellido"/>
+              <Typography component="label" htmlFor="primerApellido"
+                sx={{
+                  display: "block",
+                  mb: 1,
+                  fontWeight: 600,
+                  color: "#374151",
+                  textAlign: "left"
+                }}
+              >
+                Primer apellido
+              </Typography>
+              <TextField fullWidth type="text" id="primerApellido" name="primerApellido"/>
             </Grid>
 
             <Grid size={{ xs: 12, md: 4 }}>
-              <TextField
-                fullWidth
-                label="Segundo apellido"
-                name="segundoApellido"
-              />
+              <Typography component="label" htmlFor="segundoApellido"
+                sx={{
+                  display: "block",
+                  mb: 1,
+                  fontWeight: 600,
+                  color: "#374151",
+                  textAlign: "left"
+                }}
+              >
+                Segundo apellido
+              </Typography>
+              <TextField fullWidth type="text" id="segundoApellido" name="segundoApellido"/>
             </Grid>
 
             <Grid size={{ xs: 12, md: 6 }}>
-              <TextField
-                fullWidth
-                label="Teléfono"
-                name="telefono"
-              />
+              <Typography component="label" htmlFor="sexo"
+                sx={{
+                  display: "block",
+                  mb: 1,
+                  fontWeight: 600,
+                  color: "#374151",
+                  textAlign: "left"
+                }}
+              >
+                Sexo
+              </Typography>
+              <Select fullWidth value={sexo} id="sexo" name="sexo" onChange={handleSexo} displayEmpty>
+                <MenuItem value="" disabled>Selecciona una opción</MenuItem>
+                <MenuItem value="V">Varón</MenuItem>
+                <MenuItem value="M">Mujer</MenuItem>
+              </Select>
             </Grid>
 
-            <Grid size={{ xs: 12 }}>
-              <TextField
-                fullWidth
-                label="Correo electrónico"
-                name="correo"
-                type="email"
-              />
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Typography component="label" htmlFor="fechaNacimiento"
+                sx={{
+                  display: "block",
+                  mb: 1,
+                  fontWeight: 600,
+                  color: "#374151",
+                  textAlign: "left"
+                }}
+              >
+                Fecha de Nacimiento
+              </Typography>
+
+              <TextField fullWidth type="date" id="fechaNacimiento" name="fechaNacimiento"/>
+            </Grid>
+
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Typography component="label" htmlFor="tipoDocumento"
+                sx={{
+                  display: "block",
+                  mb: 1,
+                  fontWeight: 600,
+                  color: "#374151",
+                  textAlign: "left"
+                }}
+              >
+                Tipo de Documento
+              </Typography>
+              <Select fullWidth value={tipoDocumento} id="tipoDocumento" name="tipoDocumento" onChange={handleTipoDocumento} displayEmpty>
+                <MenuItem value="" disabled>Selecciona una opción</MenuItem>
+                <MenuItem value="DNI">DNI</MenuItem>
+                <MenuItem value="NIE">NIE</MenuItem>
+              </Select>
+            </Grid>
+
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Typography component="label" htmlFor="documento"
+                sx={{
+                  display: "block",
+                  mb: 1,
+                  fontWeight: 600,
+                  color: "#374151",
+                  textAlign: "left"
+                }}
+              >
+                Documento
+              </Typography>
+              <TextField fullWidth type="text" id="documento" name="documento" />
+            </Grid>
+
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Typography
+                component="label"
+                htmlFor="fechaNacimiento"
+                sx={{
+                  display: "block",
+                  mb: 1,
+                  fontWeight: 600,
+                  color: "#374151",
+                  textAlign: "left"
+                }}
+              >
+                País
+              </Typography>
+               <Select fullWidth id="pais" name="pais" value={pais} onChange={handlePais} displayEmpty>
+                  <MenuItem value="" disabled>Selecciona un país</MenuItem>
+                  {paises.map(([codigo, nombre]) => (
+                    <MenuItem key={codigo} value={nombre}>
+                      {nombre}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </Grid>
+
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Typography component="label" htmlFor="correoElectronico"
+                sx={{
+                  display: "block",
+                  mb: 1,
+                  fontWeight: 600,
+                  color: "#374151",
+                  textAlign: "left"
+                }}
+              >
+                Correo electrónico
+              </Typography>
+              <TextField fullWidth type="email" id="correoElectronico" name="correoElectronico" />
+            </Grid>
+
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Typography component="label" htmlFor="telefono"
+                sx={{
+                  display: "block",
+                  mb: 1,
+                  fontWeight: 600,
+                  color: "#374151",
+                  textAlign: "left"
+                }}
+              >
+                Teléfono
+              </Typography>
+              <TextField fullWidth type="tel" id="telefono" name="telefono"/>
+            </Grid>
+
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Typography component="label" htmlFor="aseguradora"
+                sx={{
+                  display: "block",
+                  mb: 1,
+                  fontWeight: 600,
+                  color: "#374151",
+                  textAlign: "left"
+                }}
+              >
+                Aseguradora
+              </Typography>
+              <TextField fullWidth type="text" id="aseguradora" name="aseguradora" />
             </Grid>
 
           </Grid>
