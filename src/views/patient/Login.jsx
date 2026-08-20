@@ -5,8 +5,12 @@ import { TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import CustomButton from '../../../../oldProyecto/omnithekeFrontendOld/src/components/CustomButton';
 import CustomLink from '../../components/CustomLink';
+import { login } from '../../store/UserSlice';
+import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
 
 const Login = () => {
+  const dispatch = useDispatch();
 
   const handleForm = async (e) => {
     e.preventDefault();
@@ -14,6 +18,20 @@ const Login = () => {
     const {documento, contrasena} = e.currentTarget;
     console.log(documento.value);
     console.log(contrasena.value);
+    const documentoValor = documento.value;
+    const contrasenaValor = contrasena.value;
+    try {
+        console.log("Entranding");
+        await dispatch(login({documentoValor, contrasenaValor})).unwrap();
+        toast.success("Sesión iniciada con éxito");
+        console.log("Sesión iniciada");
+          
+      } catch (err) {
+        console.log(err);
+        toast.error(err);
+        toast.error(err?.email ? err.email.join(", ") : "No se ha podido iniciar sesión");
+      }
+      
   }
 
   return (

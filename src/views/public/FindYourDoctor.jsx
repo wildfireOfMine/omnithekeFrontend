@@ -1,13 +1,20 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import CustomBox from '../../components/CustomBox'
 import { TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import { toast } from 'react-toastify'
+import { todosDoctores } from '../../store/UserSlice'
+import { useDispatch } from 'react-redux'
 
 
 const FindYourDoctor = () => {
-  const data = [];
+  const [datos, setDatos] = useState({});
+  const dispatch = useDispatch();
 
+  useEffect(() =>{
+    dispatch(todosDoctores()).unwrap().then(datos => setDatos(datos));
+  }, [dispatch])
+  console.log(datos);
 
   const handleForm = async (e) => {
     e.preventDefault();
@@ -60,8 +67,8 @@ const FindYourDoctor = () => {
       </Box>
 
       <Box sx={{ mt: 6 }}>
-        {data.length > 0 ? (
-          data.map((doctor) => (
+        {datos.length > 0 ? (
+          datos.map((doctor) => (
             <Box key={doctor.id}>
               <Typography>
                 {doctor.nombre} {doctor.primerApellido}

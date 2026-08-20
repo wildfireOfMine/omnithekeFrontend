@@ -7,6 +7,7 @@ import WhoWeAre from '../views/public/WhoWeAre'
 import Contact from '../views/public/Contact'
 import Login from '../views/patient/Login'
 import Register from '../views/patient/Register'
+import Dashboard from '../views/patient/Dashboard'
 
 
 
@@ -21,6 +22,8 @@ const AppRoute = () => {
 
         <Route path="/iniciarSesion" element={<Login/>}/>
         <Route path="/registrarse" element={<Register/>}/>
+
+        <Route path="/portalPaciente" element={<Dashboard/>}/>
       </Routes>
     </>
   )
