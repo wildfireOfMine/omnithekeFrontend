@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleForm = async (e) => {
     e.preventDefault();
@@ -31,7 +32,7 @@ const Login = () => {
         toast.error(err);
         toast.error(err?.email ? err.email.join(", ") : "No se ha podido iniciar sesión");
       }
-      
+    navigate("/portalPaciente");
   }
 
   return (

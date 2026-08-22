@@ -4,9 +4,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, Link as RouterLink, useNavigate } from 'react-router-dom';
 import CustomButton from './CustomButton';
 import CustomLink from './CustomLink';
+import { logout } from '../store/UserSlice';
 
 const Navbar = () => {
-
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const session = useSelector(
+    (state) => state.users.session?.rol
+  )
 
   return (
     <AppBar
@@ -56,8 +61,16 @@ const Navbar = () => {
               width: { xs: "100%", md: "auto" },
             }}
           >
+            
             <CustomLink colour="#D71029" text="Encuentra tu Médico" route="/encuentraTuMedico"/>
             <CustomLink colour="#D71029" text="Contacto" route="/contacto"/>
+            {session &&
+              <>
+                <Typography sx={{ color: "black"}}>Hola, {session}</Typography>
+                <CustomButton color="#fff" backgroundColor="#2563eb" text="Modificar perfil" variant="contained" onClick={()=>navigate("/miPerfil")}/>
+                <CustomButton color="red" text="Cerrar Sesión" variant="contained" onClick={()=>dispatch(logout())}/>
+              </>
+            }
 
           </Box>
         </Toolbar>

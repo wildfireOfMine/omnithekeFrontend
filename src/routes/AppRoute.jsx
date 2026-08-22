@@ -8,6 +8,9 @@ import Contact from '../views/public/Contact'
 import Login from '../views/patient/Login'
 import Register from '../views/patient/Register'
 import Dashboard from '../views/patient/Dashboard'
+import { ProtectedPatientRoute } from './ProtectedPatientRoute'
+import Appointments from '../views/patient/Appointments'
+import MyPatientProfileView from '../views/patient/MyPatientProfileView'
 
 
 
@@ -23,7 +26,11 @@ const AppRoute = () => {
         <Route path="/iniciarSesion" element={<Login/>}/>
         <Route path="/registrarse" element={<Register/>}/>
 
-        <Route path="/portalPaciente" element={<Dashboard/>}/>
+        <Route element={<ProtectedPatientRoute/>}>
+          <Route path="/portalPaciente" element={<Dashboard/>}/>
+          <Route path="/citas" element={<Appointments/>}/>
+          <Route path="/miPerfil" element={<MyPatientProfileView/>}/>
+        </Route>
       </Routes>
     </>
   )

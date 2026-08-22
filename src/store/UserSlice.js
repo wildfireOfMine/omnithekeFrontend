@@ -4,8 +4,6 @@ import { toast } from "react-toastify";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-console.log(BACKEND_URL);
-
 const initialState = {
   session: JSON.parse(localStorage.getItem("sesionActual")) || {},
   loading: false,
@@ -38,9 +36,11 @@ export const login = createAsyncThunk(
         username: credentials.documentoValor,
         password: credentials.contrasenaValor,
       });
+      console.log(respuesta);
       const informacionSesion = {
         documento: credentials.documentoValor,
         token: respuesta.data.access,
+        rol: respuesta.data.rol
       };
       localStorage.setItem("sesionActual", JSON.stringify(informacionSesion));
       return informacionSesion;
@@ -79,14 +79,14 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(register.pending, (state) => {
+      .addCase(registrarse.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(register.fulfilled, (state) => {
+      .addCase(registrarse.fulfilled, (state) => {
         state.loading = false;
       })
-      .addCase(register.rejected, (state, action) => {
+      .addCase(registrarse.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
