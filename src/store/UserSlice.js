@@ -13,15 +13,11 @@ const initialState = {
 export const registrarse = createAsyncThunk(
   "user/register",
   async (user, { rejectWithValue }) => {
+    console.log(user);
     try {
-      const res = await axios.post(`${BACKEND_URL}users/api//`, {
-        username: user.name,
-        email: user.email,
-        password: user.password,
-      });
-      console.log(res);
-      return res.data;
+      const respuesta = await axios.post(`${BACKEND_URL}users/api/registrarse/`, user);
     } catch (err) {
+      console.log(err);
       return rejectWithValue(err.response?.data || "Registro fallido");
     }
   }

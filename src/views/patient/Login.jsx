@@ -13,7 +13,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleForm = async (e) => {
+  const handleFormulario = async (e) => {
     e.preventDefault();
     console.log(e.target);
     const {documento, contrasena} = e.currentTarget;
@@ -22,7 +22,6 @@ const Login = () => {
     const documentoValor = documento.value;
     const contrasenaValor = contrasena.value;
     try {
-        console.log("Entranding");
         await dispatch(login({documentoValor, contrasenaValor})).unwrap();
         toast.success("Sesión iniciada con éxito");
         console.log("Sesión iniciada");
@@ -62,7 +61,7 @@ const Login = () => {
         <Typography sx={{ textAlign: "center", color: "#6b7280", fontSize: "1rem", mb: 4,}}>Accede a tu cuenta de Omnitheke</Typography>
 
         <Box
-          component="form" onSubmit={handleForm}
+          component="form" onSubmit={handleFormulario}
           sx={{
             backgroundColor: "#fff",
             borderRadius: "16px",

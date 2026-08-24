@@ -10,8 +10,9 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const session = useSelector(
-    (state) => state.users.session?.rol
+    (state) => state.users.session?.documento
   )
+  console.log(session);
 
   return (
     <AppBar

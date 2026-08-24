@@ -6,6 +6,9 @@ import { Box, Grid } from '@mui/system'
 import CustomButton from '../../../../oldProyecto/omnithekeFrontendOld/src/components/CustomButton'
 import countries from "i18n-iso-countries";
 import es from "i18n-iso-countries/langs/es.json";
+import { toast } from 'react-toastify';
+import { registrarse } from '../../store/UserSlice';
+import { useDispatch } from 'react-redux';
 
 countries.registerLocale(es);
 
@@ -13,6 +16,8 @@ const Register = () => {
   const [sexo, setSexo] = useState("");
   const [tipoDocumento, setTipoDocumento] = useState("");
   const [pais, setPais] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const paises = Object.entries(
     countries.getNames("es", { select: "official" })
@@ -30,12 +35,41 @@ const Register = () => {
     setTipoDocumento(e.target.value);
   }
 
-  const handleForm = async (e) => {
+  const handleFormulario = async (e) => {
     e.preventDefault();
     console.log(e.target);
-    const {documento, contrasena} = e.currentTarget;
-    console.log(documento.value);
-    console.log(contrasena.value);
+    const {
+        nombre, primerApellido, segundoApellido,
+        sexo, fechaNacimiento, tipoDocumento,
+        documento, pais, correoElectronico,
+        telefono, aseguradora,contrasena
+    } = e.currentTarget;
+    
+    try {
+      await dispatch(
+        registrarse({
+          nombre: nombre.value,
+          primerApellido: primerApellido.value,
+          segundoApellido: segundoApellido.value,
+          sexo: sexo.value,
+          fechaNacimiento: fechaNacimiento.value,
+          tipoDocumento: tipoDocumento.value,
+          documentoIdentidad: documento.value,
+          pais: pais.value,
+          correo: correoElectronico.value,
+          telefono: telefono.value,
+          aseguradora: aseguradora.value,
+          password: contrasena.value
+          })
+        ).unwrap();
+      toast.success("Cuenta registrada con éxito");
+      console.log("Sesión iniciada");          
+    } catch (err) {
+      console.log(err);
+      toast.error(err);
+      toast.error(err?.email ? err.email.join(", ") : "No se ha podido iniciar sesión");
+    }
+    navigate("/iniciarSesion");
   }
 
   return (
@@ -80,6 +114,7 @@ const Register = () => {
             flexDirection: "column",
             gap: 3,
           }}
+          onSubmit={handleFormulario}
         >
 
           <Grid container spacing={3}>
@@ -127,6 +162,21 @@ const Register = () => {
                 Segundo apellido
               </Typography>
               <TextField fullWidth type="text" id="segundoApellido" name="segundoApellido"/>
+            </Grid>
+
+            <Grid size={{ xs: 12, md: 12 }}>
+              <Typography component="label" htmlFor="contrasena"
+                sx={{
+                  display: "block",
+                  mb: 1,
+                  fontWeight: 600,
+                  color: "#374151",
+                  textAlign: "left"
+                }}
+              >
+                Contraseña
+              </Typography>
+              <TextField fullWidth type="password" id="contrasena" name="contrasena"/>
             </Grid>
 
             <Grid size={{ xs: 12, md: 6 }}>
@@ -271,7 +321,7 @@ const Register = () => {
 
         
 
-          <CustomButton color="#fff" text="Iniciar sesión" backgroundColor="#2563eb" type="submit"/>
+          <CustomButton color="#fff" text="Registrarme" backgroundColor="#2563eb" type="submit"/>
 
           <Box
             sx={{
