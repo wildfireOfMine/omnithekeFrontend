@@ -3,12 +3,12 @@ import CustomBox from '../../components/CustomBox'
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { MenuItem, Select, TextField, Typography } from '@mui/material'
 import { Box, Grid } from '@mui/system'
-import CustomButton from '../../../../oldProyecto/omnithekeFrontendOld/src/components/CustomButton'
 import countries from "i18n-iso-countries";
 import es from "i18n-iso-countries/langs/es.json";
 import { toast } from 'react-toastify';
 import { registrarse } from '../../store/UserSlice';
 import { useDispatch } from 'react-redux';
+import CustomButton from '../../components/CustomButton';
 
 countries.registerLocale(es);
 
