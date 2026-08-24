@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import CustomBox from '../../components/CustomBox'
-import { TextField, Typography } from '@mui/material'
-import { Box } from '@mui/system'
+import { Avatar, Button, Card, CardContent, Divider, TextField, Typography } from '@mui/material'
+import EmailIcon from "@mui/icons-material/Email";
+import PhoneIcon from "@mui/icons-material/Phone";
+import { Box, Stack } from '@mui/system'
 import { toast } from 'react-toastify'
 import { todosDoctores } from '../../store/UserSlice'
 import { useDispatch } from 'react-redux'
+import CustomProfile from '../../components/CustomProfile';
 
 
 const FindYourDoctor = () => {
@@ -68,14 +71,23 @@ const FindYourDoctor = () => {
 
       <Box sx={{ mt: 6 }}>
         {datos.length > 0 ? (
-          datos.map((doctor) => (
-            <Box key={doctor.id}>
-              <Typography>
-                {doctor.nombre} {doctor.primerApellido}
-              </Typography>
-            </Box>
-          ))
-        ) : (
+          <Box
+              sx={{
+                  display: "grid",
+                  gridTemplateColumns: {
+                      xs: "1fr",
+                      sm: "repeat(2, 1fr)",
+                      lg: "repeat(3, 1fr)",
+                  },
+                  gap: 3,
+                  mt: 3,
+              }}
+          >
+              {datos.map((doctor) => (
+                  <CustomProfile key={doctor.id} doctor={doctor}/>
+              ))}
+          </Box>
+      ) : (
           <Typography
             sx={{
               textAlign: "center",
