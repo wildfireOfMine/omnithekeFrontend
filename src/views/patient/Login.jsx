@@ -3,11 +3,11 @@ import CustomBox from '../../components/CustomBox'
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
-import CustomButton from '../../../../oldProyecto/omnithekeFrontendOld/src/components/CustomButton';
 import CustomLink from '../../components/CustomLink';
 import { login } from '../../store/UserSlice';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
+import CustomButton from '../../components/CustomButton';
 
 const Login = () => {
   const dispatch = useDispatch();
