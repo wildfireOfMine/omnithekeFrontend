@@ -49,15 +49,43 @@ export const login = createAsyncThunk(
 
 export const todosDoctores = createAsyncThunk(
   "user/todosDoctores",
+  async ({ page = 1, especialidad = "", search = "" }, { rejectWithValue }) => {
+        try {
+            const params = new URLSearchParams();
+
+            params.append("page", page);
+
+            if (especialidad) {
+                params.append("especialidad", especialidad);
+            }
+
+            if (search) {
+                params.append("search", search);
+            }
+
+            const respuesta = await axios.get(
+                `${BACKEND_URL}users/api/todosDoctores/?${params.toString()}`
+            );
+
+            return respuesta.data;
+
+        } catch (error) {
+            return rejectWithValue(
+                error.response?.data || error.message
+            );
+        }
+  }
+);
+
+export const todasEspecialidades = createAsyncThunk(
+  "user/todasEspecialidades",
   async (credentials, { rejectWithValue }) => {
     try {
-      console.log(credentials);
-      const respuesta = await axios.get(`${BACKEND_URL}users/api/todosDoctores/`);
+      const respuesta = await axios.get(`${BACKEND_URL}users/api/especialidades/`);
       
       return respuesta.data;
-    } catch (err) {
-      console.log(err);
-      return rejectWithValue(err.response?.data || "Inicio fallido");
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "No se han podido extraer especialidades");
     }
   }
 );

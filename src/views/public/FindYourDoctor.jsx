@@ -1,39 +1,39 @@
 import React, { useEffect, useState } from 'react'
 import CustomBox from '../../components/CustomBox'
-import { Avatar, Button, Card, CardContent, Divider, TextField, Typography } from '@mui/material'
+import { Avatar, Button, Card, CardContent, Divider, MenuItem, Pagination, TextField, Typography } from '@mui/material'
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
 import { Box, Stack } from '@mui/system'
 import { toast } from 'react-toastify'
 import { todosDoctores } from '../../store/UserSlice'
+import { todasEspecialidades } from '../../store/UserSlice'
 import { useDispatch } from 'react-redux'
 import CustomProfile from '../../components/CustomProfile';
 
 
 const FindYourDoctor = () => {
-  const [datos, setDatos] = useState({});
+  const [datos, setDatos] = useState({
+    count: 0,
+    next: null,
+    previous: null,
+    results: []
+  });
+  const [pagina, setPagina] = useState(1);
+  const [especialidad, setEspecialidad] = useState("");
+  const [busqueda, setBusqueda] = useState("");
+  const [especialidades, setEspecialidades] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() =>{
-    dispatch(todosDoctores()).unwrap().then(datos => setDatos(datos));
-  }, [dispatch])
+    dispatch(todosDoctores({page: pagina, especialidad: especialidad, search: busqueda})).unwrap().then(datos => setDatos(datos));
+    dispatch(todasEspecialidades()).unwrap().then((datos) => setEspecialidades(datos));
+  }, [dispatch, pagina, especialidad, busqueda])
   console.log(datos);
 
-  const handleForm = async (e) => {
+  const handleFormulario = async (e) => {
     e.preventDefault();
           
     const {nombre} = e.currentTarget;
-    const user = {name: name.value, 
-      firstSurname: firstSurname.value,
-      secondSurname: secondSurname.value,
-      sex: sex,
-      birthdate: birthday.value,
-      identityDocument: identity.value,
-      address: address.value,
-      city: city.value,
-      postCode: postCode.value,
-      country: country.value,
-      telephone: telephone.value}
     try {
 
     } catch (err) {
@@ -43,7 +43,7 @@ const FindYourDoctor = () => {
 
   return (
     <CustomBox>
-      <Box component="form" onSubmit={handleForm}>
+      <Box component="form" onSubmit={handleFormulario}>
         <Typography
         variant="h1"
         sx={{
@@ -56,21 +56,52 @@ const FindYourDoctor = () => {
           Encuentra tu Médico
         </Typography>
 
-        <TextField type="text" id="nombre" name="nombre" placeholder='Filtra por su nombre...' variant="outlined"
+        <Box
           sx={{
-            borderRadius: "8px",
-            color: "#1f2933",
-            transition: "border-color 0.15s",
-            fontFamily: "inherit",
-            width: "100%",
-            border: "1.5px solid #fff",
-            fontSize: "0.95rem"
+            display: "grid",
+            gridTemplateColumns: {
+              xs: "1fr",
+              sm: "2fr 1fr",
+            },
+            gap: 2,
+            mt: 2,
+          }}
+        >
+
+          <TextField fullWidth
+            label="Nombre del médico" placeholder="Busca por nombre..."
+            value={busqueda}
+            onChange={(e) => {
+              setBusqueda(e.target.value);
+              setPagina(1);
             }}
           />
+
+          <TextField select fullWidth
+            label="Especialidad" value={especialidad}
+            onChange={(e) => {
+              setEspecialidad(e.target.value);
+              setPagina(1);
+            }}
+          >
+            <MenuItem value="">
+              Todas las especialidades
+            </MenuItem>
+            {especialidades.map((especia) => (
+              <MenuItem
+                key={especia.id}
+                value={especia.id}
+              >
+                {especia.nombre}
+              </MenuItem>
+            ))}
+          </TextField>
+        </Box>
+
       </Box>
 
       <Box sx={{ mt: 6 }}>
-        {datos.length > 0 ? (
+        {datos?.results?.length > 0 ? (
           <Box
               sx={{
                   display: "grid",
@@ -83,9 +114,12 @@ const FindYourDoctor = () => {
                   mt: 3,
               }}
           >
-              {datos.map((doctor) => (
-                  <CustomProfile key={doctor.id} doctor={doctor}/>
-              ))}
+              {datos.results.map((doctor) => (
+              <CustomProfile
+                key={doctor.id}
+                doctor={doctor}
+              />
+            ))}
           </Box>
       ) : (
           <Typography
@@ -100,7 +134,22 @@ const FindYourDoctor = () => {
         )}
       </Box>
 
-
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          mt: 5,
+          mb: 3,
+        }}
+      >
+        <Pagination count={Math.ceil(datos.count / 6)}
+          page={pagina}
+          onChange={(e, valor) => {
+            setPagina(valor);
+          }}
+          color="primary" size="large"
+        />
+      </Box>
     </CustomBox>
   )
 }

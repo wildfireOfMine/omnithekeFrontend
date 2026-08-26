@@ -2,6 +2,7 @@ import { Avatar, Button, Card, CardContent, Divider, Typography } from '@mui/mat
 import { Box, Stack } from '@mui/system'
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
+import { Link as RouterLink } from 'react-router-dom';
 import React from 'react'
 import CustomButton from './CustomButton';
 
@@ -97,6 +98,8 @@ const CustomProfile = ({doctor}) => {
                     <Button
                         fullWidth
                         variant="contained"
+                        component={RouterLink}
+                        to={`/citas`} 
                         sx={{
                             mt: 3,
                             borderRadius: 2,
