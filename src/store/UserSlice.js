@@ -90,6 +90,19 @@ export const todasEspecialidades = createAsyncThunk(
   }
 );
 
+export const todasAseguradoras = createAsyncThunk(
+  "user/todasAseguradoras",
+  async (credentials, { rejectWithValue }) => {
+    try {
+      const respuesta = await axios.get(`${BACKEND_URL}users/api/aseguradoras/`);
+      
+      return respuesta.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "No se han podido extraer especialidades");
+    }
+  }
+);
+
 export const userSlice = createSlice({
   name: "user",
   initialState,

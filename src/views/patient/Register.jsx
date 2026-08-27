@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CustomBox from '../../components/CustomBox'
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { MenuItem, Select, TextField, Typography } from '@mui/material'
@@ -6,7 +6,7 @@ import { Box, Grid } from '@mui/system'
 import countries from "i18n-iso-countries";
 import es from "i18n-iso-countries/langs/es.json";
 import { toast } from 'react-toastify';
-import { registrarse } from '../../store/UserSlice';
+import { registrarse, todasAseguradoras } from '../../store/UserSlice';
 import { useDispatch } from 'react-redux';
 import CustomButton from '../../components/CustomButton';
 
@@ -16,8 +16,15 @@ const Register = () => {
   const [sexo, setSexo] = useState("");
   const [tipoDocumento, setTipoDocumento] = useState("");
   const [pais, setPais] = useState("");
+  const [aseguradoras, setAseguradoras] = useState([]);
+  const [aseguradoraEscogida, setAseguradoraEscogida] = useState("");
+  const [grupoSanguineo, setGrupoSanguineo] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() =>{
+      dispatch(todasAseguradoras()).unwrap().then((datos) => setAseguradoras(datos));
+  }, [dispatch])
 
   const paises = Object.entries(
     countries.getNames("es", { select: "official" })
@@ -42,7 +49,7 @@ const Register = () => {
         nombre, primerApellido, segundoApellido,
         sexo, fechaNacimiento, tipoDocumento,
         documento, pais, correoElectronico,
-        telefono, aseguradora,contrasena
+        telefono, aseguradora ,contrasena
     } = e.currentTarget;
     
     try {
@@ -58,8 +65,9 @@ const Register = () => {
           pais: pais.value,
           correo: correoElectronico.value,
           telefono: telefono.value,
-          aseguradora: aseguradora.value,
-          password: contrasena.value
+          aseguradora: aseguradoraEscogida === "Privado" ? null : aseguradoraEscogida,
+          password: contrasena.value,
+          grupoSanguineo: grupoSanguineo
           })
         ).unwrap();
       toast.success("Cuenta registrada con éxito");
@@ -287,7 +295,7 @@ const Register = () => {
               <TextField fullWidth type="email" id="correoElectronico" name="correoElectronico" />
             </Grid>
 
-            <Grid size={{ xs: 12, md: 6 }}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <Typography component="label" htmlFor="telefono"
                 sx={{
                   display: "block",
@@ -302,7 +310,7 @@ const Register = () => {
               <TextField fullWidth type="tel" id="telefono" name="telefono"/>
             </Grid>
 
-            <Grid size={{ xs: 12, md: 6 }}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <Typography component="label" htmlFor="aseguradora"
                 sx={{
                   display: "block",
@@ -314,7 +322,61 @@ const Register = () => {
               >
                 Aseguradora
               </Typography>
-              <TextField fullWidth type="text" id="aseguradora" name="aseguradora" />
+
+              <TextField select fullWidth
+                value={aseguradoraEscogida}
+                onChange={(e) => {
+                  setAseguradoraEscogida(e.target.value);
+                }}
+              >
+                <MenuItem value="Privado">
+                  Privado
+                </MenuItem>
+                {aseguradoras.map((asegur) => (
+                  <MenuItem
+                    key={asegur.id}
+                    value={asegur.id}
+                  >
+                    {asegur.nombre}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Grid>
+
+            <Grid size={{ xs: 12, md: 4 }}>
+              <Typography component="label" htmlFor="aseguradora"
+                sx={{
+                  display: "block",
+                  mb: 1,
+                  fontWeight: 600,
+                  color: "#374151",
+                  textAlign: "left"
+                }}
+              >
+                Grupo Sanguíneo
+              </Typography>
+
+               <TextField
+                select
+                fullWidth
+                id="grupoSanguineo"
+                name="grupoSanguineo"
+                value={grupoSanguineo}
+                onChange={(e) => {
+                  setGrupoSanguineo(e.target.value);
+                }}
+              >
+                <MenuItem value="">No especificado</MenuItem>
+                <MenuItem value="A+">A+</MenuItem>
+                <MenuItem value="A-">A-</MenuItem>
+                <MenuItem value="B+">B+</MenuItem>
+                <MenuItem value="B-">B-</MenuItem>
+                <MenuItem value="AB+">AB+</MenuItem>
+                <MenuItem value="AB-">AB-</MenuItem>
+                <MenuItem value="O+">O+</MenuItem>
+                <MenuItem value="O-">O-</MenuItem>
+
+              </TextField>
             </Grid>
 
           </Grid>
