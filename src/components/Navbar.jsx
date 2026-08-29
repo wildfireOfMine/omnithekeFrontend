@@ -68,7 +68,7 @@ const Navbar = () => {
             {session &&
               <>
                 <Typography sx={{ color: "black"}}>Hola, {session}</Typography>
-                <CustomButton color="#fff" backgroundColor="#2563eb" text="Modificar perfil" variant="contained" onClick={()=>navigate("/miPerfil")}/>
+                <CustomButton color="#fff" backgroundColor="#2563eb" text="Portal del Paciente" variant="contained" onClick={()=>navigate("/portalPaciente")}/>
                 <CustomButton color="red" text="Cerrar Sesión" variant="contained" onClick={()=>dispatch(logout())}/>
               </>
             }

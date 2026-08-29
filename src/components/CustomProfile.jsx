@@ -99,7 +99,7 @@ const CustomProfile = ({doctor}) => {
                         fullWidth
                         variant="contained"
                         component={RouterLink}
-                        to={`/citas`} 
+                        to={`/citas/${doctor.id}`} 
                         sx={{
                             mt: 3,
                             borderRadius: 2,
