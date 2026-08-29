@@ -43,8 +43,7 @@ const FindYourDoctor = () => {
 
   return (
     <CustomBox>
-      <Box component="form" onSubmit={handleFormulario}>
-        <Typography
+      <Typography
         variant="h1"
         sx={{
           fontSize: "clamp(2rem, 4vw, 2.8rem)",
@@ -54,7 +53,9 @@ const FindYourDoctor = () => {
         }}
         >
           Encuentra tu Médico
-        </Typography>
+      </Typography>
+      <Box component="form" onSubmit={handleFormulario}>
+        
 
         <Box
           sx={{
