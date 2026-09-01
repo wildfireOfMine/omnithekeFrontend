@@ -27,17 +27,6 @@ const CurrentAppointments = () => {
   }, [dispatch, pagina, estado, doctor]);
   console.log(datos);
 
-  const handleFormulario = async (e) => {
-      e.preventDefault();
-            
-      const {nombre} = e.currentTarget;
-      try {
-  
-      } catch (err) {
-        toast.error(err);
-      }
-  }
-
   const handleNuevaCita = () => {
     navigate("/encuentraTuMedico");
   }
@@ -58,7 +47,7 @@ const CurrentAppointments = () => {
       <Box sx={{display: "flex", justifyContent: "flex-end",}}>
         <CustomButton color="#fff" text="¿Buscas crear una nueva cita?" backgroundColor="#16a34a" onClick={handleNuevaCita}/>
       </Box>
-      <Box component="form" onSubmit={handleFormulario}>
+      <Box component="form">
         
         <Box
           sx={{

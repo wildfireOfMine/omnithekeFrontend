@@ -42,6 +42,27 @@ export const misCitas = createAsyncThunk(
 
 )
 
+export const horariosDisponibles = createAsyncThunk(
+  "appointment/horariosDisponibles",
+    async (doctorId, { rejectWithValue, getState }) => {
+        try {
+            const state = getState();
+            const session = state.users.session;
+
+            const respuesta = await axios.get(`${BACKEND_URL}appointments/api/horariosDisponibles/${doctorId}/`, {
+                headers: {
+                  Authorization: `Bearer ${session.token}`
+                }
+            });
+
+            return respuesta.data;
+        } catch (error) {
+          return rejectWithValue(error.response?.data || error.message);
+        }
+    }
+
+)
+
 export const appointmentSlice = createSlice({
   name: "appointment",
   initialState,

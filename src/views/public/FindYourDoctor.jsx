@@ -30,17 +30,6 @@ const FindYourDoctor = () => {
   }, [dispatch, pagina, especialidad, busqueda])
   console.log(datos);
 
-  const handleFormulario = async (e) => {
-    e.preventDefault();
-          
-    const {nombre} = e.currentTarget;
-    try {
-
-    } catch (err) {
-      toast.error(err);
-    }
-  }
-
   return (
     <CustomBox>
       <Typography
@@ -54,7 +43,7 @@ const FindYourDoctor = () => {
         >
           Encuentra tu Médico
       </Typography>
-      <Box component="form" onSubmit={handleFormulario}>
+      <Box component="form">
         
 
         <Box

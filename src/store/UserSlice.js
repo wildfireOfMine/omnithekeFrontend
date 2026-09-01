@@ -103,6 +103,26 @@ export const todasAseguradoras = createAsyncThunk(
   }
 );
 
+export const doctor = createAsyncThunk(
+  "user/doctor",
+  async (doctorPk, { rejectWithValue, getState }) => {
+    try {
+      const state = getState();
+      const session = state.users.session;
+      const respuesta = await axios.get(`${BACKEND_URL}users/api/doctor/${doctorPk}/`, {
+        headers: {
+          Authorization: `Bearer ${session.token}`
+        }
+      });
+
+      return respuesta.data
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
+    }
+  }
+
+);
+
 export const userSlice = createSlice({
   name: "user",
   initialState,
