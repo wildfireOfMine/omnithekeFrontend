@@ -15,9 +15,9 @@ import BadgeIcon from "@mui/icons-material/Badge";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { crearCita, horariosDisponibles, horasDisponibles } from '../../store/AppointmentSlice'
-import CustomButton from '../../../../oldProyecto/omnithekeFrontendOld/src/components/CustomButton'
 import dayjs from 'dayjs'
 import { toast } from 'react-toastify'
+import CustomButton from '../../components/CustomButton'
 
 const NewAppointment = () => {
   const dispatch = useDispatch();
