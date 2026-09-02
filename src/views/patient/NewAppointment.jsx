@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import CustomBox from '../../components/CustomBox'
-import { Card, CardContent, Typography } from '@mui/material'
+import { Button, Card, CardContent, Typography } from '@mui/material'
 import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { doctor } from '../../store/UserSlice'
@@ -14,20 +14,62 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import BadgeIcon from "@mui/icons-material/Badge";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import { horariosDisponibles } from '../../store/AppointmentSlice'
+import { crearCita, horariosDisponibles, horasDisponibles } from '../../store/AppointmentSlice'
+import CustomButton from '../../../../oldProyecto/omnithekeFrontendOld/src/components/CustomButton'
+import dayjs from 'dayjs'
+import { toast } from 'react-toastify'
 
 const NewAppointment = () => {
   const dispatch = useDispatch();
   const {doctorId} = useParams();
   const [datos, setDatos] = useState();
-  const [horarios, setHorarios] = useState();
+  const [horarios, setHorarios] = useState([]);
+  const [fechaSeleccionada, setFechaSeleccionada] = useState(null);
+  const [fechaFormateada, setFechaFormateada] = useState(null);
+  const [horaSeleccionada, setHoraSeleccionada] = useState(null);
+  const [horas, setHoras] = useState([]);
+
+  const horarioDelDia = fechaSeleccionada
+  ? horarios.find(
+      horario => horario.diaSemana === fechaSeleccionada.day()
+    )
+  : null;
+  console.log("HORARIO DEL DÍA", horarioDelDia);
 
   useEffect(() =>{
     dispatch(doctor(doctorId)).unwrap().then(datos => setDatos(datos));
     dispatch(horariosDisponibles(doctorId)).unwrap().then(horarios => setHorarios(horarios));
   }, [dispatch])
+
+  useEffect(()=>{
+    dispatch(horasDisponibles({doctorId, fecha: fechaFormateada})).unwrap().then(horas => setHoras(horas));
+  }, [dispatch, fechaFormateada]);
   console.log(datos);
   console.log(horarios);
+  console.log("HORAS DISPONIBLES", horas);
+
+  const handleCrearCita = () => {
+    if (!datos) {
+      console.log("Todavía no se han cargado los datos del médico");
+    } else {
+      const fechaInicio = dayjs(`${fechaFormateada} ${horaSeleccionada}`, "YYYY-MM-DD HH:mm");
+      const fechaFin = fechaInicio.add(1, "hour");
+
+      console.log(fechaInicio);
+
+      const cita = {
+        doctor: datos.id,
+        fechaInicio: fechaInicio.format("YYYY-MM-DDTHH:mm:ss"),
+        fechaFin: fechaFin.format("YYYY-MM-DDTHH:mm:ss"),
+        motivo: "Test",
+        estado: "pendiente",
+      };
+      dispatch(crearCita(cita));
+      toast.success("Hecho")
+
+    }
+    
+  }
 
   return (
     <CustomBox>
@@ -245,7 +287,14 @@ const NewAppointment = () => {
 
                     <DateCalendar
                       disablePast
-
+                      value={fechaSeleccionada}
+                      onChange={(nuevaFecha) => {
+                        console.log(nuevaFecha);
+                        const fechaFormateada = nuevaFecha ? nuevaFecha.toISOString().split("T")[0]: null;
+                        setFechaFormateada(fechaFormateada);
+                        setFechaSeleccionada(nuevaFecha);
+                        setHoraSeleccionada(null);
+                      }}
                       shouldDisableDate={(date) => {
                         const dia = date.day();
                         return !horarios.some(
@@ -257,6 +306,8 @@ const NewAppointment = () => {
                   </LocalizationProvider>
 
                 </Box>
+
+
 
                 <Box
                   sx={{
@@ -277,6 +328,45 @@ const NewAppointment = () => {
                     elegir una hora disponible.
                   </Typography>
                 </Box>
+
+                {horarioDelDia && (
+                <Box sx={{ mt: 3 }}>
+
+                  <Typography
+                    variant="h6"
+                    fontWeight={700}
+                    sx={{ mb: 2 }}
+                  >
+                    Horas disponibles
+                  </Typography>
+
+                  <Grid container spacing={1.5}>
+                  {horas.map((hora) => (
+
+                    <Grid size={{ xs: 6, sm: 4 }} key={hora}>
+                      <Button fullWidth
+                        variant={
+                          horaSeleccionada === hora
+                            ? "contained"
+                            : "outlined"
+                        }
+                        onClick={() => setHoraSeleccionada(hora)}
+                        sx={{
+                          borderRadius: 2,
+                          py: 1.2,
+                          fontWeight: 600,
+                        }}
+                      >
+                        {hora}
+                      </Button>
+                    </Grid>
+                  ))}
+
+                  <CustomButton text="Reservar" onClick={handleCrearCita}/>  
+                  </Grid>
+
+                </Box>
+              )}
 
               </CardContent>
             </Card>
