@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import CustomBox from '../../components/CustomBox'
 import { Button, Card, CardContent, Typography } from '@mui/material'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { doctor } from '../../store/UserSlice'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
@@ -21,6 +21,7 @@ import { toast } from 'react-toastify'
 
 const NewAppointment = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {doctorId} = useParams();
   const [datos, setDatos] = useState();
   const [horarios, setHorarios] = useState([]);
@@ -42,8 +43,13 @@ const NewAppointment = () => {
   }, [dispatch])
 
   useEffect(()=>{
-    dispatch(horasDisponibles({doctorId, fecha: fechaFormateada})).unwrap().then(horas => setHoras(horas));
-  }, [dispatch, fechaFormateada]);
+    if (!fechaFormateada) {
+      setHoras([]);
+    } else {
+      dispatch(horasDisponibles({doctorId, fecha: fechaFormateada})).unwrap().then(horas => setHoras(horas));
+    }
+    
+  }, [dispatch, doctorId, fechaFormateada]);
   console.log(datos);
   console.log(horarios);
   console.log("HORAS DISPONIBLES", horas);
@@ -65,8 +71,8 @@ const NewAppointment = () => {
         estado: "pendiente",
       };
       dispatch(crearCita(cita));
-      toast.success("Hecho")
-
+      toast.success("¡Cita creada con éxito!");
+      navigate("/citas");
     }
     
   }
@@ -290,7 +296,7 @@ const NewAppointment = () => {
                       value={fechaSeleccionada}
                       onChange={(nuevaFecha) => {
                         console.log(nuevaFecha);
-                        const fechaFormateada = nuevaFecha ? nuevaFecha.toISOString().split("T")[0]: null;
+                        const fechaFormateada = nuevaFecha ? nuevaFecha.format("YYYY-MM-DD") : null;
                         setFechaFormateada(fechaFormateada);
                         setFechaSeleccionada(nuevaFecha);
                         setHoraSeleccionada(null);
@@ -361,10 +367,11 @@ const NewAppointment = () => {
                       </Button>
                     </Grid>
                   ))}
-
-                  <CustomButton text="Reservar" onClick={handleCrearCita}/>  
+                  
                   </Grid>
-
+                  <Box sx={{ padding: "10px"}}>
+                    <CustomButton color="#fff" text="Reservar" backgroundColor="#16a34a" onClick={handleCrearCita}/>  
+                  </Box>
                 </Box>
               )}
 

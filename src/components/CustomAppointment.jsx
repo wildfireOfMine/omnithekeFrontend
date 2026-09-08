@@ -13,6 +13,13 @@ const CustomAppointment = ({ appointment }) => {
 
   const fecha = new Date(appointment.fechaInicio);
 
+  const coloresEstado = {
+    confirmada: "info",
+    completada: "success",
+    pendiente: "secondary",
+    cancelada: "error",
+  };
+
   return (
     <Card
       sx={{
@@ -58,7 +65,7 @@ const CustomAppointment = ({ appointment }) => {
             </Typography>
           </Box>
 
-          <Chip label={appointment.estado} size="small"/>
+          <Chip label={appointment.estado} size="small" color={coloresEstado[appointment.estado]}/>
         </Box>
 
         <Divider sx={{ mb: 2 }} />
