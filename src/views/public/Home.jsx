@@ -74,7 +74,7 @@ const Home = () => {
               flexWrap: "wrap",
             }}
           >
-            <CustomButton color="#fff" backgroundColor="#D71029" text="Pedir cita" variant="contained" onClick={()=>navigate("/iniciarSesion")}/>
+            <CustomButton color="#fff" backgroundColor="#D71029" text="Pedir cita" variant="contained" onClick={()=>navigate("/encuentraTuMedico")}/>
             <CustomButton color="#2563eb" text="Acceder al portal" variant="outlined" onClick={()=>navigate("/portalPaciente")}/>
           </Box>
         </Box>
