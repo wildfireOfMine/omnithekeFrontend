@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import CustomBox from '../../components/CustomBox'
-import { Button, Card, CardContent, Typography } from '@mui/material'
+import { Button, Card, CardContent, TextField, Typography } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { doctor } from '../../store/UserSlice'
@@ -29,6 +29,7 @@ const NewAppointment = () => {
   const [fechaFormateada, setFechaFormateada] = useState(null);
   const [horaSeleccionada, setHoraSeleccionada] = useState(null);
   const [horas, setHoras] = useState([]);
+  const [motivo, setMotivo] = useState("");
 
   const horarioDelDia = fechaSeleccionada
   ? horarios.find(
@@ -62,17 +63,21 @@ const NewAppointment = () => {
       const fechaFin = fechaInicio.add(1, "hour");
 
       console.log(fechaInicio);
-
-      const cita = {
-        doctor: datos.id,
-        fechaInicio: fechaInicio.format("YYYY-MM-DDTHH:mm:ss"),
-        fechaFin: fechaFin.format("YYYY-MM-DDTHH:mm:ss"),
-        motivo: "Test",
-        estado: "pendiente",
-      };
-      dispatch(crearCita(cita));
-      toast.success("¡Cita creada con éxito!");
-      navigate("/citas");
+      console.log(motivo);
+      if (motivo.length > 255) {
+        toast.error("Tu motivo no puede tener más de 255 carácteres");
+      } else {
+        const cita = {
+          doctor: datos.id,
+          fechaInicio: fechaInicio.format("YYYY-MM-DDTHH:mm:ss"),
+          fechaFin: fechaFin.format("YYYY-MM-DDTHH:mm:ss"),
+          motivo: motivo,
+          estado: "pendiente",
+        };
+        dispatch(crearCita(cita));
+        toast.success("¡Cita creada con éxito!");
+        navigate("/paciente/citas");
+      }
     }
     
   }
@@ -369,6 +374,16 @@ const NewAppointment = () => {
                   ))}
                   
                   </Grid>
+
+                  <Box sx={{ width: "100%", mt: 2 }}>
+                    <TextField
+                      label="Motivo de la cita"
+                      multiline rows={3} fullWidth value={motivo}
+                      onChange={(e) => setMotivo(e.target.value)}
+                      helperText="Indica brevemente el motivo de la consulta."
+                    />
+                  </Box>
+
                   <Box sx={{ padding: "10px"}}>
                     <CustomButton color="#fff" text="Reservar" backgroundColor="#16a34a" onClick={handleCrearCita}/>  
                   </Box>
