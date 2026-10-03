@@ -21,17 +21,17 @@ const Login = () => {
     console.log(contrasena.value);
     const documentoValor = documento.value;
     const contrasenaValor = contrasena.value;
-    try {
-        await dispatch(login({documentoValor, contrasenaValor})).unwrap();
+      try {
+        const sesion = await dispatch(login({documentoValor, contrasenaValor})).unwrap();
         toast.success("Sesión iniciada con éxito");
         console.log("Sesión iniciada");
-          
+        navigate(`/${sesion.rol}/portal`);
       } catch (err) {
         console.log(err);
         toast.error(err);
         toast.error(err?.email ? err.email.join(", ") : "No se ha podido iniciar sesión");
       }
-    navigate("/portalPaciente");
+    
   }
 
   return (

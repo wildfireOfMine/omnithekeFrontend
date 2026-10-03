@@ -32,16 +32,21 @@ export const login = createAsyncThunk(
         username: credentials.documentoValor,
         password: credentials.contrasenaValor,
       });
-      console.log(respuesta);
+      console.log("LA RESPUESTA", respuesta);
       const informacionSesion = {
-        documento: credentials.documentoValor,
+        documento: respuesta.data.documento,
+        nombre: respuesta.data.nombre,
+        email: respuesta.data.correo,
         token: respuesta.data.access,
         rol: respuesta.data.rol
       };
+      console.log("SESIÓN ACTUAL", informacionSesion);
       localStorage.setItem("sesionActual", JSON.stringify(informacionSesion));
       return informacionSesion;
     } catch (err) {
       console.log(err);
+      console.log("ESTATUS:", err.response?.status);
+      console.log("RESPUESTA:", err.response?.data);
       return rejectWithValue(err.response?.data || "Inicio fallido");
     }
   }

@@ -75,7 +75,7 @@ const Home = () => {
             }}
           >
             <CustomButton color="#fff" backgroundColor="#D71029" text="Pedir cita" variant="contained" onClick={()=>navigate("/encuentraTuMedico")}/>
-            <CustomButton color="#2563eb" text="Acceder al portal" variant="outlined" onClick={()=>navigate("/portalPaciente")}/>
+            <CustomButton color="#2563eb" text="Acceder al portal" variant="outlined" onClick={()=>navigate("/paciente/portal")}/>
           </Box>
         </Box>
 
