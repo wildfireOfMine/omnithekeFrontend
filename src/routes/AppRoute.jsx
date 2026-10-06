@@ -14,6 +14,9 @@ import CurrentAppointments from '../views/patient/CurrentAppointments'
 import NewAppointment from '../views/patient/NewAppointment'
 import AdminDashboard from '../views/admin/AdminDashboard'
 import { ProtectedAdminRoute } from './ProtectedAdminRoute'
+import DoctorDashboard from '../views/doctor/DoctorDashboard'
+import { ProtectedDoctorRoute } from './ProtectedDoctorRoute'
+import { ProtectedReceptionistRoute } from './ProtectedReceptionistRoute'
 
 
 
@@ -40,11 +43,13 @@ const AppRoute = () => {
           <Route path="/miPerfil" element={<MyPatientProfileView/>}/>
         </Route>
 
-        <Route path="/doctor/portal" element={<AdminDashboard/>}/>
+        <Route element={<ProtectedDoctorRoute/>}>
+          <Route path="/doctor/portal" element={<DoctorDashboard/>}/>
+        </Route>
 
-        
-        <Route path="/recepcionista/portal" element={<AdminDashboard/>}/>
-        
+        <Route element={<ProtectedReceptionistRoute/>}>
+          <Route path="/recepcionista/portal" element={<AdminDashboard/>}/>
+        </Route>
         
       </Routes>
     </>

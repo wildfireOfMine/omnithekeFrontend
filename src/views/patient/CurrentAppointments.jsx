@@ -92,6 +92,9 @@ const CurrentAppointments = () => {
             <MenuItem value="completada">
               Completada
             </MenuItem>
+            <MenuItem value="no_asistio">
+              No asistió
+            </MenuItem>
           </TextField>
         </Box>
 

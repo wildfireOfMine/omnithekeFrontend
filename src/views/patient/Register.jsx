@@ -71,13 +71,14 @@ const Register = () => {
           })
         ).unwrap();
       toast.success("Cuenta registrada con éxito");
-      console.log("Sesión iniciada");          
+      console.log("Sesión iniciada");
+      navigate("/iniciarSesion");
     } catch (err) {
       console.log(err);
-      toast.error(err);
-      toast.error(err?.email ? err.email.join(", ") : "No se ha podido iniciar sesión");
+      Object.values(err).flat()
+      .forEach((mensaje) => toast.error(mensaje));
     }
-    navigate("/iniciarSesion");
+    
   }
 
   return (
