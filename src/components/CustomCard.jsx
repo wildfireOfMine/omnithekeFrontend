@@ -2,7 +2,7 @@ import { Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import React from 'react'
 
-const CustomCard = ({title="Test", text="Test 2"}) => {
+const CustomCard = ({title="Título", text="Texto"}) => {
   return (
     <Box
         sx={{

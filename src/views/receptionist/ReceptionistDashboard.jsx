@@ -1,25 +1,31 @@
-import { Box, Grid, Paper, styled, Typography } from '@mui/material'
 import React from 'react'
-import { Link, Link as RouterLink, useNavigate } from 'react-router-dom';
-import CustomCard from '../../components/CustomCard';
-import { Description, Event, Groups, LocalHospital, MedicalInformation, Person } from '@mui/icons-material';
 import CustomBox from '../../components/CustomBox';
+import { Box, Grid } from '@mui/system';
+import { Link, Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Paper, Typography } from '@mui/material';
+import { Event, HealthAndSafety, MedicalInformation, MedicalServices, SupportAgent } from '@mui/icons-material';
 
-const Dashboard = () => {
+const ReceptionistDashboard = () => {
   const tarjetas = [
     {
-      title: "Mis Citas",
-      description: "Revisa tu agenda y próximas consultas",
-      icon: <Event sx={{ fontSize: 60, color: "#2563eb" }} />,
-      route: "/paciente/citas"
+        title: "Gestionar Doctores",
+        description: "Añade, modifica o elimina doctores de la consulta",
+        icon: <MedicalServices sx={{ fontSize: 60, color: "#2563eb" }} />,
+        route: "/administrador/doctores"
     },
     {
-      title: "Mis Episodios",
-      description: "Consulta tus episodios clínicos",
-      icon: <MedicalInformation sx={{ fontSize: 60, color: "#2563eb" }} />,
-      route: "/patient/myIncidents"
+        title: "Gestionar Recepcionistas",
+        description: "Añade, modifica o elimina recepcionistas",
+        icon: <SupportAgent sx={{ fontSize: 60, color: "#2563eb" }} />,
+        route: "/administrador/recepcionistas"
     },
-  ];
+    {
+        title: "Gestionar Aseguradoras",
+        description: "Administra las aseguradoras disponibles",
+        icon: <HealthAndSafety sx={{ fontSize: 60, color: "#2563eb" }} />,
+        route: "/administrador/aseguradoras"
+    }
+    ];
   return (
     <CustomBox>
       <Box component="div"
@@ -36,7 +42,7 @@ const Dashboard = () => {
             color: "#1f2933"
           }}
         >
-          Panel del Paciente
+          Panel del Administrador
         </Typography>
 
         <Typography
@@ -45,7 +51,7 @@ const Dashboard = () => {
             mt: 1
           }}
         >
-          Consulta tus doctores, citas y tu historial médico
+          RECEPCIONISTA
         </Typography>
       </Box>
 
@@ -91,4 +97,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+export default ReceptionistDashboard

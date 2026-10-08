@@ -10,9 +10,19 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const session = useSelector(
-    (state) => state.users.session?.documento
+    (state) => state.users.session?.nombre
+  )
+  const rol = useSelector(
+    (state) => state.users.session?.rol
   )
   console.log(session);
+
+  const nombresPortal = {
+    paciente: "Portal del Paciente",
+    doctor: "Portal del Doctor",
+    recepcionista: "Portal de Recepción",
+    admin: "Panel de Administración",
+  };
 
   return (
     <AppBar
@@ -68,7 +78,7 @@ const Navbar = () => {
             {session &&
               <>
                 <Typography sx={{ color: "black"}}>Hola, {session}</Typography>
-                <CustomButton color="#fff" backgroundColor="#2563eb" text="Portal del Paciente" variant="contained" onClick={()=>navigate("/portalPaciente")}/>
+                <CustomButton color="#fff" backgroundColor="#2563eb" text={nombresPortal[rol]} variant="contained" onClick={()=>navigate(`/${rol}/portal`)}/>
                 <CustomButton color="red" text="Cerrar Sesión" variant="contained" onClick={()=>dispatch(logout())}/>
               </>
             }
