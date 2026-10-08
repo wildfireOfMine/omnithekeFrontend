@@ -75,8 +75,7 @@ const Register = () => {
       navigate("/iniciarSesion");
     } catch (err) {
       console.log(err);
-      Object.values(err).flat()
-      .forEach((mensaje) => toast.error(mensaje));
+      Object.values(err).flat().forEach((mensaje) => toast.error(mensaje));
     }
     
   }

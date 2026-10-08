@@ -125,8 +125,37 @@ export const doctor = createAsyncThunk(
       return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
     }
   }
-
 );
+
+export const solicitarRecuperacion = createAsyncThunk(
+  "user/solicitarRecuperacion",
+  async (credentials, { rejectWithValue }) => {
+    try{
+    const respuesta = await axios.post(`${BACKEND_URL}users/api/solicitarRecuperacion/`, {
+        documento: credentials.documento,
+      });
+    console.log(respuesta);
+    
+
+    } catch (error) {
+        return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
+    }
+  }
+)
+
+export const restablecerContrasena = createAsyncThunk(
+  "user/restablecerContrasena",
+  async ({uid, token, contrasena}, { rejectWithValue }) => {
+    try{
+    const respuesta = await axios.post(`${BACKEND_URL}users/api/restablecerContrasena/`, {uid, token, contrasena});
+    console.log(respuesta);
+    
+
+    } catch (error) {
+        return rejectWithValue(error.response?.data || "No se ha podido restablecer la contraseña");
+    }
+  }
+)
 
 export const userSlice = createSlice({
   name: "user",

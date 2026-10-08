@@ -90,6 +90,7 @@ const Login = () => {
             <Box sx={{display: "flex", justifyContent: "flex-end", mt: 1,}}>
               <Typography
                 component={RouterLink}
+                to={"/solicitarRecuperacion"}
                 sx={{
                   fontSize: "0.9rem",
                   color: "#2563eb",
