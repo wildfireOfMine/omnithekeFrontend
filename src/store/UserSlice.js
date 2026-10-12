@@ -127,6 +127,20 @@ export const doctor = createAsyncThunk(
   }
 );
 
+export const confirmarCuenta = createAsyncThunk(
+  "user/confirmarCuenta",
+  async ({uid, token}, { rejectWithValue }) => {
+    try {
+      const respuesta = await axios.post(`${BACKEND_URL}users/api/confirmarCuenta/`, {uid, token});
+      console.log(respuesta);
+
+      return respuesta.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "No se ha podido confirmar la cuenta");
+    }
+  }
+)
+
 export const solicitarRecuperacion = createAsyncThunk(
   "user/solicitarRecuperacion",
   async (credentials, { rejectWithValue }) => {
@@ -135,8 +149,6 @@ export const solicitarRecuperacion = createAsyncThunk(
         documento: credentials.documento,
       });
     console.log(respuesta);
-    
-
     } catch (error) {
         return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
     }
