@@ -29,6 +29,7 @@ const NewPassword = () => {
           navigate("/iniciarSesion");
         } catch (err) {
           console.log(err);
+          Object.values(err).flat().forEach((mensaje) => toast.error(mensaje));
           toast.error(err);
         }
       } else {
