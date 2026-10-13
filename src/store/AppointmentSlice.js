@@ -42,6 +42,30 @@ export const misCitas = createAsyncThunk(
 
 )
 
+export const cancelarCita = createAsyncThunk(
+  "appointment/cancelarCita",
+  async (citaId, { rejectWithValue, getState }) => {
+    try {
+        const state = getState();
+        const session = state.users.session;
+        console.log(state);
+        console.log(session);
+
+        const respuesta = await axios.patch(`${BACKEND_URL}appointments/api/cancelarCita/${citaId}/`, {"estado":"cancelada"}, {
+          headers: {
+            Authorization: `Bearer ${session.token}`
+          }
+        });
+        console.log(respuesta);
+
+        return respuesta.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+
+  }
+)
+
 export const horariosDisponibles = createAsyncThunk(
   "appointment/horariosDisponibles",
     async (doctorId, { rejectWithValue, getState }) => {
