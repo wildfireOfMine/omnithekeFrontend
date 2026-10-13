@@ -3,11 +3,12 @@ import CustomBox from '../../components/CustomBox'
 import { MenuItem, Pagination, TextField, Typography } from '@mui/material'
 import CustomButton from '../../components/CustomButton'
 import { useDispatch } from 'react-redux'
-import { misCitas } from '../../store/AppointmentSlice'
+import { cancelarCita, misCitas } from '../../store/AppointmentSlice'
 import { Box } from '@mui/system'
 import CustomProfile from '../../components/CustomProfile'
 import { useNavigate } from 'react-router-dom'
 import CustomAppointment from '../../components/CustomAppointment'
+import { toast } from 'react-toastify'
 
 const CurrentAppointments = () => {
   const [datos, setDatos] = useState({
@@ -29,6 +30,18 @@ const CurrentAppointments = () => {
 
   const handleNuevaCita = () => {
     navigate("/encuentraTuMedico");
+  }
+
+  const handleCancelar = async (id) => {
+    try{
+      console.log(id);
+      await dispatch(cancelarCita(id)).unwrap();
+      const nuevasCitas = await dispatch(misCitas({page: pagina, estado: estado, doctor: doctor})).unwrap();
+      setDatos(nuevasCitas);
+      toast.success("Cita cancelada con éxito");
+    } catch (err) {
+      toast.error("Ha ocurrido un problema");
+    }
   }
 
   return (
@@ -111,12 +124,14 @@ const CurrentAppointments = () => {
                   },
                   gap: 3,
                   mt: 3,
+                  alignItems: "start",
               }}
           >
               {datos.results.map((appointment) => (
               <CustomAppointment
                 key={appointment.id}
                 appointment={appointment}
+                handleCancelar={handleCancelar}
               />
             ))}
           </Box>
