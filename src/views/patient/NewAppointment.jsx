@@ -33,7 +33,7 @@ const NewAppointment = () => {
 
   const horarioDelDia = fechaSeleccionada
   ? horarios.find(
-      horario => horario.diaSemana === fechaSeleccionada.day()
+      horario => horario.diaSemana === (fechaSeleccionada.day() + 6) % 7
     )
   : null;
   console.log("HORARIO DEL DÍA", horarioDelDia);
@@ -307,7 +307,7 @@ const NewAppointment = () => {
                         setHoraSeleccionada(null);
                       }}
                       shouldDisableDate={(date) => {
-                        const dia = date.day();
+                        const dia = (date.day() + 6) % 7;
                         return !horarios.some(
                             horario => horario.diaSemana === dia
                         );

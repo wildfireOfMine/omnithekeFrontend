@@ -70,7 +70,7 @@ const Register = () => {
           grupoSanguineo: grupoSanguineo
           })
         ).unwrap();
-      toast.success("Cuenta registrada con éxito");
+      toast.success("Cuenta registrada con éxito. ¡Se ha enviado un correo a tu cuenta para verificarla!");
       console.log("Sesión iniciada");
       navigate("/iniciarSesion");
     } catch (err) {

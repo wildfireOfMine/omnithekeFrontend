@@ -4,8 +4,9 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import PersonIcon from "@mui/icons-material/Person";
 import DescriptionIcon from "@mui/icons-material/Description";
+import CustomButton from "./CustomButton";
 
-const CustomAppointment = ({ appointment }) => {
+const CustomAppointment = ({ appointment, handleCancelar }) => {
 
   const doctor = appointment.doctor;
   console.log(appointment);
@@ -144,8 +145,8 @@ const CustomAppointment = ({ appointment }) => {
             </Typography>
           </Box>
 
+          { appointment.estado == "pendiente" && <CustomButton color="red" text="Cancelar" onClick={() => handleCancelar(appointment.id)} />}
         </Stack>
-
       </CardContent>
     </Card>
   );

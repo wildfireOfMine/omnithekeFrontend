@@ -19,6 +19,8 @@ import { ProtectedDoctorRoute } from './ProtectedDoctorRoute'
 import { ProtectedReceptionistRoute } from './ProtectedReceptionistRoute'
 import HaveYouForgottenYourPassword from '../views/public/HaveYouForgottenYourPassword'
 import NewPassword from '../views/public/NewPassword'
+import ConfirmAccount from '../views/public/ConfirmAccount'
+import MyHistory from '../views/patient/MyHistory'
 
 
 
@@ -33,6 +35,7 @@ const AppRoute = () => {
 
         <Route path="/iniciarSesion" element={<Login/>}/>
         <Route path="/registrarse" element={<Register/>}/>
+        <Route path="/confirmarCuenta/:uid/:token" element={<ConfirmAccount/>}/>
         <Route path="/solicitarRecuperacion" element={<HaveYouForgottenYourPassword/>}/>
         <Route path="/restablecerContrasena/:uid/:token" element={<NewPassword/>}/>
 
@@ -44,6 +47,7 @@ const AppRoute = () => {
           <Route path="/paciente/portal" element={<Dashboard/>}/>
           <Route path="/paciente/citas" element={<CurrentAppointments/>}/>
           <Route path="/paciente/citas/:doctorId" element={<NewAppointment/>}/>
+          <Route path="/paciente/misConsultas" element={<MyHistory/>}/>
           <Route path="/miPerfil" element={<MyPatientProfileView/>}/>
         </Route>
 

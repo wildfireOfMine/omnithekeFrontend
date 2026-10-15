@@ -17,7 +17,7 @@ const Dashboard = () => {
       title: "Mis Episodios",
       description: "Consulta tus episodios clínicos",
       icon: <MedicalInformation sx={{ fontSize: 60, color: "#2563eb" }} />,
-      route: "/patient/myIncidents"
+      route: "/paciente/misConsultas"
     },
   ];
   return (
