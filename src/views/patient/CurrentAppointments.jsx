@@ -60,6 +60,7 @@ const CurrentAppointments = () => {
       <Box sx={{display: "flex", justifyContent: "flex-end",}}>
         <CustomButton color="#fff" text="¿Buscas crear una nueva cita?" backgroundColor="#16a34a" onClick={handleNuevaCita}/>
       </Box>
+
       <Box component="form">
         
         <Box
@@ -110,8 +111,8 @@ const CurrentAppointments = () => {
             </MenuItem>
           </TextField>
         </Box>
-
       </Box>
+      
       <Box sx={{ mt: 6 }}>
         {datos?.results?.length > 0 ? (
           <Box
