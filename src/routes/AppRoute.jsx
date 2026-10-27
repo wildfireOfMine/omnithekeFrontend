@@ -8,8 +8,6 @@ import Login from '../views/public/Login'
 import Register from '../views/public/Register'
 import Dashboard from '../views/patient/Dashboard'
 import { ProtectedPatientRoute } from './ProtectedPatientRoute'
-import Appointments from '../views/patient/Appointments'
-import MyPatientProfileView from '../views/patient/MyPatientProfileView'
 import CurrentAppointments from '../views/patient/CurrentAppointments'
 import NewAppointment from '../views/patient/NewAppointment'
 import AdminDashboard from '../views/admin/AdminDashboard'
@@ -21,6 +19,7 @@ import HaveYouForgottenYourPassword from '../views/public/HaveYouForgottenYourPa
 import NewPassword from '../views/public/NewPassword'
 import ConfirmAccount from '../views/public/ConfirmAccount'
 import MyHistory from '../views/patient/MyHistory'
+import DetailQueryView from '../views/patient/DetailQueryView'
 
 
 
@@ -48,7 +47,7 @@ const AppRoute = () => {
           <Route path="/paciente/citas" element={<CurrentAppointments/>}/>
           <Route path="/paciente/citas/:doctorId" element={<NewAppointment/>}/>
           <Route path="/paciente/misConsultas" element={<MyHistory/>}/>
-          <Route path="/miPerfil" element={<MyPatientProfileView/>}/>
+          <Route path="/paciente/misConsultas/:consultaId" element={<DetailQueryView/>}/>
         </Route>
 
         <Route element={<ProtectedDoctorRoute/>}>

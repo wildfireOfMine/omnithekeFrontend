@@ -8,6 +8,7 @@ import DescriptionIcon from "@mui/icons-material/Description";
 import MedicalServicesIcon from "@mui/icons-material/MedicalServices";
 import NotesIcon from "@mui/icons-material/Notes";
 import CustomButton from './CustomButton';
+import { Link } from "react-router-dom";
 
 const CustomQuery = ({ consulta }) => {
   const doctor = consulta.doctor;
@@ -88,8 +89,8 @@ const CustomQuery = ({ consulta }) => {
 
           <Divider />
 
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-            <CustomButton text="Más información"/>
+          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 1.5 }}>
+            <CustomButton text="Más información" variant="contained" component={Link} to={`${consulta.id}`}/>
           </Box>
           
         </Stack>

@@ -39,6 +39,30 @@ export const misConsultas = createAsyncThunk(
 
 )
 
+export const miConsulta = createAsyncThunk(
+  "history/miConsulta",
+  async (consultaId, { rejectWithValue, getState }) => {
+    try {
+        const state = getState();
+        const session = state.users.session;
+        console.log(state);
+        console.log(session);
+
+        const respuesta = await axios.get(`${BACKEND_URL}history/api/miConsulta/${consultaId}/`, {
+          headers: {
+            Authorization: `Bearer ${session.token}`
+          }
+        });
+        console.log(respuesta);
+
+        return respuesta.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+
+  }
+)
+
 export const historySlice = createSlice({
   name: "history",
   initialState,
