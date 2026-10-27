@@ -21,7 +21,7 @@ const Appointments = () => {
   const [horasDisponibles, setHorasDisponibles] = useState([]);
   const [doctorElegido, setDoctorElegido] = useState();
   const [misDoctores, setMisDoctores] = useState([]);
-  const [comentarios, setCommentarios] = useState();
+  const [comentarios, setComentarios] = useState();
 
   const handleDoctor = (e) => {
     setDoctorElegido(e.target.value);
