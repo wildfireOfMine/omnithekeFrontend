@@ -20,6 +20,11 @@ import NewPassword from '../views/public/NewPassword'
 import ConfirmAccount from '../views/public/ConfirmAccount'
 import MyHistory from '../views/patient/MyHistory'
 import DetailQueryView from '../views/patient/DetailQueryView'
+import DoctorListView from '../views/admin/DoctorListView'
+import ReceptionistListView from '../views/admin/ReceptionistListView'
+import InsuranceListView from '../views/admin/InsuranceListView'
+import SpecialtyListView from '../views/admin/SpecialtyListView'
+import Stats from '../views/admin/Stats'
 
 
 
@@ -40,6 +45,11 @@ const AppRoute = () => {
 
         <Route element={<ProtectedAdminRoute/>}>
           <Route path="/admin/portal" element={<AdminDashboard/>}/>
+          <Route path="/admin/doctores" element={<DoctorListView/>}/>
+          <Route path="/admin/recepcionistas" element={<ReceptionistListView/>}/>
+          <Route path="/admin/aseguradoras" element={<InsuranceListView/>}/>
+          <Route path="/admin/especialidades" element={<SpecialtyListView/>}/>
+          <Route path="/admin/estadisticas" element={<Stats/>}/>
         </Route>
 
         <Route element={<ProtectedPatientRoute/>}>
