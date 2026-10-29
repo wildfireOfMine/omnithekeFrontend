@@ -95,6 +95,58 @@ export const todasEspecialidades = createAsyncThunk(
   }
 );
 
+export const todasEspecialidadesList = createAsyncThunk(
+  "user/todasEspecialidadesList",
+  async ({ page = 1, search = "" }, { rejectWithValue, getState }) => {
+        try {
+            const params = new URLSearchParams();
+            const state = getState();
+            const session = state.users.session;
+
+            params.append("page", page);
+
+            if (search) {
+                params.append("search", search);
+            }
+
+            const respuesta = await axios.get(
+                `${BACKEND_URL}users/api/especialidadesList/?${params.toString()}`, {
+                  headers: {
+                    Authorization: `Bearer ${session.token}`
+                  }
+                }
+            );
+
+            return respuesta.data;
+
+        } catch (error) {
+            return rejectWithValue(
+                error.response?.data || error.message
+            );
+        }
+  }
+);
+
+export const especialidadPost = createAsyncThunk(
+  "user/especialidadPost",
+  async (especialidad, { rejectWithValue, getState }) => {
+    try{
+      const state = getState();
+      const session = state.users.session;
+      console.log(especialidad);
+      const respuesta = await axios.post(`${BACKEND_URL}users/api/especialidadPost/`, especialidad, {
+          headers: {
+            Authorization: `Bearer ${session.token}`
+          }
+      });
+    console.log(respuesta);
+    } catch (error) {
+        return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
+    }
+  }
+)
+
+
 export const todasAseguradoras = createAsyncThunk(
   "user/todasAseguradoras",
   async (credentials, { rejectWithValue }) => {

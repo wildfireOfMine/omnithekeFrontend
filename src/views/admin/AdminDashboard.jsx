@@ -63,7 +63,7 @@ const AdminDashboard = () => {
             mt: 1
           }}
         >
-          Consulta tus doctores, recepcionistas, y las aseguradoras del consultorio
+          Consulta tus trabajadores, aseguradoras y las estadísticas del consultorio
         </Typography>
       </Box>
 

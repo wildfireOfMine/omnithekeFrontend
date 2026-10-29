@@ -25,6 +25,7 @@ import ReceptionistListView from '../views/admin/ReceptionistListView'
 import InsuranceListView from '../views/admin/InsuranceListView'
 import SpecialtyListView from '../views/admin/SpecialtyListView'
 import Stats from '../views/admin/Stats'
+import NewSpecialty from '../views/admin/NewSpecialty'
 
 
 
@@ -49,6 +50,7 @@ const AppRoute = () => {
           <Route path="/admin/recepcionistas" element={<ReceptionistListView/>}/>
           <Route path="/admin/aseguradoras" element={<InsuranceListView/>}/>
           <Route path="/admin/especialidades" element={<SpecialtyListView/>}/>
+          <Route path="/admin/nuevaEspecialidad" element={<NewSpecialty/>}/>
           <Route path="/admin/estadisticas" element={<Stats/>}/>
         </Route>
 

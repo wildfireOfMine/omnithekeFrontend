@@ -43,9 +43,9 @@ const FindYourDoctor = () => {
         >
           Encuentra tu Médico
       </Typography>
+
       <Box component="form">
         
-
         <Box
           sx={{
             display: "grid",
