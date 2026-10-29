@@ -6,7 +6,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import React from 'react'
 import CustomButton from './CustomButton';
 
-const CustomProfile = ({doctor}) => {
+const CustomProfile = ({doctor, boton=true}) => {
   return (
         <Card
             key={doctor.id}
@@ -95,7 +95,7 @@ const CustomProfile = ({doctor}) => {
                         )}
                     </Stack>
                           
-                    <Button
+                    {boton && <Button
                         fullWidth
                         variant="contained"
                         component={RouterLink}
@@ -108,7 +108,7 @@ const CustomProfile = ({doctor}) => {
                         }}
                     >
                         Pedir cita
-                    </Button>
+                    </Button>}
             </CardContent>
         </Card>
   )

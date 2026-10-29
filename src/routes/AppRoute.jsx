@@ -26,6 +26,7 @@ import InsuranceListView from '../views/admin/InsuranceListView'
 import SpecialtyListView from '../views/admin/SpecialtyListView'
 import Stats from '../views/admin/Stats'
 import NewSpecialty from '../views/admin/NewSpecialty'
+import NewDoctor from '../views/admin/NewDoctor'
 
 
 
@@ -47,6 +48,7 @@ const AppRoute = () => {
         <Route element={<ProtectedAdminRoute/>}>
           <Route path="/admin/portal" element={<AdminDashboard/>}/>
           <Route path="/admin/doctores" element={<DoctorListView/>}/>
+          <Route path="/admin/nuevoDoctor" element={<NewDoctor/>}/>
           <Route path="/admin/recepcionistas" element={<ReceptionistListView/>}/>
           <Route path="/admin/aseguradoras" element={<InsuranceListView/>}/>
           <Route path="/admin/especialidades" element={<SpecialtyListView/>}/>

@@ -38,7 +38,7 @@ const SpecialtyListView = () => {
           margin: "12px",
         }}
         >
-          Encuentra tu Médico
+          Lista de Especialidades
       </Typography>
 
       <Box component="form">
