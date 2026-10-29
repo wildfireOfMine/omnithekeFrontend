@@ -55,7 +55,7 @@ const NewAppointment = () => {
   console.log(horarios);
   console.log("HORAS DISPONIBLES", horas);
 
-  const handleCrearCita = () => {
+  const handleCrearCita = async () => {
     if (!datos) {
       console.log("Todavía no se han cargado los datos del médico");
     } else {
@@ -67,16 +67,23 @@ const NewAppointment = () => {
       if (motivo.length > 255) {
         toast.error("Tu motivo no puede tener más de 255 carácteres");
       } else {
-        const cita = {
-          doctor: datos.id,
-          fechaInicio: fechaInicio.format("YYYY-MM-DDTHH:mm:ss"),
-          fechaFin: fechaFin.format("YYYY-MM-DDTHH:mm:ss"),
-          motivo: motivo,
-          estado: "pendiente",
-        };
-        dispatch(crearCita(cita));
-        toast.success("¡Cita creada con éxito!");
-        navigate("/paciente/citas");
+        try {
+          const cita = {
+            doctor: datos.id,
+            fechaInicio: fechaInicio.format("YYYY-MM-DD[T]HH:mm:ss"),
+            fechaFin: fechaFin.format("YYYY-MM-DD[T]HH:mm:ss"),
+            motivo: motivo,
+            estado: "pendiente",
+          };
+          await dispatch(crearCita(cita)).unwrap();
+          toast.success("¡Cita creada con éxito!");
+          navigate("/paciente/citas");
+        } catch (err) {
+          console.log(err);
+          toast.error("Algo ha ido mal. ¿Has seleccionado una fecha y escrito un motivo?");
+          
+        }
+        
       }
     }
     

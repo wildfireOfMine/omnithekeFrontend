@@ -6,6 +6,7 @@ import CustomButton from '../../components/CustomButton'
 import { toast } from 'react-toastify'
 import { solicitarRecuperacion } from '../../store/UserSlice'
 import { useDispatch } from 'react-redux'
+import CustomFieldText from '../../components/CustomFieldText'
 
 const HaveYouForgottenYourPassword = () => {
   const dispatch = useDispatch(); 
@@ -50,32 +51,9 @@ const HaveYouForgottenYourPassword = () => {
 
         <Typography sx={{ textAlign: "center", color: "#6b7280", fontSize: "1rem", mb: 4,}}>Enviaremos un correo 
             electrónico para poder restablecerlo</Typography>
-        <Box
-          component="form" onSubmit={handleFormulario}
-          sx={{
-            backgroundColor: "#fff",
-            borderRadius: "16px",
-            padding: {
-              xs: "28px 22px",
-              sm: "36px",
-            },
-            boxShadow: "0 8px 30px rgba(0, 0, 0, 0.08)",
-            border: "1px solid #e5e7eb",
-            maxWidth: "480px",
-            display: "flex",
-            mx: "auto",
-            flexDirection: "column",
-            gap: 3,
-          }}
-        >
-
-          <Box>
-            <Typography sx={{ fontWeight: 600, color: "#374151", mb: 1,}}>Escribe tu DNI, NIE, o correo electrónico</Typography>
-            <TextField fullWidth type="text" id="documento" name="documento" placeholder="DNI, NIE, o correo electrónico" variant="outlined"/>
-          </Box>
-
-          <CustomButton color="#fff" text="Enviar correo" backgroundColor="#2563eb" type="submit"/>
-        </Box>
+            
+        <CustomFieldText title="Escribe tu DNI, NIE, o correo electrónico" idName="documento" 
+        placeholder="DNI, NIE, o correo electrónico" textCustomButton="Enviar correo" maxWidth="480px" onSubmit={handleFormulario}/>
         
       </Box>
     </CustomBox>

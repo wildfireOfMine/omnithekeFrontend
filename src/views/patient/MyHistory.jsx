@@ -16,10 +16,12 @@ const MyHistory = () => {
   const [pagina, setPagina] = useState(1);
   const [doctor, setDoctor] = useState("");
   const dispatch = useDispatch();
+
   useEffect(()=>{
       dispatch(misConsultas({page: pagina, doctor: doctor})).unwrap().then(datos => setDatos(datos));
-    }, [dispatch, pagina, doctor]);
-    console.log(datos);
+  }, [dispatch, pagina, doctor]);
+    
+  console.log(datos);
   return (
     <CustomBox>
         <Typography
@@ -76,7 +78,8 @@ const MyHistory = () => {
                 }}
             >
                 {datos.results.map((consulta) => 
-                <CustomQuery consulta={consulta}/>)}
+                  <CustomQuery consulta={consulta}/>)
+                }
             </Box>
         ) : (
             <Typography

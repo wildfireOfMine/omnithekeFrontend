@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import CustomBox from '../../components/CustomBox'
 import { Avatar, Button, Card, CardContent, Divider, MenuItem, Pagination, TextField, Typography } from '@mui/material'
-import EmailIcon from "@mui/icons-material/Email";
-import PhoneIcon from "@mui/icons-material/Phone";
 import { Box, Stack } from '@mui/system'
 import { toast } from 'react-toastify'
 import { todosDoctores } from '../../store/UserSlice'
 import { todasEspecialidades } from '../../store/UserSlice'
 import { useDispatch } from 'react-redux'
 import CustomProfile from '../../components/CustomProfile';
+import CustomButton from '../../components/CustomButton';
 
 
 const FindYourDoctor = () => {
@@ -41,11 +40,11 @@ const FindYourDoctor = () => {
           margin: "12px",
         }}
         >
-          Encuentra tu Médico
+          Encuentra tu Doctor
       </Typography>
+
       <Box component="form">
         
-
         <Box
           sx={{
             display: "grid",

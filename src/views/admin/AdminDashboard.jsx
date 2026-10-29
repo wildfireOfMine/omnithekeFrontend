@@ -3,27 +3,39 @@ import CustomBox from '../../components/CustomBox';
 import { Box, Grid } from '@mui/system';
 import { Link, Link as RouterLink, useNavigate } from 'react-router-dom';
 import { Paper, Typography } from '@mui/material';
-import { Event, HealthAndSafety, MedicalInformation, MedicalServices, SupportAgent } from '@mui/icons-material';
+import { DataUsage, Event, HealthAndSafety, MedicalInformation, MedicalServices, Subject, SupportAgent } from '@mui/icons-material';
 
 const AdminDashboard = () => {
   const tarjetas = [
     {
         title: "Gestionar Doctores",
-        description: "Añade, modifica o elimina doctores de la consulta",
+        description: "Añade, modifica o elimina doctores",
         icon: <MedicalServices sx={{ fontSize: 60, color: "#2563eb" }} />,
-        route: "/administrador/doctores"
+        route: "/admin/doctores"
     },
     {
         title: "Gestionar Recepcionistas",
         description: "Añade, modifica o elimina recepcionistas",
         icon: <SupportAgent sx={{ fontSize: 60, color: "#2563eb" }} />,
-        route: "/administrador/recepcionistas"
+        route: "/admin/recepcionistas"
     },
     {
         title: "Gestionar Aseguradoras",
-        description: "Administra las aseguradoras disponibles",
+        description: "Añade, modifica o elimina especialidades",
         icon: <HealthAndSafety sx={{ fontSize: 60, color: "#2563eb" }} />,
-        route: "/administrador/aseguradoras"
+        route: "/admin/aseguradoras"
+    },
+    {
+        title: "Gestionar Especialidades",
+        description: "Añade, modifica o elimina especialidades",
+        icon: <Subject sx={{ fontSize: 60, color: "#2563eb" }} />,
+        route: "/admin/especialidades"
+    },
+    {
+        title: "Estadísticas",
+        description: "Revisa los datos del consultorio",
+        icon: <DataUsage sx={{ fontSize: 60, color: "#2563eb" }} />,
+        route: "/admin/estadisticas"
     }
     ];
   return (
@@ -51,7 +63,7 @@ const AdminDashboard = () => {
             mt: 1
           }}
         >
-          Consulta tus doctores, recepcionistas, y las aseguradoras del consultorio
+          Consulta tus trabajadores, aseguradoras y las estadísticas del consultorio
         </Typography>
       </Box>
 
@@ -59,7 +71,7 @@ const AdminDashboard = () => {
         {tarjetas.map((tarjeta) => (
           <Grid
             key={tarjeta.title}
-            size={{ xs: 12, sm: 6 }}
+            size={{ xs: 12, sm: 4 }}
           >
             <Paper
               component={RouterLink}

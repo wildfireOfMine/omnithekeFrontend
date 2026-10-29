@@ -1,0 +1,78 @@
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 8mm;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  .documentoMedico, .documentoMedico * {
+    visibility: visible;
+  }
+
+  .documentoMedico {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+
+    width: 100% !important;
+    max-width: none !important;
+    box-sizing: border-box !important;
+
+    margin: 0 !important;
+    padding: 6mm !important;
+
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+
+    background: white !important;
+    color: black !important;
+
+    font-size: 9pt !important;
+    line-height: 1.2 !important;
+  }
+
+
+  .documentoMedico .MuiStack-root {
+    gap: 6px !important;
+  }
+
+  .documentoMedico .MuiDivider-root {
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .documentoMedico .MuiTypography-root {
+    font-size: 9pt !important;
+    line-height: 1.2 !important;
+    margin-bottom: 3px !important;
+  }
+
+  .documentoMedico .MuiTypography-h4 {
+    font-size: 15pt !important;
+    line-height: 1.2 !important;
+    margin-bottom: 4px !important;
+  }
+
+  .documentoMedico .MuiTypography-h1 {
+    font-size: 19pt !important;
+  }
+
+  .documentoMedico .MuiBox-root {
+    padding: 6px !important;
+    margin-bottom: 8px !important;
+    gap: 8px !important;
+  }
+
+  .documentoMedico .MuiPaper-root {
+    break-inside: avoid;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
