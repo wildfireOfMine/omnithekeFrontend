@@ -27,6 +27,7 @@ import SpecialtyListView from '../views/admin/SpecialtyListView'
 import Stats from '../views/admin/Stats'
 import NewSpecialty from '../views/admin/NewSpecialty'
 import NewDoctor from '../views/admin/NewDoctor'
+import NewInsurance from '../views/admin/NewInsurance'
 
 
 
@@ -51,6 +52,7 @@ const AppRoute = () => {
           <Route path="/admin/nuevoDoctor" element={<NewDoctor/>}/>
           <Route path="/admin/recepcionistas" element={<ReceptionistListView/>}/>
           <Route path="/admin/aseguradoras" element={<InsuranceListView/>}/>
+          <Route path="/admin/nuevaAseguradora" element={<NewInsurance/>}/>
           <Route path="/admin/especialidades" element={<SpecialtyListView/>}/>
           <Route path="/admin/nuevaEspecialidad" element={<NewSpecialty/>}/>
           <Route path="/admin/estadisticas" element={<Stats/>}/>

@@ -160,6 +160,57 @@ export const todasAseguradoras = createAsyncThunk(
   }
 );
 
+export const todasAseguradorasList = createAsyncThunk(
+  "user/todasAseguradorasList",
+  async ({ page = 1, search = "" }, { rejectWithValue, getState }) => {
+        try {
+            const params = new URLSearchParams();
+            const state = getState();
+            const session = state.users.session;
+
+            params.append("page", page);
+
+            if (search) {
+                params.append("search", search);
+            }
+
+            const respuesta = await axios.get(
+                `${BACKEND_URL}users/api/aseguradorasList/?${params.toString()}`, {
+                  headers: {
+                    Authorization: `Bearer ${session.token}`
+                  }
+                }
+            );
+
+            return respuesta.data;
+
+        } catch (error) {
+            return rejectWithValue(
+                error.response?.data || error.message
+            );
+        }
+  }
+);
+
+export const aseguradoraPost = createAsyncThunk(
+  "user/aseguradoraPost",
+  async (aseguradora, { rejectWithValue, getState }) => {
+    try{
+      const state = getState();
+      const session = state.users.session;
+      console.log(aseguradora);
+      const respuesta = await axios.post(`${BACKEND_URL}users/api/aseguradoraPost/`, aseguradora, {
+          headers: {
+            Authorization: `Bearer ${session.token}`
+          }
+      });
+    console.log(respuesta);
+    } catch (error) {
+        return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
+    }
+  }
+)
+
 export const doctor = createAsyncThunk(
   "user/doctor",
   async (doctorPk, { rejectWithValue, getState }) => {
