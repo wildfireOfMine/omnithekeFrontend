@@ -106,7 +106,7 @@ const FindYourDoctor = () => {
               {datos.results.map((doctor) => (
               <CustomProfile
                 key={doctor.id}
-                doctor={doctor}
+                usuario={doctor}
               />
             ))}
           </Box>

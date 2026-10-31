@@ -109,11 +109,7 @@ const DoctorListView = () => {
               }}
           >
               {datos.results.map((doctor) => (
-              <CustomProfile
-                key={doctor.id}
-                doctor={doctor}
-                boton={false}
-              />
+                <CustomProfile key={doctor.id} usuario={doctor} boton={false}/>
             ))}
           </Box>
       ) : (
