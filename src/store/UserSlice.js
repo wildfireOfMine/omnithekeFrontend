@@ -54,7 +54,7 @@ export const login = createAsyncThunk(
 
 export const todosDoctores = createAsyncThunk(
   "user/todosDoctores",
-  async ({ page = 1, especialidad = "", search = "" }, { rejectWithValue }) => {
+  async ({ page = 1, especialidad = "", search = "", aseguradora = "" }, { rejectWithValue }) => {
         try {
             const params = new URLSearchParams();
 
@@ -66,6 +66,10 @@ export const todosDoctores = createAsyncThunk(
 
             if (search) {
                 params.append("search", search);
+            }
+
+            if (aseguradora) {
+                params.append("aseguradoras", aseguradora);
             }
 
             const respuesta = await axios.get(

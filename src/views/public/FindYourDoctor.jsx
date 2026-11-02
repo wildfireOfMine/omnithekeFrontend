@@ -3,7 +3,7 @@ import CustomBox from '../../components/CustomBox'
 import { Avatar, Button, Card, CardContent, Divider, MenuItem, Pagination, TextField, Typography } from '@mui/material'
 import { Box, Stack } from '@mui/system'
 import { toast } from 'react-toastify'
-import { todosDoctores } from '../../store/UserSlice'
+import { todasAseguradoras, todosDoctores } from '../../store/UserSlice'
 import { todasEspecialidades } from '../../store/UserSlice'
 import { useDispatch } from 'react-redux'
 import CustomProfile from '../../components/CustomProfile';
@@ -21,12 +21,15 @@ const FindYourDoctor = () => {
   const [especialidad, setEspecialidad] = useState("");
   const [busqueda, setBusqueda] = useState("");
   const [especialidades, setEspecialidades] = useState([]);
+  const [aseguradoras, setAseguradoras] = useState([]);
+  const [aseguradora, setAseguradora] = useState("");
   const dispatch = useDispatch();
 
   useEffect(() =>{
-    dispatch(todosDoctores({page: pagina, especialidad: especialidad, search: busqueda})).unwrap().then(datos => setDatos(datos));
+    dispatch(todosDoctores({page: pagina, especialidad: especialidad, search: busqueda, aseguradora: aseguradora})).unwrap().then(datos => setDatos(datos));
     dispatch(todasEspecialidades()).unwrap().then((datos) => setEspecialidades(datos));
-  }, [dispatch, pagina, especialidad, busqueda])
+    dispatch(todasAseguradoras()).unwrap().then((datos) => setAseguradoras(datos));
+  }, [dispatch, pagina, especialidad, busqueda, aseguradora])
   console.log(datos);
 
   return (
@@ -50,7 +53,7 @@ const FindYourDoctor = () => {
             display: "grid",
             gridTemplateColumns: {
               xs: "1fr",
-              sm: "2fr 1fr",
+              sm: "2fr 1fr 1fr",
             },
             gap: 2,
             mt: 2,
@@ -65,6 +68,26 @@ const FindYourDoctor = () => {
               setPagina(1);
             }}
           />
+
+          <TextField select fullWidth
+            label="Aseguradora" value={aseguradora}
+            onChange={(e) => {
+              setAseguradora(e.target.value);
+              setPagina(1);
+            }}
+          >
+            <MenuItem value="">
+              Todas las aseguradoras
+            </MenuItem>
+            {aseguradoras.map((asegurador) => (
+              <MenuItem
+                key={asegurador.id}
+                value={asegurador.id}
+              >
+                {asegurador.nombre}
+              </MenuItem>
+            ))}
+          </TextField>
 
           <TextField select fullWidth
             label="Especialidad" value={especialidad}

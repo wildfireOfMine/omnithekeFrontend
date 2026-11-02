@@ -5,6 +5,7 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import { Link as RouterLink } from 'react-router-dom';
 import React from 'react'
 import CustomButton from './CustomButton';
+import { Business } from '@mui/icons-material';
 
 const CustomProfile = ({usuario, boton=true}) => {
     console.log(usuario);
@@ -100,6 +101,22 @@ const CustomProfile = ({usuario, boton=true}) => {
                                     {usuario.telefono}
                                 </Typography>
                             </Box>
+                        )}
+
+                        {usuario.aseguradoras?.length > 0 && (
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 1.5,
+                                }}
+                            >
+                                <Business color="action" fontSize="small" />
+
+                                <Typography variant="body2">
+                                    {usuario.aseguradoras.map((asegurador) => asegurador).join(", ")}
+                                </Typography>
+                            </Box>   
                         )}
                     </Stack>
                           

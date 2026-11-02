@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { todasEspecialidades, todosDoctores } from '../../store/UserSlice';
+import { todasAseguradoras, todasEspecialidades, todosDoctores } from '../../store/UserSlice';
 import CustomBox from '../../components/CustomBox';
 import { MenuItem, Pagination, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
@@ -19,13 +19,16 @@ const DoctorListView = () => {
   const [especialidad, setEspecialidad] = useState("");
   const [busqueda, setBusqueda] = useState("");
   const [especialidades, setEspecialidades] = useState([]);
+  const [aseguradoras, setAseguradoras] = useState([]);
+  const [aseguradora, setAseguradora] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() =>{
-    dispatch(todosDoctores({page: pagina, especialidad: especialidad, search: busqueda})).unwrap().then(datos => setDatos(datos));
+    dispatch(todosDoctores({page: pagina, especialidad: especialidad, search: busqueda, aseguradora: aseguradora})).unwrap().then(datos => setDatos(datos));
     dispatch(todasEspecialidades()).unwrap().then((datos) => setEspecialidades(datos));
-  }, [dispatch, pagina, especialidad, busqueda])
+    dispatch(todasAseguradoras()).unwrap().then((datos) => setAseguradoras(datos));
+  }, [dispatch, pagina, especialidad, busqueda, aseguradora])
   console.log(datos);
 
   const handleAnadir = () => {
@@ -52,7 +55,7 @@ const DoctorListView = () => {
             display: "grid",
             gridTemplateColumns: {
               xs: "1fr",
-              sm: "2fr 1fr",
+              sm: "2fr 1fr 1fr",
             },
             gap: 2,
             mt: 2,
@@ -67,6 +70,26 @@ const DoctorListView = () => {
               setPagina(1);
             }}
           />
+
+          <TextField select fullWidth
+            label="Aseguradora" value={aseguradora}
+            onChange={(e) => {
+              setAseguradora(e.target.value);
+              setPagina(1);
+            }}
+          >
+            <MenuItem value="">
+              Todas las aseguradoras
+            </MenuItem>
+            {aseguradoras.map((asegurador) => (
+              <MenuItem
+                key={asegurador.id}
+                value={asegurador.id}
+              >
+                {asegurador.nombre}
+              </MenuItem>
+            ))}
+          </TextField>  
 
           <TextField select fullWidth
             label="Especialidad" value={especialidad}
