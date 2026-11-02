@@ -10,7 +10,7 @@ const initialState = {
 
 export const misConsultas = createAsyncThunk(
   "history/misConsultas",
-  async ({ page = 1, doctor = "" }, { rejectWithValue, getState }) => {
+  async ({ page = 1, doctor = "", especialidad = "" }, { rejectWithValue, getState }) => {
     try {
       const state = getState();
       const session = state.users.session;
@@ -20,7 +20,11 @@ export const misConsultas = createAsyncThunk(
       params.append("page", page);
 
       if (doctor) {
-        params.append("doctor", doctor);
+        params.append("search", doctor);
+      }
+
+      if (especialidad) {
+        params.append("doctor__especialidad", especialidad);
       }
 
       const respuesta = await axios.get(`${BACKEND_URL}history/api/misConsultas/?${params.toString()}`,

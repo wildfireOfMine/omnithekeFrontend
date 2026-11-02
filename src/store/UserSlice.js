@@ -304,6 +304,27 @@ export const restablecerContrasena = createAsyncThunk(
   }
 )
 
+export const invitarUsuario = createAsyncThunk(
+  "user/invitarUsuario",
+  async ({correo, rol}, { rejectWithValue, getState }) => {
+    try{
+      const state = getState();
+      const session = state.users.session;
+      
+      const respuesta = await axios.post(`${BACKEND_URL}users/api/invitarUsuario/`, {correo, rol}, {
+        headers: {
+          Authorization: `Bearer ${session.token}`
+        }
+      });
+      console.log(respuesta);
+    
+
+    } catch (error) {
+        return rejectWithValue(error.response?.data || "No se ha podido restablecer la contraseña");
+    }
+  }
+)
+
 export const userSlice = createSlice({
   name: "user",
   initialState,

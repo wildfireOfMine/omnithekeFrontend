@@ -5,6 +5,8 @@ import CustomBox from '../../components/CustomBox';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import CustomFieldText from '../../components/CustomFieldText';
+import { toast } from 'react-toastify';
+import { invitarUsuario } from '../../store/UserSlice';
 
 const NewReceptionist = () => {
   const dispatch = useDispatch();
@@ -13,12 +15,14 @@ const NewReceptionist = () => {
   const handleFormulario = async (e) => {
     e.preventDefault();
     console.log(e);
-    const nombre = e.currentTarget.especialidad.value;
+    const correo = e.currentTarget.correo.value;
     try {
-        
+        await dispatch(invitarUsuario({correo, rol:"recepcionista"})).unwrap();
+        toast.success("¡Usuario invitado con éxito!");
+        navigate("/admin/doctores")
     } catch (err) {
         console.log(err);
-        Object.values(err).flat().forEach((mensaje) => toast.error(mensaje));
+        
         toast.error(err);
         
     }
