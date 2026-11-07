@@ -61,7 +61,7 @@ const CustomProfile = ({usuario, boton=true}) => {
                             color="text.secondary"
                         >
                             { usuario.especialidad 
-                            ? <strong>{usuario.especialidad || "Médico"}</strong> 
+                            ? <strong>{usuario.nombreEspecialidad || "Médico"}</strong> 
                             : <strong>Recepcionista</strong>}
                             
                         </Typography>
@@ -103,7 +103,7 @@ const CustomProfile = ({usuario, boton=true}) => {
                             </Box>
                         )}
 
-                        {usuario.aseguradoras?.length > 0 && (
+                        {usuario.aseguradoras && 
                             <Box
                                 sx={{
                                     display: "flex",
@@ -114,10 +114,10 @@ const CustomProfile = ({usuario, boton=true}) => {
                                 <Business color="action" fontSize="small" />
 
                                 <Typography variant="body2">
-                                    {usuario.aseguradoras.map((asegurador) => asegurador).join(", ")}
+                                    {usuario.aseguradoras.length > 0 ? usuario.aseguradoras.map((asegurador) => asegurador).join(", ") : "Sin aseguradora"}
                                 </Typography>
-                            </Box>   
-                        )}
+                            </Box> 
+                        }  
                     </Stack>
                           
                     {boton && <Button

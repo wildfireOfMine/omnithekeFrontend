@@ -308,6 +308,19 @@ export const restablecerContrasena = createAsyncThunk(
   }
 )
 
+export const registrarseDoctor = createAsyncThunk(
+  "user/registerDoctor",
+  async (doctor, { rejectWithValue }) => {
+    console.log(doctor);
+    try {
+      const respuesta = await axios.post(`${BACKEND_URL}users/api/registrarseDoctor/`, doctor);
+    } catch (err) {
+      console.log(err);
+      return rejectWithValue(err.response?.data || "Registro fallido");
+    }
+  }
+);
+
 export const invitarUsuario = createAsyncThunk(
   "user/invitarUsuario",
   async ({correo, rol}, { rejectWithValue, getState }) => {

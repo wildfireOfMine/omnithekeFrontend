@@ -29,6 +29,8 @@ import NewSpecialty from '../views/admin/NewSpecialty'
 import NewDoctor from '../views/admin/NewDoctor'
 import NewInsurance from '../views/admin/NewInsurance'
 import NewReceptionist from '../views/admin/NewReceptionist'
+import DoctorRegister from '../views/doctor/DoctorRegister'
+import ReceptionistRegister from '../views/receptionist/ReceptionistRegister'
 
 
 
@@ -68,12 +70,15 @@ const AppRoute = () => {
           <Route path="/paciente/misConsultas/:consultaId" element={<DetailQueryView/>}/>
         </Route>
 
+        <Route path="/doctor/registrarse/:uid/:token" element={<DoctorRegister/>}/>
         <Route element={<ProtectedDoctorRoute/>}>
           <Route path="/doctor/portal" element={<DoctorDashboard/>}/>
+          
         </Route>
 
         <Route element={<ProtectedReceptionistRoute/>}>
           <Route path="/recepcionista/portal" element={<AdminDashboard/>}/>
+          <Route path="/recepcionista/registrarse/:uid/:token" element={<ReceptionistRegister/>}/>
         </Route>
         
       </Routes>
