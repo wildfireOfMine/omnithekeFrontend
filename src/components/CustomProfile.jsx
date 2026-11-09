@@ -114,7 +114,7 @@ const CustomProfile = ({usuario, boton=true}) => {
                                 <Business color="action" fontSize="small" />
 
                                 <Typography variant="body2">
-                                    {usuario.aseguradoras.length > 0 ? usuario.aseguradoras.map((asegurador) => asegurador).join(", ") : "Sin aseguradora"}
+                                    {usuario.aseguradoras.length > 0 ? usuario.nombreAseguradoras.map((asegurador) => asegurador).join(", ") : "Sin aseguradora"}
                                 </Typography>
                             </Box> 
                         }  

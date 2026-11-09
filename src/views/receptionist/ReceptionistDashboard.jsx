@@ -42,7 +42,7 @@ const ReceptionistDashboard = () => {
             color: "#1f2933"
           }}
         >
-          Panel del Administrador
+          Panel del Recepcionista
         </Typography>
 
         <Typography

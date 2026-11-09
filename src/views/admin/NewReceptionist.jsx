@@ -19,7 +19,7 @@ const NewReceptionist = () => {
     try {
         await dispatch(invitarUsuario({correo, rol:"recepcionista"})).unwrap();
         toast.success("¡Usuario invitado con éxito!");
-        navigate("/admin/doctores")
+        navigate("/admin/recepcionistas")
     } catch (err) {
         console.log(err);
         

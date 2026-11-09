@@ -31,6 +31,7 @@ import NewInsurance from '../views/admin/NewInsurance'
 import NewReceptionist from '../views/admin/NewReceptionist'
 import DoctorRegister from '../views/doctor/DoctorRegister'
 import ReceptionistRegister from '../views/receptionist/ReceptionistRegister'
+import ReceptionistDashboard from '../views/receptionist/ReceptionistDashboard'
 
 
 
@@ -76,9 +77,9 @@ const AppRoute = () => {
           
         </Route>
 
+        <Route path="/recepcionista/registrarse/:uid/:token" element={<ReceptionistRegister/>}/>
         <Route element={<ProtectedReceptionistRoute/>}>
-          <Route path="/recepcionista/portal" element={<AdminDashboard/>}/>
-          <Route path="/recepcionista/registrarse/:uid/:token" element={<ReceptionistRegister/>}/>
+          <Route path="/recepcionista/portal" element={<ReceptionistDashboard/>}/>
         </Route>
         
       </Routes>

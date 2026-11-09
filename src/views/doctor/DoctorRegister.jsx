@@ -6,7 +6,7 @@ import { Box, Grid } from '@mui/system'
 import countries from "i18n-iso-countries";
 import es from "i18n-iso-countries/langs/es.json";
 import { toast } from 'react-toastify';
-import { registrarse, registrarseDoctor, todasAseguradoras } from '../../store/UserSlice';
+import { registrarse, registrarseDoctor, todasAseguradoras, todasEspecialidades } from '../../store/UserSlice';
 import { useDispatch } from 'react-redux';
 import CustomButton from '../../components/CustomButton';
 
@@ -16,14 +16,17 @@ const DoctorRegister = () => {
   const [tipoDocumento, setTipoDocumento] = useState("");
   const [pais, setPais] = useState("");
   const [aseguradoras, setAseguradoras] = useState([]);
-  const [aseguradoraEscogida, setAseguradoraEscogida] = useState("");
+  const [aseguradoraEscogida, setAseguradoraEscogida] = useState([]);
   const [grupoSanguineo, setGrupoSanguineo] = useState("");
+  const [especialidades, setEspecialidades] = useState([]);
+  const [especialidadEscogida, setEspecialidadEscogida] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {uid, token} = useParams();
 
   useEffect(() =>{
       dispatch(todasAseguradoras()).unwrap().then((datos) => setAseguradoras(datos));
+      dispatch(todasEspecialidades()).unwrap().then((datos) => setEspecialidades(datos));
   }, [dispatch])
 
   const paises = Object.entries(
@@ -61,14 +64,14 @@ const DoctorRegister = () => {
         password: contrasena.value,
         grupoSanguineo: grupoSanguineo,
         numeroColegiado: e.currentTarget.numeroColegiado.value,
-        especialidad: 1,
+        especialidad: especialidadEscogida,
         uid: uid,
         token: token
     }
     
     try {
       await dispatch(registrarseDoctor(doctor)).unwrap();
-      toast.success("Cuenta registrada con éxito. ¡Se ha enviado un correo a tu cuenta para verificarla!");
+      toast.success("Cuenta registrada con éxito. ¡Puedes iniciar sesión como doctor!");
       console.log("Sesión iniciada");
       navigate("/iniciarSesion");
     } catch (err) {
@@ -101,7 +104,7 @@ const DoctorRegister = () => {
           Regístrate
         </Typography>
 
-        <Typography sx={{ textAlign: "center", color: "#6b7280", fontSize: "1rem", mb: 4,}}>Crea tu cuenta de Omnitheke</Typography>
+        <Typography sx={{ textAlign: "center", color: "#6b7280", fontSize: "1rem", mb: 4,}}>Crea tu cuenta de Omnitheke como Doctor</Typography>
 
         <Box
           component="form"
@@ -292,7 +295,7 @@ const DoctorRegister = () => {
               <TextField fullWidth type="email" id="correoElectronico" name="correoElectronico" />
             </Grid>
 
-            <Grid size={{ xs: 12, md: 3 }}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Typography component="label" htmlFor="telefono"
                 sx={{
                   display: "block",
@@ -307,7 +310,7 @@ const DoctorRegister = () => {
               <TextField fullWidth type="tel" id="telefono" name="telefono"/>
             </Grid>
 
-            <Grid size={{ xs: 12, md: 3 }}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Typography component="label" htmlFor="aseguradora"
                 sx={{
                   display: "block",
@@ -321,9 +324,18 @@ const DoctorRegister = () => {
               </Typography>
 
               <TextField select fullWidth
+                slotProps={{select: {multiple: true}}}
                 value={aseguradoraEscogida}
                 onChange={(e) => {
-                  setAseguradoraEscogida(e.target.value);
+                  const seleccion = e.target.value;
+
+                  if (seleccion.includes("Privado")) {
+                    setAseguradoraEscogida(["Privado"]);
+                  } else {
+                    setAseguradoraEscogida(
+                      seleccion.filter((valor) => valor !== "Privado")
+                    );
+                  }
                 }}
               >
                 <MenuItem value="Privado">
@@ -340,7 +352,36 @@ const DoctorRegister = () => {
               </TextField>
             </Grid>
 
-            <Grid size={{ xs: 12, md: 3 }}>
+            <Grid size={{ xs: 12, md: 4 }}>
+              <Typography component="label" htmlFor="especialidad"
+                sx={{
+                  display: "block",
+                  mb: 1,
+                  fontWeight: 600,
+                  color: "#374151",
+                  textAlign: "left"
+                }}
+              >
+                Especialidad
+              </Typography>
+              <TextField select fullWidth
+                value={especialidadEscogida}
+                onChange={(e) => {
+                  setEspecialidadEscogida(e.target.value);
+                }}
+              >
+                {especialidades.map((especia) => (
+                  <MenuItem
+                    key={especia.id}
+                    value={especia.id}
+                  >
+                    {especia.nombre}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Grid>
+
+            <Grid size={{ xs: 12, md: 4 }}>
               <Typography component="label" htmlFor="aseguradora"
                 sx={{
                   display: "block",
@@ -376,7 +417,7 @@ const DoctorRegister = () => {
               </TextField>
             </Grid>
 
-            <Grid size={{ xs: 12, md: 3 }}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <Typography component="label" htmlFor="numeroColegiado"
                 sx={{
                   display: "block",
@@ -395,33 +436,7 @@ const DoctorRegister = () => {
 
         
 
-          <CustomButton color="#fff" text="Registrarme" backgroundColor="#2563eb" type="submit"/>
-
-          <Box
-            sx={{
-              textAlign: "center",
-              pt: 1,
-              borderTop: "1px solid #e5e7eb",
-            }}
-          >
-            <Typography
-              component={RouterLink}
-              to="/iniciarSesion"
-              sx={{
-                display: "inline-block",
-                mt: 2,
-                color: "#374151",
-                textDecoration: "none",
-                fontSize: "0.95rem",
-                transition: "color 0.5s ease",
-                "&:hover": {
-                  color: "#2563eb",
-                },
-              }}
-            >
-              ¿Ya tienes una cuenta? <strong>Inicia sesión</strong>
-            </Typography>
-          </Box>
+          <CustomButton color="#fff" text="Registrarme como doctor" backgroundColor="#2563eb" type="submit"/>
 
         </Box>
       </Box>

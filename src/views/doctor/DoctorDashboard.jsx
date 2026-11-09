@@ -42,7 +42,7 @@ const DoctorDashboard = () => {
             color: "#1f2933"
           }}
         >
-          Panel del Administrador
+          Panel del Doctor
         </Typography>
 
         <Typography

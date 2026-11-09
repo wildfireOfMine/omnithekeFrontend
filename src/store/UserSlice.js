@@ -321,6 +321,19 @@ export const registrarseDoctor = createAsyncThunk(
   }
 );
 
+export const registrarseRecepcionista = createAsyncThunk(
+  "user/registerDoctor",
+  async (recepcionista, { rejectWithValue }) => {
+    console.log(doctor);
+    try {
+      const respuesta = await axios.post(`${BACKEND_URL}users/api/registrarseRecepcionista/`, recepcionista);
+    } catch (err) {
+      console.log(err);
+      return rejectWithValue(err.response?.data || "Registro fallido");
+    }
+  }
+);
+
 export const invitarUsuario = createAsyncThunk(
   "user/invitarUsuario",
   async ({correo, rol}, { rejectWithValue, getState }) => {
