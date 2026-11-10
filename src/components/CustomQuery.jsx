@@ -9,8 +9,9 @@ import MedicalServicesIcon from "@mui/icons-material/MedicalServices";
 import NotesIcon from "@mui/icons-material/Notes";
 import CustomButton from './CustomButton';
 import { Link } from "react-router-dom";
+import { Feed, Healing, HistoryEdu } from '@mui/icons-material';
 
-const CustomQuery = ({ consulta }) => {
+const CustomQuery = ({ consulta, doctorPdv=false }) => {
   const doctor = consulta.doctor;
   const fecha = new Date(consulta.fechaRegistro);
 
@@ -82,16 +83,49 @@ const CustomQuery = ({ consulta }) => {
             <PersonIcon color="action" fontSize="small" />
 
             <Typography variant="body2">
-              <strong>Doctor:</strong>{" "}
-              {doctor}
+              {!doctorPdv ? 
+              <>
+                <strong>Doctor:</strong>{" "}{doctor}
+              </> : 
+              <>
+                <strong>Paciente:</strong>{" "}{consulta.paciente}
+              </> }
             </Typography>
           </Box>
 
+          {doctorPdv && 
+          <>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+              <Feed color="action" fontSize="small" />
+              <Typography variant="body2">
+                <strong>Diagnóstico:</strong>{" "}
+                {consulta.diagnostico.slice(0, 50)}
+              </Typography>
+            </Box>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+              <Healing color="action" fontSize="small" />
+              <Typography variant="body2">
+                <strong>Tratamiento:</strong>{" "}
+                {consulta.tratamiento.slice(0, 50)}
+              </Typography>
+            </Box>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+              <HistoryEdu color="action" fontSize="small" />
+              <Typography variant="body2">
+                <strong>Observaciones:</strong>{" "}
+                {consulta.observaciones.slice(0, 50)}
+              </Typography>
+            </Box>
+          </>
+          }
+
           <Divider />
 
+          {!doctorPdv &&
           <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 1.5 }}>
             <CustomButton text="Más información" variant="contained" component={Link} to={`${consulta.id}`}/>
           </Box>
+          }
           
         </Stack>
       </CardContent>

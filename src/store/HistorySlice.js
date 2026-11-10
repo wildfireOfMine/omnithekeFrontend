@@ -67,6 +67,41 @@ export const miConsulta = createAsyncThunk(
   }
 )
 
+export const misConsultasDoctor = createAsyncThunk(
+  "history/misConsultas",
+  async ({ page = 1, doctor = "", especialidad = "" }, { rejectWithValue, getState }) => {
+    try {
+      const state = getState();
+      const session = state.users.session;
+
+      const params = new URLSearchParams();
+
+      params.append("page", page);
+
+      if (doctor) {
+        params.append("search", doctor);
+      }
+
+      if (especialidad) {
+        params.append("doctor__especialidad", especialidad);
+      }
+
+      const respuesta = await axios.get(`${BACKEND_URL}history/api/misConsultasDoctor/?${params.toString()}`,
+        {
+          headers: {
+            Authorization: `Bearer ${session.token}`,
+          },
+        }
+      );
+
+      return respuesta.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  }
+
+)
+
 export const historySlice = createSlice({
   name: "history",
   initialState,

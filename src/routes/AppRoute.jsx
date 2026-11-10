@@ -32,6 +32,9 @@ import NewReceptionist from '../views/admin/NewReceptionist'
 import DoctorRegister from '../views/doctor/DoctorRegister'
 import ReceptionistRegister from '../views/receptionist/ReceptionistRegister'
 import ReceptionistDashboard from '../views/receptionist/ReceptionistDashboard'
+import MySchedule from '../views/doctor/MySchedule'
+import MyQueries from '../views/doctor/MyQueries'
+import NewQuery from '../views/doctor/NewQuery'
 
 
 
@@ -74,7 +77,9 @@ const AppRoute = () => {
         <Route path="/doctor/registrarse/:uid/:token" element={<DoctorRegister/>}/>
         <Route element={<ProtectedDoctorRoute/>}>
           <Route path="/doctor/portal" element={<DoctorDashboard/>}/>
-          
+          <Route path="/doctor/horario" element={<MySchedule/>}/>
+          <Route path="/doctor/consultas" element={<MyQueries/>}/>
+          <Route path="/doctor/nuevaConsulta" element={<NewQuery/>}/>
         </Route>
 
         <Route path="/recepcionista/registrarse/:uid/:token" element={<ReceptionistRegister/>}/>

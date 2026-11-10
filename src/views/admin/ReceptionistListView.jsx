@@ -46,11 +46,6 @@ const ReceptionistListView = () => {
         
         <Box
           sx={{
-            display: "grid",
-            gridTemplateColumns: {
-              xs: "1fr",
-              sm: "2fr 1fr",
-            },
             gap: 2,
             mt: 2,
           }}
