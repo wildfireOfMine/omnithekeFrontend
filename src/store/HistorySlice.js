@@ -102,6 +102,30 @@ export const misConsultasDoctor = createAsyncThunk(
 
 )
 
+export const nuevaConsulta = createAsyncThunk(
+  "history/nuevaConsulta",
+  async (consulta, { rejectWithValue, getState }) => {
+    try {
+        const state = getState();
+        const session = state.users.session;
+        console.log(state);
+        console.log(session);
+
+        const respuesta = await axios.post(`${BACKEND_URL}history/api/nuevaConsulta/`, consulta, {
+          headers: {
+            Authorization: `Bearer ${session.token}`
+          }
+        });
+        console.log(respuesta);
+
+        return respuesta.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+
+  }
+)
+
 export const historySlice = createSlice({
   name: "history",
   initialState,

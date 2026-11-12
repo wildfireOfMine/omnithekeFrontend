@@ -3,7 +3,7 @@ import CustomBox from '../../components/CustomBox';
 import { Box, Grid } from '@mui/system';
 import { Link, Link as RouterLink, useNavigate } from 'react-router-dom';
 import { Paper, Typography } from '@mui/material';
-import { AccessTime, Event, Feed, HealthAndSafety, MedicalInformation, MedicalServices, SupportAgent, Timeline } from '@mui/icons-material';
+import { AccessTime, Feed, Timer } from '@mui/icons-material';
 
 const DoctorDashboard = () => {
   const tarjetas = [
@@ -15,9 +15,15 @@ const DoctorDashboard = () => {
     },
     {
         title: "Tus Consultas",
-        description: "Revisa tus consultas y escribe unas nuevas",
+        description: "Revisa tus consultas pasadas",
         icon: <Feed sx={{ fontSize: 60, color: "#2563eb" }} />,
         route: "/doctor/consultas"
+    },
+    {
+        title: "Tus Citas de Hoy",
+        description: "Revisa tus citas y escribe nuevas consultas",
+        icon: <Timer sx={{ fontSize: 60, color: "#2563eb" }} />,
+        route: "/doctor/misCitasDeHoy"
     },
   ];
   return (

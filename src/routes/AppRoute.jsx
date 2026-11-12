@@ -35,6 +35,7 @@ import ReceptionistDashboard from '../views/receptionist/ReceptionistDashboard'
 import MySchedule from '../views/doctor/MySchedule'
 import MyQueries from '../views/doctor/MyQueries'
 import NewQuery from '../views/doctor/NewQuery'
+import TodaysAppointments from '../views/doctor/TodaysAppointments'
 
 
 
@@ -79,7 +80,8 @@ const AppRoute = () => {
           <Route path="/doctor/portal" element={<DoctorDashboard/>}/>
           <Route path="/doctor/horario" element={<MySchedule/>}/>
           <Route path="/doctor/consultas" element={<MyQueries/>}/>
-          <Route path="/doctor/nuevaConsulta" element={<NewQuery/>}/>
+          <Route path="/doctor/nuevaConsulta/:id" element={<NewQuery/>}/>
+          <Route path="/doctor/misCitasDeHoy" element={<TodaysAppointments/>}/>
         </Route>
 
         <Route path="/recepcionista/registrarse/:uid/:token" element={<ReceptionistRegister/>}/>
