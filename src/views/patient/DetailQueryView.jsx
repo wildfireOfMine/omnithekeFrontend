@@ -187,7 +187,7 @@ const DetailQueryView = () => {
                   color: "#526b80",
                 }}
               >
-                {datos.doctor}
+                {datos.doctorNombre}
               </Typography>
               <Typography variant="caption" sx={{ mt: 1, display: "block" }}>
                 Médico responsable

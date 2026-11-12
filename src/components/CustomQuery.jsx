@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import { Feed, Healing, HistoryEdu } from '@mui/icons-material';
 
 const CustomQuery = ({ consulta, doctorPdv=false }) => {
-  const doctor = consulta.doctor;
+  const doctor = consulta.doctorNombre;
   const fecha = new Date(consulta.fechaRegistro);
 
   return (
