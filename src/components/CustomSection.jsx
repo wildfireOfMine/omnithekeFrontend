@@ -5,7 +5,7 @@ import React from 'react'
 const CustomSection = ({ icono, titulo, contenido }) => {
   return (
     <Box sx={{ mb: 4 }}>
-      <Stack direction="row" spacing={1.2} alignItems="center" sx={{ mb: 2 }}>
+      <Stack direction="row" spacing={1.2} sx={{ mb: 2, alignItems:"center"  }}>
         <Box sx={{ color: "#3979a8", display: "flex" }}>{icono}</Box>
 
         <Typography variant="h6" sx={{ fontWeight: 750 }}>

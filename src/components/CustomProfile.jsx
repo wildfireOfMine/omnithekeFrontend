@@ -5,11 +5,13 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import { Link as RouterLink } from 'react-router-dom';
 import React from 'react'
 import CustomButton from './CustomButton';
+import { Business } from '@mui/icons-material';
 
-const CustomProfile = ({doctor, boton=true}) => {
+const CustomProfile = ({usuario, boton=true}) => {
+    console.log(usuario);
   return (
         <Card
-            key={doctor.id}
+            key={usuario.id}
             sx={{
                 borderRadius: 4,
                 overflow: "hidden",
@@ -38,8 +40,8 @@ const CustomProfile = ({doctor, boton=true}) => {
                             fontSize: "1.4rem",
                         }}
                     >
-                        {doctor.nombre?.charAt(0)}
-                        {doctor.primerApellido?.charAt(0)}
+                        {usuario.nombre?.charAt(0)}
+                        {usuario.primerApellido?.charAt(0)}
                     </Avatar>
 
                     <Box>
@@ -47,14 +49,21 @@ const CustomProfile = ({doctor, boton=true}) => {
                             variant="h6"
                             fontWeight={700}
                         >
-                            Dr. {doctor.nombre} {doctor.primerApellido}
+                            {usuario.especialidad ? "Dr. " : ""}
+                            {usuario.nombre}
+                            {usuario.primerApellido ? ` ${usuario.primerApellido}` : ""}
+                            
                         </Typography>
 
+                        
                         <Typography
                             variant="body2"
                             color="text.secondary"
                         >
-                            <strong>{doctor.especialidad || "Médico"}</strong>
+                            { usuario.especialidad 
+                            ? <strong>{usuario.nombreEspecialidad || "Médico"}</strong> 
+                            : <strong>Recepcionista</strong>}
+                            
                         </Typography>
                     </Box>
                 </Box>
@@ -62,7 +71,7 @@ const CustomProfile = ({doctor, boton=true}) => {
                 <Divider sx={{ mb: 2 }} />
 
                     <Stack spacing={1.5}>
-                        {doctor.correo && (
+                        {usuario.correo && (
                             <Box
                                 sx={{
                                     display: "flex",
@@ -73,12 +82,12 @@ const CustomProfile = ({doctor, boton=true}) => {
                                 <EmailIcon color="action" fontSize="small" />
 
                                 <Typography variant="body2">
-                                    {doctor.correo}
+                                    {usuario.correo}
                                 </Typography>
                             </Box>
                         )}
 
-                        {doctor.telefono && (
+                        {usuario.telefono && (
                             <Box
                                 sx={{
                                     display: "flex",
@@ -89,17 +98,33 @@ const CustomProfile = ({doctor, boton=true}) => {
                                 <PhoneIcon color="action" fontSize="small" />
 
                                 <Typography variant="body2">
-                                    {doctor.telefono}
+                                    {usuario.telefono}
                                 </Typography>
                             </Box>
                         )}
+
+                        {usuario.aseguradoras && 
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 1.5,
+                                }}
+                            >
+                                <Business color="action" fontSize="small" />
+
+                                <Typography variant="body2">
+                                    {usuario.aseguradoras.length > 0 ? usuario.nombreAseguradoras.map((asegurador) => asegurador).join(", ") : "Sin aseguradora"}
+                                </Typography>
+                            </Box> 
+                        }  
                     </Stack>
                           
                     {boton && <Button
                         fullWidth
                         variant="contained"
                         component={RouterLink}
-                        to={`/paciente/citas/${doctor.id}`} 
+                        to={`/paciente/citas/${usuario.id}`} 
                         sx={{
                             mt: 3,
                             borderRadius: 2,

@@ -3,8 +3,7 @@ import { useDispatch } from 'react-redux';
 import { miConsulta } from '../../store/HistorySlice';
 import { useNavigate, useParams } from 'react-router-dom';
 import CustomBox from '../../components/CustomBox';
-import { Typography, Box, Divider, Chip, Paper } from '@mui/material';
-import { justifyContent, Stack } from '@mui/system';
+import { Typography, Box, Divider, Chip, Paper, Stack } from '@mui/material';
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import CustomButton from '../../components/CustomButton';
 import CustomData from '../../components/CustomData';
@@ -77,13 +76,15 @@ const DetailQueryView = () => {
         >
 
           <Stack
-            direction={{ xs: "column", sm: "row" }}
-            justifyContent="space-between"
-            alignItems={{ xs: "flex-start", sm: "center" }}
-            spacing={2}
-          >
+              direction={{ xs: "column", sm: "row" }}
+              sx={{
+                justifyContent: "space-between",
+                alignItems: { xs: "flex-start", sm: "center" },
+              }}
+              spacing={2}
+            >
             <Box>
-              <Stack direction="row" spacing={1} alignItems="center">
+              <Stack direction="row" spacing={1} sx={{alignItems:"center"}}>
                 <MedicalServicesOutlined
                   sx={{ fontSize: 38, color: "#3979a8" }}
                 />

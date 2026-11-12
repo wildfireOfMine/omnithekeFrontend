@@ -4,7 +4,7 @@ import React from 'react'
 
 const CustomData = ({ icono, titulo, valor}) => {
   return (
-    <Stack direction="row" spacing={1.5} alignItems="flex-start">
+    <Stack direction="row" spacing={1.5} sx={{alignItems:"flex-start"}}>
       <Box sx={{ color: "#3979a8", pt: 0.2 }}>{icono}</Box>
 
       <Box sx={{ minWidth: 0 }}>

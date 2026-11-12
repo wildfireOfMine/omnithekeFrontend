@@ -42,6 +42,30 @@ export const misCitas = createAsyncThunk(
 
 )
 
+export const conseguirCita = createAsyncThunk(
+  "appointment/cancelarCita",
+  async (citaId, { rejectWithValue, getState }) => {
+    try {
+        const state = getState();
+        const session = state.users.session;
+        console.log(state);
+        console.log(session);
+
+        const respuesta = await axios.get(`${BACKEND_URL}appointments/api/conseguirCita/${citaId}/`, {
+          headers: {
+            Authorization: `Bearer ${session.token}`
+          }
+        });
+        console.log(respuesta);
+
+        return respuesta.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+
+  }
+)
+
 export const cancelarCita = createAsyncThunk(
   "appointment/cancelarCita",
   async (citaId, { rejectWithValue, getState }) => {
@@ -74,6 +98,26 @@ export const horariosDisponibles = createAsyncThunk(
             const session = state.users.session;
 
             const respuesta = await axios.get(`${BACKEND_URL}appointments/api/horariosDisponibles/${doctorId}/`, {
+                headers: {
+                  Authorization: `Bearer ${session.token}`
+                }
+            });
+
+            return respuesta.data;
+        } catch (error) {
+          return rejectWithValue(error.response?.data || error.message);
+        }
+    }
+)
+
+export const misHorarios = createAsyncThunk(
+  "appointment/horariosDisponibles",
+    async (doctorId, { rejectWithValue, getState }) => {
+        try {
+            const state = getState();
+            const session = state.users.session;
+
+            const respuesta = await axios.get(`${BACKEND_URL}appointments/api/misHorarios/`, {
                 headers: {
                   Authorization: `Bearer ${session.token}`
                 }
@@ -119,6 +163,30 @@ export const crearCita = createAsyncThunk(
                 }
             });
 
+            return respuesta.data;
+        } catch (error) {
+          return rejectWithValue(error.response?.data || error.message);
+        }
+    }
+)
+
+export const misCitasDoctorHoy = createAsyncThunk(
+  "appointment/misCitasHoyDoctor",
+    async ({ page = 1 }, { rejectWithValue, getState }) => {
+        try {
+            const state = getState();
+            const session = state.users.session;
+
+            const params = new URLSearchParams();
+
+            params.append("page", page);
+
+            const respuesta = await axios.get(`${BACKEND_URL}appointments/api/misCitasDoctorHoy/?${params.toString()}`, {
+                headers: {
+                  Authorization: `Bearer ${session.token}`
+                }
+            });
+            console.log(respuesta);
             return respuesta.data;
         } catch (error) {
           return rejectWithValue(error.response?.data || error.message);

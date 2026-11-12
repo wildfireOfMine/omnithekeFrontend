@@ -28,6 +28,14 @@ import Stats from '../views/admin/Stats'
 import NewSpecialty from '../views/admin/NewSpecialty'
 import NewDoctor from '../views/admin/NewDoctor'
 import NewInsurance from '../views/admin/NewInsurance'
+import NewReceptionist from '../views/admin/NewReceptionist'
+import DoctorRegister from '../views/doctor/DoctorRegister'
+import ReceptionistRegister from '../views/receptionist/ReceptionistRegister'
+import ReceptionistDashboard from '../views/receptionist/ReceptionistDashboard'
+import MySchedule from '../views/doctor/MySchedule'
+import MyQueries from '../views/doctor/MyQueries'
+import NewQuery from '../views/doctor/NewQuery'
+import TodaysAppointments from '../views/doctor/TodaysAppointments'
 
 
 
@@ -51,6 +59,7 @@ const AppRoute = () => {
           <Route path="/admin/doctores" element={<DoctorListView/>}/>
           <Route path="/admin/nuevoDoctor" element={<NewDoctor/>}/>
           <Route path="/admin/recepcionistas" element={<ReceptionistListView/>}/>
+          <Route path="/admin/nuevoRecepcionista" element={<NewReceptionist/>}/>
           <Route path="/admin/aseguradoras" element={<InsuranceListView/>}/>
           <Route path="/admin/nuevaAseguradora" element={<NewInsurance/>}/>
           <Route path="/admin/especialidades" element={<SpecialtyListView/>}/>
@@ -66,12 +75,18 @@ const AppRoute = () => {
           <Route path="/paciente/misConsultas/:consultaId" element={<DetailQueryView/>}/>
         </Route>
 
+        <Route path="/doctor/registrarse/:uid/:token" element={<DoctorRegister/>}/>
         <Route element={<ProtectedDoctorRoute/>}>
           <Route path="/doctor/portal" element={<DoctorDashboard/>}/>
+          <Route path="/doctor/horario" element={<MySchedule/>}/>
+          <Route path="/doctor/consultas" element={<MyQueries/>}/>
+          <Route path="/doctor/nuevaConsulta/:id" element={<NewQuery/>}/>
+          <Route path="/doctor/misCitasDeHoy" element={<TodaysAppointments/>}/>
         </Route>
 
+        <Route path="/recepcionista/registrarse/:uid/:token" element={<ReceptionistRegister/>}/>
         <Route element={<ProtectedReceptionistRoute/>}>
-          <Route path="/recepcionista/portal" element={<AdminDashboard/>}/>
+          <Route path="/recepcionista/portal" element={<ReceptionistDashboard/>}/>
         </Route>
         
       </Routes>

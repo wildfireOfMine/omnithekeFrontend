@@ -5,6 +5,7 @@ import CustomBox from '../../components/CustomBox';
 import { MenuItem, Pagination, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import CustomQuery from '../../components/CustomQuery';
+import { todasEspecialidades } from '../../store/UserSlice';
 
 const MyHistory = () => {
   const [datos, setDatos] = useState({
@@ -15,11 +16,14 @@ const MyHistory = () => {
   });
   const [pagina, setPagina] = useState(1);
   const [doctor, setDoctor] = useState("");
+  const [especialidades, setEspecialidades] = useState([]);
+  const [especialidad, setEspecialidad] = useState("");
   const dispatch = useDispatch();
 
   useEffect(()=>{
-      dispatch(misConsultas({page: pagina, doctor: doctor})).unwrap().then(datos => setDatos(datos));
-  }, [dispatch, pagina, doctor]);
+      dispatch(misConsultas({page: pagina, doctor: doctor, especialidad: especialidad})).unwrap().then(datos => setDatos(datos));
+      dispatch(todasEspecialidades()).unwrap().then((datos) => setEspecialidades(datos));
+  }, [dispatch, pagina, especialidad, doctor]);
     
   console.log(datos);
   return (
@@ -52,13 +56,33 @@ const MyHistory = () => {
 
                 <TextField fullWidth
                     label="Nombre del médico" placeholder="Busca por nombre..."
-                    valor={doctor}
+                    value={doctor}
                     onChange={(e) => {
                     setDoctor(e.target.value);
                     setPagina(1);
                     }}
                 />
-            
+
+                <TextField select fullWidth
+                  label="Especialidad" value={especialidad}
+                  onChange={(e) => {
+                    setEspecialidad(e.target.value);
+                    setPagina(1);
+                  }}
+                >
+                  <MenuItem value="">
+                    Todas las especialidades
+                  </MenuItem>
+                  {especialidades.map((especia) => (
+                    <MenuItem
+                      key={especia.id}
+                      value={especia.id}
+                    >
+                      {especia.nombre}
+                    </MenuItem>
+                  ))}
+                </TextField>
+
             </Box>
         </Box>
 
@@ -78,7 +102,7 @@ const MyHistory = () => {
                 }}
             >
                 {datos.results.map((consulta) => 
-                  <CustomQuery consulta={consulta}/>)
+                  <CustomQuery key={consulta.id} consulta={consulta}/>)
                 }
             </Box>
         ) : (

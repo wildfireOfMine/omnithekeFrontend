@@ -183,7 +183,7 @@ const NewAppointment = () => {
                     </Typography>
 
                     <Chip
-                      label={datos?.especialidad}
+                      label={datos?.nombreEspecialidad}
                       size="small"
                       sx={{
                         mt: 1,
@@ -273,22 +273,14 @@ const NewAppointment = () => {
                   }}
                 >
 
-                  <CalendarMonthIcon
-                    sx={{
-                      fontSize: 28,
-                    }}
-                  />
+                  <CalendarMonthIcon sx={{ fontSize: 28 }}/>
 
                   <Typography variant="h5"fontWeight={800}>Elige un día</Typography>
 
                 </Box>
 
 
-                <Typography color="text.secondary"
-                  sx={{ mb: 3 }}
-                >
-                  Selecciona una fecha disponible para tu consulta.
-                </Typography>
+                <Typography color="text.secondary" sx={{ mb: 3 }}>Selecciona una fecha disponible para tu consulta.</Typography>
 
 
                 <Divider sx={{ mb: 2 }} />

@@ -3,29 +3,29 @@ import CustomBox from '../../components/CustomBox';
 import { Box, Grid } from '@mui/system';
 import { Link, Link as RouterLink, useNavigate } from 'react-router-dom';
 import { Paper, Typography } from '@mui/material';
-import { Event, HealthAndSafety, MedicalInformation, MedicalServices, SupportAgent } from '@mui/icons-material';
+import { AccessTime, Feed, Timer } from '@mui/icons-material';
 
 const DoctorDashboard = () => {
   const tarjetas = [
     {
-        title: "Gestionar Doctores",
-        description: "Añade, modifica o elimina doctores de la consulta",
-        icon: <MedicalServices sx={{ fontSize: 60, color: "#2563eb" }} />,
-        route: "/administrador/doctores"
+        title: "Modifica tu Horario",
+        description: "Añade, modifica o elimina fechas en tu horario",
+        icon: <AccessTime sx={{ fontSize: 60, color: "#2563eb" }} />,
+        route: "/doctor/horario"
     },
     {
-        title: "Gestionar Recepcionistas",
-        description: "Añade, modifica o elimina recepcionistas",
-        icon: <SupportAgent sx={{ fontSize: 60, color: "#2563eb" }} />,
-        route: "/administrador/recepcionistas"
+        title: "Tus Consultas",
+        description: "Revisa tus consultas pasadas",
+        icon: <Feed sx={{ fontSize: 60, color: "#2563eb" }} />,
+        route: "/doctor/consultas"
     },
     {
-        title: "Gestionar Aseguradoras",
-        description: "Administra las aseguradoras disponibles",
-        icon: <HealthAndSafety sx={{ fontSize: 60, color: "#2563eb" }} />,
-        route: "/administrador/aseguradoras"
-    }
-    ];
+        title: "Tus Citas de Hoy",
+        description: "Revisa tus citas y escribe nuevas consultas",
+        icon: <Timer sx={{ fontSize: 60, color: "#2563eb" }} />,
+        route: "/doctor/misCitasDeHoy"
+    },
+  ];
   return (
     <CustomBox>
       <Box component="div"
@@ -42,7 +42,7 @@ const DoctorDashboard = () => {
             color: "#1f2933"
           }}
         >
-          Panel del Administrador
+          Panel del Doctor
         </Typography>
 
         <Typography
@@ -51,7 +51,7 @@ const DoctorDashboard = () => {
             mt: 1
           }}
         >
-          DOCTOR
+          Modifica tu horario y crea consultas de las citas
         </Typography>
       </Box>
 
