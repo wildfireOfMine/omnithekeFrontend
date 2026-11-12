@@ -8,7 +8,7 @@ import CustomButton from "./CustomButton";
 
 const CustomAppointment = ({ appointment, handleCancelar }) => {
 
-  const doctor = appointment.doctor;
+  const doctor = appointment.doctorNombre;
   console.log(appointment);
   console.log(doctor);
 
