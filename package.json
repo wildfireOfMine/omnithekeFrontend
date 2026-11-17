@@ -20,6 +20,7 @@
     "axios": "^1.19.0",
     "dayjs": "^1.11.21",
     "i18n-iso-countries": "^7.14.0",
+    "jwt-decode": "^4.0.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-redux": "^9.3.0",
