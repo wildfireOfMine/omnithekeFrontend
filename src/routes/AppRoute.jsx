@@ -81,6 +81,7 @@ const AppRoute = () => {
           <Route path="/doctor/horario" element={<MySchedule/>}/>
           <Route path="/doctor/consultas" element={<MyQueries/>}/>
           <Route path="/doctor/nuevaConsulta/:id" element={<NewQuery/>}/>
+          <Route path="/doctor/consultas/:consultaId" element={<DetailQueryView/>}/>
           <Route path="/doctor/misCitasDeHoy" element={<TodaysAppointments/>}/>
         </Route>
 

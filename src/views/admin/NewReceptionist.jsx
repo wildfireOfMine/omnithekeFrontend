@@ -24,6 +24,7 @@ const NewReceptionist = () => {
         console.log(err);
         
         toast.error(err);
+        toast.error(err.mensaje);
         
     }
   }

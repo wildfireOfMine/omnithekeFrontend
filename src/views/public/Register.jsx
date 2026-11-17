@@ -65,7 +65,7 @@ const Register = () => {
           pais: pais.value,
           correo: correoElectronico.value,
           telefono: telefono.value,
-          aseguradora: aseguradoraEscogida === "Privado" ? null : aseguradoraEscogida,
+          aseguradora: aseguradoraEscogida === "Público" ? null : aseguradoraEscogida,
           password: contrasena.value,
           grupoSanguineo: grupoSanguineo
           })
@@ -329,8 +329,8 @@ const Register = () => {
                   setAseguradoraEscogida(e.target.value);
                 }}
               >
-                <MenuItem value="Privado">
-                  Privado
+                <MenuItem value="Público">
+                  Público
                 </MenuItem>
                 {aseguradoras.map((asegur) => (
                   <MenuItem
