@@ -36,6 +36,8 @@ import MySchedule from '../views/doctor/MySchedule'
 import MyQueries from '../views/doctor/MyQueries'
 import NewQuery from '../views/doctor/NewQuery'
 import TodaysAppointments from '../views/doctor/TodaysAppointments'
+import EditInsurance from '../views/admin/EditInsurance'
+import EditSpecialty from '../views/admin/EditSpecialty'
 
 
 
@@ -62,8 +64,10 @@ const AppRoute = () => {
           <Route path="/admin/nuevoRecepcionista" element={<NewReceptionist/>}/>
           <Route path="/admin/aseguradoras" element={<InsuranceListView/>}/>
           <Route path="/admin/nuevaAseguradora" element={<NewInsurance/>}/>
+          <Route path="/admin/editarAseguradora/:aseguradoraId" element={<EditInsurance/>}/>
           <Route path="/admin/especialidades" element={<SpecialtyListView/>}/>
           <Route path="/admin/nuevaEspecialidad" element={<NewSpecialty/>}/>
+          <Route path="/admin/editarEspecialidad/:especialidadId" element={<EditSpecialty/>}/>
           <Route path="/admin/estadisticas" element={<Stats/>}/>
         </Route>
 
