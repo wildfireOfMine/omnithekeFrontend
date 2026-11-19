@@ -88,40 +88,18 @@ const CustomQuery = ({ consulta, doctorPdv=false }) => {
                 <strong>Doctor:</strong>{" "}{doctor}
               </> : 
               <>
-                <strong>Paciente:</strong>{" "}{consulta.paciente}
+                <strong>Paciente:</strong>{" "}{consulta.pacienteNombre}
               </> }
             </Typography>
           </Box>
 
-          {doctorPdv && 
-          <>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-              <Feed color="action" fontSize="small" />
-              <Typography variant="body2">
-                <strong>Diagnóstico:</strong>{" "}
-                {consulta.diagnostico.slice(0, 50)}
-              </Typography>
-            </Box>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-              <Healing color="action" fontSize="small" />
-              <Typography variant="body2">
-                <strong>Tratamiento:</strong>{" "}
-                {consulta.tratamiento.slice(0, 50)}
-              </Typography>
-            </Box>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-              <HistoryEdu color="action" fontSize="small" />
-              <Typography variant="body2">
-                <strong>Observaciones:</strong>{" "}
-                {consulta.observaciones.slice(0, 50)}
-              </Typography>
-            </Box>
-          </>
-          }
-
           <Divider />
 
-          {!doctorPdv &&
+          {!doctorPdv ?
+          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 1.5 }}>
+            <CustomButton text="Más información" variant="contained" component={Link} to={`${consulta.id}`}/>
+          </Box>
+          :
           <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 1.5 }}>
             <CustomButton text="Más información" variant="contained" component={Link} to={`${consulta.id}`}/>
           </Box>

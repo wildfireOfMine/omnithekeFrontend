@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { todasEspecialidadesList } from '../../store/UserSlice';
+import { especialidadDelete, todasEspecialidadesList } from '../../store/UserSlice';
 import CustomBox from '../../components/CustomBox';
-import { Box, Pagination, Paper, TextField, Typography } from '@mui/material';
+import { Box, Button, Pagination, Paper, TextField, Typography } from '@mui/material';
 import CustomCard from '../../components/CustomCard';
 import CustomButton from '../../components/CustomButton';
 import { useNavigate } from 'react-router-dom';
+import { Delete, Edit } from '@mui/icons-material';
+import { toast } from 'react-toastify';
 
 const SpecialtyListView = () => {
   const [datos, setDatos] = useState({
@@ -21,12 +23,34 @@ const SpecialtyListView = () => {
 
   useEffect(() =>{
     dispatch(todasEspecialidadesList({page: pagina, search: busqueda})).unwrap().then(datos => setDatos(datos));
+    cargarEspecialidades();
   }, [dispatch, pagina, busqueda])
   console.log(datos);
 
   const handleAnadir = () => {
     navigate("/admin/nuevaEspecialidad");
   }
+
+  const cargarEspecialidades = async () => {
+    try {
+      const respuesta = await dispatch(todasEspecialidadesList({page: pagina, search: busqueda})).unwrap();
+      setDatos(respuesta);
+    } catch (error) {
+      console.error("Error al cargar especialidades:", error);
+    }
+  };
+
+  const handleBorrar = async (id) => {
+    try {
+      await dispatch(especialidadDelete(id)).unwrap();
+      toast.success("Borrado con éxito");
+      await cargarEspecialidades();
+    } catch (error) {
+      toast.error("No se ha podido borrar la especialidad");
+      console.error(error);
+    }
+  }
+
   return (
     <CustomBox>
       <Typography
@@ -98,6 +122,9 @@ const SpecialtyListView = () => {
                       borderColor: "#1976d2",
                       bgcolor: "#f5f9ff",
                     },
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-evenly"
                   }}
                 >
                   <Typography
@@ -119,6 +146,15 @@ const SpecialtyListView = () => {
                   >
                     {especialidad.nombre}
                   </Typography>
+                  <Box>
+                  <Button size="small" sx={{ minWidth: "auto", p: 0.5 }} onClick={()=> navigate(`/admin/editarEspecialidad/${especialidad.id}`)}>
+                    <Edit fontSize="small" />
+                  </Button>
+
+                  <Button size="small" color="error" sx={{ minWidth: "auto", p: 0.5 }} onClick={()=> handleBorrar(especialidad.id)}>
+                    <Delete fontSize="small" />
+                  </Button>
+                  </Box>
                 </Paper>
               ))}
           </Box>

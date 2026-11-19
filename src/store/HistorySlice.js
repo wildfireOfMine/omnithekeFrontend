@@ -69,7 +69,7 @@ export const miConsulta = createAsyncThunk(
 
 export const misConsultasDoctor = createAsyncThunk(
   "history/misConsultas",
-  async ({ page = 1, doctor = "", especialidad = "" }, { rejectWithValue, getState }) => {
+  async ({ page = 1, paciente = "", especialidad = "" }, { rejectWithValue, getState }) => {
     try {
       const state = getState();
       const session = state.users.session;
@@ -78,8 +78,8 @@ export const misConsultasDoctor = createAsyncThunk(
 
       params.append("page", page);
 
-      if (doctor) {
-        params.append("search", doctor);
+      if (paciente) {
+        params.append("search", paciente);
       }
 
       if (especialidad) {

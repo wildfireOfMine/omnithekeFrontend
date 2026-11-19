@@ -131,6 +131,27 @@ export const todasEspecialidadesList = createAsyncThunk(
   }
 );
 
+export const especialidadGet = createAsyncThunk(
+  "user/especialidadGet",
+  async (especialidadId, { rejectWithValue, getState }) => {
+    try{
+      const state = getState();
+      const session = state.users.session;
+      console.log(especialidadId);
+      const respuesta = await axios.get(`${BACKEND_URL}users/api/especialidadGet/${especialidadId}/`, {
+          headers: {
+            Authorization: `Bearer ${session.token}`
+          }
+      });
+    console.log(respuesta);
+    return respuesta.data;
+    
+    } catch (error) {
+        return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
+    }
+  }
+)
+
 export const especialidadPost = createAsyncThunk(
   "user/especialidadPost",
   async (especialidad, { rejectWithValue, getState }) => {
@@ -139,6 +160,44 @@ export const especialidadPost = createAsyncThunk(
       const session = state.users.session;
       console.log(especialidad);
       const respuesta = await axios.post(`${BACKEND_URL}users/api/especialidadPost/`, especialidad, {
+          headers: {
+            Authorization: `Bearer ${session.token}`
+          }
+      });
+    console.log(respuesta);
+    } catch (error) {
+        return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
+    }
+  }
+)
+
+export const especialidadPut = createAsyncThunk(
+  "user/especialidadPut",
+  async (especialidad, { rejectWithValue, getState }) => {
+    try{
+      const state = getState();
+      const session = state.users.session;
+      console.log(especialidad);
+      const respuesta = await axios.put(`${BACKEND_URL}users/api/especialidadPut/${especialidad.id}/`, especialidad, {
+          headers: {
+            Authorization: `Bearer ${session.token}`
+          }
+      });
+    console.log(respuesta);
+    } catch (error) {
+        return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
+    }
+  }
+)
+
+export const especialidadDelete = createAsyncThunk(
+  "user/especialidadDelete",
+  async (especialidadId, { rejectWithValue, getState }) => {
+    try{
+      const state = getState();
+      const session = state.users.session;
+      console.log(especialidadId);
+      const respuesta = await axios.delete(`${BACKEND_URL}users/api/especialidadDelete/${especialidadId}/`, {
           headers: {
             Authorization: `Bearer ${session.token}`
           }

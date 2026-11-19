@@ -150,6 +150,26 @@ export const horasDisponibles = createAsyncThunk(
     }
 )
 
+export const crearHorarios = createAsyncThunk(
+  "appointment/crearHorario",
+  async (horarios, { rejectWithValue, getState }) => {
+        try {
+            const state = getState();
+            const session = state.users.session;
+
+            const respuesta = await axios.put(`${BACKEND_URL}appointments/api/crearHorarios/`, horarios, {
+                headers: {
+                  Authorization: `Bearer ${session.token}`
+                }
+            });
+
+            return respuesta.data;
+        } catch (error) {
+          return rejectWithValue(error.response?.data || error.message);
+        }
+    }
+)
+
 export const crearCita = createAsyncThunk(
   "appointment/crearCita",
   async (cita, { rejectWithValue, getState }) => {
@@ -187,6 +207,46 @@ export const misCitasDoctorHoy = createAsyncThunk(
                 }
             });
             console.log(respuesta);
+            return respuesta.data;
+        } catch (error) {
+          return rejectWithValue(error.response?.data || error.message);
+        }
+    }
+)
+
+export const crearCalendario = createAsyncThunk(
+  "appointment/crearCalendario",
+  async (_, { rejectWithValue, getState }) => {
+        try {
+            const state = getState();
+            const session = state.users.session;
+
+            const respuesta = await axios.post(`${BACKEND_URL}appointments/api/crearCalendario/`, {}, {
+                headers: {
+                  Authorization: `Bearer ${session.token}`
+                }
+            });
+
+            return respuesta.data;
+        } catch (error) {
+          return rejectWithValue(error.response?.data || error.message);
+        }
+    }
+)
+
+export const conseguirCalendario = createAsyncThunk(
+  "appointment/conseguirCalendario",
+  async (_,{ rejectWithValue, getState }) => {
+        try {
+            const state = getState();
+            const session = state.users.session;
+
+            const respuesta = await axios.get(`${BACKEND_URL}appointments/api/conseguirCalendario/`, {
+                headers: {
+                  Authorization: `Bearer ${session.token}`
+                }
+            });
+
             return respuesta.data;
         } catch (error) {
           return rejectWithValue(error.response?.data || error.message);

@@ -146,8 +146,8 @@ const DetailQueryView = () => {
             <CustomData icono={<DescriptionOutlined />} titulo="N.º de consulta" valor={datos.id}/>
             <CustomData icono={<CalendarMonthOutlinedIcon />} titulo="Fecha de registro" valor={fecha}/>
             <CustomData icono={<Person2Outlined />} titulo="N.º de cita" valor={datos.cita}/>
-            <CustomData icono={<PersonOutlineOutlined />} titulo="Paciente" valor={datos.paciente}/>
-            <CustomData icono={<MedicalServicesOutlined />} titulo="Médico responsable" valor={datos.doctor}/>
+            <CustomData icono={<PersonOutlineOutlined />} titulo="Paciente" valor={datos.pacienteNombre}/>
+            <CustomData icono={<MedicalServicesOutlined />} titulo="Médico responsable" valor={datos.doctorNombre}/>
           </Box>
 
           <CustomSection icono={<AssignmentOutlined />} titulo="Diagnóstico" contenido={datos.diagnostico}/>

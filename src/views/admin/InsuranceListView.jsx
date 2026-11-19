@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { todasAseguradorasList } from '../../store/UserSlice';
 import CustomBox from '../../components/CustomBox';
-import { Box, Paper, TextField, Typography } from '@mui/material';
+import { Avatar, Box, Card, CardContent, Divider, Pagination, Paper, TextField, Typography } from '@mui/material';
+import EmailIcon from "@mui/icons-material/Email";
+import PhoneIcon from "@mui/icons-material/Phone";
 import CustomButton from '../../components/CustomButton';
+import { Stack } from '@mui/system';
+import { OpenInNew, Web } from '@mui/icons-material';
 
 const InsuranceListView = () => {
   const [datos, setDatos] = useState({
@@ -83,43 +87,109 @@ const InsuranceListView = () => {
               }}
           >
               {datos.results.map((aseguradora) => (
-                <Paper
+                <Card
                   key={aseguradora.id}
-                  elevation={0}
                   sx={{
-                    p: 2,
-                    border: "1px solid #e0e5eb",
-                    borderRadius: 2,
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 1.5,
-                    transition: "0.2s",
-                    "&:hover": {
-                      borderColor: "#1976d2",
-                      bgcolor: "#f5f9ff",
-                    },
-                  }}
-                >
-                  <Typography
-                    variant="caption"
-                    sx={{
-                      bgcolor: "#e3f2fd",
-                      color: "#1565c0",
-                      fontWeight: 700,
-                      px: 1,
-                      py: 0.5,
-                      borderRadius: 1,
-                    }}
+                      borderRadius: 4,
+                      overflow: "hidden",
+                      transition: "all 0.25s ease",
+                      border: "1px solid",
+                      borderColor: "divider",
+                      "&:hover": {
+                          transform: "translateY(-5px)",
+                          boxShadow: 6,
+                      },
+                      }}
                   >
-                    {aseguradora.id}
-                  </Typography>
+                  <CardContent sx={{ p: 3 }}>
+                      <Box
+                          sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: 2,
+                              mb: 2.5,
+                          }}
+                      >
+                          <Avatar
+                              sx={{
+                                  width: 60,
+                                  height: 60,
+                                  fontSize: "1.4rem",
+                              }}
+                          >
+                              {aseguradora.nombre?.charAt(0)}
+                          </Avatar>
 
-                  <Typography variant="body1"
-                    sx={{ fontWeight: 600, overflowWrap: "anywhere" }}
-                  >
-                    {aseguradora.nombre}
-                  </Typography>
-                </Paper>
+                          <Box>
+                              <Typography
+                                  variant="h6"
+                                  fontWeight={700}
+                              >
+                                  
+                                  {aseguradora.nombre}
+                                  
+                                  
+                              </Typography>
+
+                          </Box>
+                      </Box>
+
+                      <Divider sx={{ mb: 2 }} />
+
+                          <Stack spacing={1.5}>
+                              {aseguradora.correo && (
+                                  <Box
+                                      sx={{
+                                          display: "flex",
+                                          alignItems: "center",
+                                          gap: 1.5,
+                                      }}
+                                  >
+                                      <EmailIcon color="action" fontSize="small" />
+
+                                      <Typography variant="body2">
+                                          {aseguradora.correo}
+                                      </Typography>
+                                  </Box>
+                              )}
+
+                              {aseguradora.telefono && (
+                                  <Box
+                                      sx={{
+                                          display: "flex",
+                                          alignItems: "center",
+                                          gap: 1.5,
+                                      }}
+                                  >
+                                      <PhoneIcon color="action" fontSize="small" />
+
+                                      <Typography variant="body2">
+                                          {aseguradora.telefono}
+                                      </Typography>
+                                  </Box>
+                              )}
+
+                              {aseguradora.paginaWeb && (
+                                  <Box
+                                      sx={{
+                                          display: "flex",
+                                          alignItems: "center",
+                                          gap: 1.5,
+                                      }}
+                                  >
+                                      <OpenInNew color="action" fontSize="small" />
+
+                                      <Typography variant="body2">
+                                          <Link to={aseguradora.paginaWeb} target="_blank">{aseguradora.paginaWeb}</Link>
+                                      </Typography>
+                                  </Box>
+                              )}
+
+                          </Stack>
+                                
+                         
+                  </CardContent>
+              </Card>
               ))}
           </Box>
       ) : (
@@ -133,6 +203,23 @@ const InsuranceListView = () => {
             No se han encontrado aseguradoras...
           </Typography>
         )}
+      </Box>
+
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          mt: 5,
+          mb: 3,
+        }}
+      >
+        <Pagination count={Math.ceil(datos.count / 6)}
+          page={pagina}
+          onChange={(e, valor) => {
+            setPagina(valor);
+          }}
+          color="primary" size="large"
+        />
       </Box>
 
     </CustomBox>

@@ -3,7 +3,7 @@ import { Box } from '@mui/system'
 import React from 'react'
 import CustomButton from './CustomButton'
 
-const CustomFieldText = ({ title="Test", idName="Test", placeholder="Test", textCustomButton="Test", maxWidth, onSubmit}) => {
+const CustomFieldText = ({ title="Test", idName="Test", placeholder="Test", textCustomButton="Test", maxWidth, onSubmit, value, onChange}) => {
   return (
     <Box
         component="form"
@@ -26,7 +26,7 @@ const CustomFieldText = ({ title="Test", idName="Test", placeholder="Test", text
     >
         <Box>
           <Typography sx={{ fontWeight: 600, color: "#374151", mb: 1,}}>{title}</Typography>
-          <TextField fullWidth type="text" id={idName} name={idName} placeholder={placeholder} variant="outlined"/>
+          <TextField fullWidth type="text" id={idName} name={idName} placeholder={placeholder} variant="outlined" value={value} onChange={onChange}/>
         </Box>
 
         <CustomButton color="#fff" text={textCustomButton} backgroundColor="#2563eb" type="submit"/>

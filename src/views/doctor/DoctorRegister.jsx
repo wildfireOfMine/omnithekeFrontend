@@ -58,9 +58,8 @@ const DoctorRegister = () => {
         tipoDocumento: e.currentTarget.tipoDocumento.value,
         documentoIdentidad: e.currentTarget.documento.value,
         pais: e.currentTarget.pais.value,
-        correo: e.currentTarget.correoElectronico.value,
         telefono: e.currentTarget.telefono.value,
-        aseguradoras: aseguradoraEscogida === "Privado" ? [] : aseguradoraEscogida,
+        aseguradoras: aseguradoraEscogida === "Público" ? [] : aseguradoraEscogida,
         password: contrasena.value,
         grupoSanguineo: grupoSanguineo,
         numeroColegiado: e.currentTarget.numeroColegiado.value,
@@ -68,15 +67,29 @@ const DoctorRegister = () => {
         uid: uid,
         token: token
     }
-    
-    try {
-      await dispatch(registrarseDoctor(doctor)).unwrap();
-      toast.success("Cuenta registrada con éxito. ¡Puedes iniciar sesión como doctor!");
-      console.log("Sesión iniciada");
-      navigate("/iniciarSesion");
-    } catch (err) {
-      console.log(err);
+
+    console.log(contrasena.value);
+    if (contrasena.value.length < 8) {
+      toast.error("La contraseña tiene que tener 8 caracteres como mínimo");
+    } else {
+      try {
+        await dispatch(registrarseDoctor(doctor)).unwrap();
+        toast.success("Cuenta registrada con éxito. ¡Puedes iniciar sesión como doctor!");
+        console.log("Sesión iniciada");
+        navigate("/iniciarSesion");
+      } catch (err) {
+        console.log(err);
+        Object.entries(err).forEach(([campo, mensajes]) => {
+            mensajes.forEach((mensaje) => {
+              toast.error(`${campo}: ${mensaje}`);
+            });
+          });
+        toast.error(err);
+      }
+
     }
+
+    
     
   }
 
@@ -281,21 +294,6 @@ const DoctorRegister = () => {
             </Grid>
 
             <Grid size={{ xs: 12, md: 6 }}>
-              <Typography component="label" htmlFor="correoElectronico"
-                sx={{
-                  display: "block",
-                  mb: 1,
-                  fontWeight: 600,
-                  color: "#374151",
-                  textAlign: "left"
-                }}
-              >
-                Correo electrónico
-              </Typography>
-              <TextField fullWidth type="email" id="correoElectronico" name="correoElectronico" />
-            </Grid>
-
-            <Grid size={{ xs: 12, md: 6 }}>
               <Typography component="label" htmlFor="telefono"
                 sx={{
                   display: "block",
@@ -329,17 +327,17 @@ const DoctorRegister = () => {
                 onChange={(e) => {
                   const seleccion = e.target.value;
 
-                  if (seleccion.includes("Privado")) {
-                    setAseguradoraEscogida(["Privado"]);
+                  if (seleccion.includes("Público")) {
+                    setAseguradoraEscogida(["Público"]);
                   } else {
                     setAseguradoraEscogida(
-                      seleccion.filter((valor) => valor !== "Privado")
+                      seleccion.filter((valor) => valor !== "Público")
                     );
                   }
                 }}
               >
-                <MenuItem value="Privado">
-                  Privado
+                <MenuItem value="Público">
+                  Público
                 </MenuItem>
                 {aseguradoras.map((asegur) => (
                   <MenuItem
@@ -352,7 +350,7 @@ const DoctorRegister = () => {
               </TextField>
             </Grid>
 
-            <Grid size={{ xs: 12, md: 4 }}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Typography component="label" htmlFor="especialidad"
                 sx={{
                   display: "block",
@@ -381,7 +379,7 @@ const DoctorRegister = () => {
               </TextField>
             </Grid>
 
-            <Grid size={{ xs: 12, md: 4 }}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Typography component="label" htmlFor="aseguradora"
                 sx={{
                   display: "block",
@@ -417,7 +415,7 @@ const DoctorRegister = () => {
               </TextField>
             </Grid>
 
-            <Grid size={{ xs: 12, md: 4 }}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Typography component="label" htmlFor="numeroColegiado"
                 sx={{
                   display: "block",

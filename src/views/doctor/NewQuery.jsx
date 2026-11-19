@@ -34,8 +34,14 @@ const NewQuery = () => {
       observaciones: e.currentTarget.observaciones.value,
     }
 
-    await dispatch(nuevaConsulta(consulta)).unwrap();
-    toast.success("¡Consulta creada con éxito!");
+    try {
+      await dispatch(nuevaConsulta(consulta)).unwrap();
+      toast.success("¡Consulta creada con éxito!");
+      navigate(-1);
+    } catch (err) {
+      toast.error(err);
+    }
+    
   }
 
   const handleCustomButton = async (e) => {
@@ -89,7 +95,7 @@ const NewQuery = () => {
               >
                 Nº de Cita:
               </Typography>
-              <TextField fullWidth type="text" id="nombre" name="nombre" value={datos.id}/>
+              <TextField fullWidth type="text" disabled id="nombre" name="nombre" value={datos.id}/>
             </Grid>
 
             <Grid size={{ xs: 12, md: 4 }}>
@@ -104,7 +110,7 @@ const NewQuery = () => {
               >
                 Paciente atendido
               </Typography>
-              <TextField fullWidth type="text" id="primerApellido" name="primerApellido" value={datos.pacienteNombre}/>
+              <TextField fullWidth type="text" disabled id="primerApellido" name="primerApellido" value={datos.pacienteNombre}/>
             </Grid>
 
             <Grid size={{ xs: 12, md: 4 }}>
@@ -119,7 +125,7 @@ const NewQuery = () => {
               >
                 Doctor responsable
               </Typography>
-              <TextField fullWidth type="text" id="segundoApellido" name="segundoApellido" value={datos.doctorNombre}/>
+              <TextField fullWidth type="text" disabled id="segundoApellido" name="segundoApellido" value={datos.doctorNombre}/>
             </Grid>
 
             <Grid size={{ xs: 12, md: 12 }}>

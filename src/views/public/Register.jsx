@@ -17,7 +17,7 @@ const Register = () => {
   const [tipoDocumento, setTipoDocumento] = useState("");
   const [pais, setPais] = useState("");
   const [aseguradoras, setAseguradoras] = useState([]);
-  const [aseguradoraEscogida, setAseguradoraEscogida] = useState("");
+  const [aseguradoraEscogida, setAseguradoraEscogida] = useState([]);
   const [grupoSanguineo, setGrupoSanguineo] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -65,7 +65,7 @@ const Register = () => {
           pais: pais.value,
           correo: correoElectronico.value,
           telefono: telefono.value,
-          aseguradora: aseguradoraEscogida === "Privado" ? null : aseguradoraEscogida,
+          aseguradoras: aseguradoraEscogida === "Público" ? null : aseguradoraEscogida,
           password: contrasena.value,
           grupoSanguineo: grupoSanguineo
           })
@@ -75,7 +75,7 @@ const Register = () => {
       navigate("/iniciarSesion");
     } catch (err) {
       console.log(err);
-      Object.values(err).flat().forEach((mensaje) => toast.error(mensaje));
+      toast.error(err);
     }
     
   }
@@ -324,13 +324,22 @@ const Register = () => {
               </Typography>
 
               <TextField select fullWidth
+                slotProps={{select: {multiple: true}}}
                 value={aseguradoraEscogida}
                 onChange={(e) => {
-                  setAseguradoraEscogida(e.target.value);
+                  const seleccion = e.target.value;
+
+                  if (seleccion.includes("Público")) {
+                    setAseguradoraEscogida(["Público"]);
+                  } else {
+                    setAseguradoraEscogida(
+                      seleccion.filter((valor) => valor !== "Público")
+                    );
+                  }
                 }}
               >
-                <MenuItem value="Privado">
-                  Privado
+                <MenuItem value="Público">
+                  Público
                 </MenuItem>
                 {aseguradoras.map((asegur) => (
                   <MenuItem
