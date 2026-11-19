@@ -3,8 +3,11 @@ import { misCitasDoctorHoy } from '../../store/AppointmentSlice';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import CustomBox from '../../components/CustomBox';
-import { Box, Pagination, Typography } from '@mui/material';
+import { Box, Card, Chip, Divider, Pagination, Typography } from '@mui/material';
 import CustomButton from '../../components/CustomButton';
+import dayjs from "dayjs"
+import 'dayjs/locale/es';
+import { Stack } from '@mui/system';
 
 const TodaysAppointments = () => {
   const navigate = useNavigate();
@@ -43,7 +46,7 @@ const TodaysAppointments = () => {
             {datos?.results?.length > 0 ? (
             <Box
                 sx={{
-                    display: "grid",
+                    
                     gridTemplateColumns: {
                         xs: "1fr",
                         sm: "repeat(2, 1fr)",
@@ -55,11 +58,62 @@ const TodaysAppointments = () => {
                 }}
             >
                 {datos.results.map((consulta) => 
-                  <>
-                  {JSON.stringify(consulta)} 
-                  <CustomButton text="Crear consulta" onClick={() => handleCustomButton(consulta.id)}/>
-                  
-                  </>)
+                  <Card
+                    key={consulta.id}
+                    sx={{
+                      p: 2, borderRadius: 3,
+                      width: "100%", margin: "10px",
+                      border: "1px solid black"
+                    }}
+                  >
+                    <Stack spacing={1.5}>
+                      <Stack direction="row" sx={{ justifyContent:"space-between", alignItems:"center"}}>
+                        <Stack direction="row" spacing={2} sx={{ alignItems:"center"}}>
+                          <Typography fontWeight={700}>
+                            {dayjs(consulta.fechaInicio).format("HH:mm")} {" - "} {dayjs(consulta.fechaFin).format("HH:mm")}
+                          </Typography>
+
+                          <Chip label={consulta.estado} size="small" color={consulta.estado === "pendiente" ? "warning" : "success"}/>
+                        </Stack>
+
+                        <Typography variant="caption" color="text.secondary">Cita #{consulta.id}</Typography>
+                      </Stack>
+
+                      <Divider />
+
+                      <Stack direction={{ xs: "column", md: "row" }} spacing={3}   
+                      sx={{ alignItems: { xs: "flex-start", md: "center", }, justifyContent: "space-around"} } >
+                        <Box flex={1}>
+                          <Typography variant="caption" color="text.secondary">Paciente</Typography>
+                          <Typography fontWeight={600}>{consulta.pacienteNombre}</Typography>
+                        </Box>
+
+                        <Box flex={1}>
+                          <Typography variant="caption" color="text.secondary">Doctor</Typography>
+                          <Typography fontWeight={600}>{consulta.doctorNombre}</Typography>
+                        </Box>
+
+                        <Box flex={1}>
+                          <Typography variant="caption" color="text.secondary">Motivo
+                          </Typography>
+                          <Typography fontWeight={600}>{consulta.motivo}</Typography>
+                        </Box>
+
+                        <Box flex={1}>
+                          <Typography variant="caption" color="text.secondary">Fecha</Typography>
+                          <Typography fontWeight={600}>{dayjs(consulta.fechaInicio).format("DD/MM/YYYY")}</Typography>
+                        </Box>
+                      </Stack>
+
+                      <Divider />
+
+                      <Stack direction="row" sx={{ justifyContent:"space-between", alignItems:"center"}}>
+                        <Typography variant="caption" color="text.secondary">Calendario #{consulta.calendario}</Typography>
+                        <CustomButton text="Crear consulta" onClick={() => handleCustomButton(consulta.id)} disabled={consulta.estado == "confirmada"}/>
+                      </Stack>
+
+                    </Stack>
+                  </Card>)
                 }
             </Box>
         ) : (

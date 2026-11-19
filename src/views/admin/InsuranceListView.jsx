@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { todasAseguradorasList } from '../../store/UserSlice';
 import CustomBox from '../../components/CustomBox';
-import { Avatar, Box, Card, CardContent, Divider, Paper, TextField, Typography } from '@mui/material';
+import { Avatar, Box, Card, CardContent, Divider, Pagination, Paper, TextField, Typography } from '@mui/material';
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
 import CustomButton from '../../components/CustomButton';
@@ -203,6 +203,23 @@ const InsuranceListView = () => {
             No se han encontrado aseguradoras...
           </Typography>
         )}
+      </Box>
+
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          mt: 5,
+          mb: 3,
+        }}
+      >
+        <Pagination count={Math.ceil(datos.count / 6)}
+          page={pagina}
+          onChange={(e, valor) => {
+            setPagina(valor);
+          }}
+          color="primary" size="large"
+        />
       </Box>
 
     </CustomBox>
