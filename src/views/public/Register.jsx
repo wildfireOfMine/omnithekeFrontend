@@ -65,7 +65,7 @@ const Register = () => {
           pais: pais.value,
           correo: correoElectronico.value,
           telefono: telefono.value,
-          aseguradoras: aseguradoraEscogida === "Público" ? null : aseguradoraEscogida,
+          aseguradoras: aseguradoraEscogida.includes("Público") === "Público" ? null : aseguradoraEscogida,
           password: contrasena.value,
           grupoSanguineo: grupoSanguineo
           })
