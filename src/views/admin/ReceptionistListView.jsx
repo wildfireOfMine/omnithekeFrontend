@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { todosRecepcionistasList } from '../../store/UserSlice';
+import { recepcionistaDelete, todosRecepcionistasList } from '../../store/UserSlice';
 import CustomBox from '../../components/CustomBox';
 import { MenuItem, Pagination, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import CustomButton from '../../components/CustomButton';
 import CustomProfile from '../../components/CustomProfile';
+import { toast } from 'react-toastify';
 
 const ReceptionistListView = () => {
   const [datos, setDatos] = useState({
@@ -27,6 +28,26 @@ const ReceptionistListView = () => {
 
   const handleAnadir = () => {
     navigate("/admin/nuevoRecepcionista");
+  }
+
+  const cargarRecepcionistas = async () => {
+      try {
+        const respuesta = await dispatch(todosRecepcionistasList({page: pagina, search: busqueda})).unwrap()
+        setDatos(respuesta);
+      } catch (error) {
+        console.error("Error al cargar doctores:", error);
+      }
+  };
+
+  const handleBorrar = async (id) => {
+    try {
+      await dispatch(recepcionistaDelete(id)).unwrap();
+      toast.success("Borrado con éxito");
+      cargarRecepcionistas();
+    } catch (error) {
+      toast.error("No se ha podido borrar el recepcionista");
+      console.error(error);
+    }
   }
   return (
     <CustomBox>
@@ -83,11 +104,7 @@ const ReceptionistListView = () => {
               }}
           >
               {datos.results.map((recepcionista) => (
-              <CustomProfile
-                key={recepcionista.id}
-                usuario={recepcionista}
-                boton={false}
-              />
+                <CustomProfile key={recepcionista.id} usuario={recepcionista} boton={false} adminPdv={true} handleBorrar={handleBorrar} recepcionista={true}/>
             ))}
           </Box>
       ) : (

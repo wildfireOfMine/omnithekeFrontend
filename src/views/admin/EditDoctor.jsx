@@ -10,6 +10,8 @@ import CustomButton from '../../components/CustomButton';
 import countries from "i18n-iso-countries";
 import es from "i18n-iso-countries/langs/es.json";
 
+countries.registerLocale(es);
+
 const EditDoctor = () => {
   const [datos, setDatos] = useState([]);
   const [sexo, setSexo] = useState("");
@@ -89,6 +91,7 @@ const EditDoctor = () => {
     try {
         await dispatch(doctorPut({doctorPk: doctorId, doctor})).unwrap();
         toast.success("Cuenta editada con éxito");
+        navigate("/admin/doctores");
     } catch (err) {
         console.log(err);
         Object.entries(err).forEach(([campo, mensajes]) => {
@@ -427,7 +430,7 @@ const EditDoctor = () => {
 
         
 
-          <CustomButton color="#fff" text="Registrarme como doctor" backgroundColor="#2563eb" type="submit"/>
+          <CustomButton color="#fff" text="Editar" backgroundColor="#2563eb" type="submit"/>
 
         </Box>
       </Box>

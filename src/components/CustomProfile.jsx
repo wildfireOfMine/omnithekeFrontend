@@ -7,7 +7,7 @@ import React from 'react'
 import CustomButton from './CustomButton';
 import { Business, Delete, Edit } from '@mui/icons-material';
 
-const CustomProfile = ({usuario, boton=true, adminPdv=false, handleBorrar}) => {
+const CustomProfile = ({usuario, boton=true, adminPdv=false, handleBorrar, recepcionista=false}) => {
     const navigate = useNavigate();
     console.log(usuario);
   return (
@@ -69,7 +69,10 @@ const CustomProfile = ({usuario, boton=true, adminPdv=false, handleBorrar}) => {
                     </Box>
                     { adminPdv && 
                     <Box>
-                        <Button size="small" sx={{ minWidth: "auto", p: 0.5 }} onClick={()=> navigate(`/admin/editarDoctor/${usuario.id}`)}>
+                        <Button size="small" sx={{ minWidth: "auto", p: 0.5 }} onClick={()=> 
+                            navigate(recepcionista ? 
+                            `/admin/editarRecepcionista/${usuario.id}`
+                            : `/admin/editarDoctor/${usuario.id}`)}>
                             <Edit fontSize="small" />
                         </Button>
                   
