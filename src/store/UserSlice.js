@@ -255,6 +255,27 @@ export const todasAseguradorasList = createAsyncThunk(
   }
 );
 
+export const aseguradoraGet = createAsyncThunk(
+  "user/aseguradoraGet",
+  async (aseguradoraId, { rejectWithValue, getState }) => {
+    try{
+      const state = getState();
+      const session = state.users.session;
+      console.log(aseguradoraId);
+      const respuesta = await axios.get(`${BACKEND_URL}users/api/aseguradoraGet/${aseguradoraId}/`, {
+          headers: {
+            Authorization: `Bearer ${session.token}`
+          }
+      });
+    console.log(respuesta);
+    return respuesta.data;
+    
+    } catch (error) {
+        return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
+    }
+  }
+)
+
 export const aseguradoraPost = createAsyncThunk(
   "user/aseguradoraPost",
   async (aseguradora, { rejectWithValue, getState }) => {
@@ -263,6 +284,44 @@ export const aseguradoraPost = createAsyncThunk(
       const session = state.users.session;
       console.log(aseguradora);
       const respuesta = await axios.post(`${BACKEND_URL}users/api/aseguradoraPost/`, aseguradora, {
+          headers: {
+            Authorization: `Bearer ${session.token}`
+          }
+      });
+    console.log(respuesta);
+    } catch (error) {
+        return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
+    }
+  }
+)
+
+export const aseguradoraPut = createAsyncThunk(
+  "user/aseguradoraPut",
+  async ({aseguradoraId, aseguradora}, { rejectWithValue, getState }) => {
+    try{
+      const state = getState();
+      const session = state.users.session;
+      console.log(aseguradora);
+      const respuesta = await axios.put(`${BACKEND_URL}users/api/aseguradoraPut/${aseguradoraId}/`, aseguradora, {
+          headers: {
+            Authorization: `Bearer ${session.token}`
+          }
+      });
+    console.log(respuesta);
+    } catch (error) {
+        return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
+    }
+  }
+)
+
+export const aseguradoraDelete = createAsyncThunk(
+  "user/aseguradoraDelete",
+  async (aseguradoraId, { rejectWithValue, getState }) => {
+    try{
+      const state = getState();
+      const session = state.users.session;
+      console.log(aseguradoraId);
+      const respuesta = await axios.delete(`${BACKEND_URL}users/api/aseguradoraDelete/${aseguradoraId}/`, {
           headers: {
             Authorization: `Bearer ${session.token}`
           }

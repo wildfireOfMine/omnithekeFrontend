@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { todasAseguradorasList } from '../../store/UserSlice';
+import { aseguradoraDelete, todasAseguradorasList } from '../../store/UserSlice';
 import CustomBox from '../../components/CustomBox';
-import { Avatar, Box, Card, CardContent, Divider, Pagination, Paper, TextField, Typography } from '@mui/material';
+import { Avatar, Box, Button, Card, CardContent, Divider, Pagination, Paper, TextField, Typography } from '@mui/material';
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
 import CustomButton from '../../components/CustomButton';
 import { Stack } from '@mui/system';
-import { OpenInNew, Web } from '@mui/icons-material';
+import { Delete, Edit, OpenInNew, Web } from '@mui/icons-material';
+import { toast } from 'react-toastify';
 
 const InsuranceListView = () => {
   const [datos, setDatos] = useState({
@@ -29,6 +30,27 @@ const InsuranceListView = () => {
 
   const handleAnadir = () => {
     navigate("/admin/nuevaAseguradora");
+  }
+
+  const cargarAseguradoras = async () => {
+      try {
+        const respuesta = await dispatch(todasAseguradorasList({page: pagina, search: busqueda})).unwrap()
+        setDatos(respuesta);
+      } catch (error) {
+        console.error("Error al cargar especialidades:", error);
+      }
+    };
+  
+
+  const handleBorrar = async (id) => {
+    try {
+      await dispatch(aseguradoraDelete(id)).unwrap();
+      toast.success("Borrado con éxito");
+      cargarAseguradoras();
+    } catch (error) {
+      toast.error("No se ha podido borrar la especialidad");
+      console.error(error);
+    }
   }
   return (
     <CustomBox>
@@ -131,6 +153,15 @@ const InsuranceListView = () => {
                                   
                               </Typography>
 
+                          </Box>
+                          <Box>
+                            <Button size="small" sx={{ minWidth: "auto", p: 0.5 }} onClick={()=> navigate(`/admin/editarAseguradora/${aseguradora.id}`)}>
+                              <Edit fontSize="small" />
+                            </Button>
+                  
+                            <Button size="small" color="error" sx={{ minWidth: "auto", p: 0.5 }} onClick={()=> handleBorrar(aseguradora.id)}>
+                              <Delete fontSize="small" />
+                            </Button>
                           </Box>
                       </Box>
 

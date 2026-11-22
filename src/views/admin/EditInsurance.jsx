@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import CustomBox from '../../components/CustomBox';
 import { Box, TextField, Typography } from '@mui/material';
-import { aseguradoraPost, especialidadGet } from '../../store/UserSlice';
+import { aseguradoraGet, aseguradoraPost, aseguradoraPut } from '../../store/UserSlice';
 import { toast } from 'react-toastify';
 import { Grid } from '@mui/system';
 import CustomButton from '../../components/CustomButton';
@@ -11,12 +11,19 @@ import CustomButton from '../../components/CustomButton';
 const EditInsurance = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { especialidadId } = useParams();
+  const { aseguradoraId } = useParams();
   const [datos, setDatos] = useState({});
 
   useEffect(() => {
-    dispatch(especialidadGet(especialidadId)).unwrap().then((datos) => setDatos(datos));
-  }, []);
+    dispatch(aseguradoraGet(aseguradoraId)).unwrap().then((datos) => setDatos(datos));
+  }, [dispatch]);
+  console.log(datos);
+
+  const handleCambio = (e) => {
+    const { name, value } = e.target;
+
+    setDatos((datosAnteriores) => ({...datosAnteriores, [name]: value} ));
+  };
 
   const handleFormulario = async (e) => {
     e.preventDefault();
@@ -32,12 +39,11 @@ const EditInsurance = () => {
       paginaWeb: e.currentTarget.paginaWeb.value
     }
     try {
-        await dispatch(aseguradoraPost(aseguradora)).unwrap();
+        await dispatch(aseguradoraPut({aseguradoraId, aseguradora})).unwrap();
         toast.success("Aseguradora registrada con éxito con éxito");
         navigate("/admin/aseguradoras");
     } catch (err) {
         console.log(err);
-        Object.values(err).flat().forEach((mensaje) => toast.error(mensaje));
         toast.error(err);
         
     }
@@ -90,7 +96,7 @@ const EditInsurance = () => {
               >
                 Nombre legal
               </Typography>
-              <TextField fullWidth type="text" id="nombre" name="nombre" value={datos.nombreLegal}/>
+              <TextField fullWidth type="text" id="nombre" name="nombre" value={datos.nombre ?? ""} onChange={handleCambio}/>
             </Grid>
 
             <Grid size={{ xs: 12, md: 4 }}>
@@ -105,7 +111,7 @@ const EditInsurance = () => {
               >
                 CIF
               </Typography>
-              <TextField fullWidth type="text" id="cif" name="cif"/>
+              <TextField fullWidth type="text" id="cif" name="cif" value={datos.cif ?? ""} onChange={handleCambio}/>
             </Grid>
 
             <Grid size={{ xs: 12, md: 4 }}>
@@ -120,7 +126,7 @@ const EditInsurance = () => {
               >
                 Teléfono
               </Typography>
-              <TextField fullWidth type="text" id="telefono" name="telefono"/>
+              <TextField fullWidth type="text" id="telefono" name="telefono" value={datos.telefono ?? ""} onChange={handleCambio}/>
             </Grid>
 
             <Grid size={{ xs: 12, md: 12 }}>
@@ -135,7 +141,7 @@ const EditInsurance = () => {
               >
                 Correo
               </Typography>
-              <TextField fullWidth type="email" id="correo" name="correo"/>
+              <TextField fullWidth type="email" id="correo" name="correo" value={datos.correo ?? ""} onChange={handleCambio}/>
             </Grid>
 
             <Grid size={{ xs: 12, md: 6 }}>
@@ -150,7 +156,7 @@ const EditInsurance = () => {
               >
                 Dirección
               </Typography>
-              <TextField fullWidth type="text" id="direccion" name="direccion"/>
+              <TextField fullWidth type="text" id="direccion" name="direccion" value={datos.direccion ?? ""} onChange={handleCambio}/>
             </Grid>
 
             <Grid size={{ xs: 12, md: 6 }}>
@@ -166,7 +172,7 @@ const EditInsurance = () => {
                 Código Postal
               </Typography>
 
-              <TextField fullWidth type="text" id="codigoPostal" name="codigoPostal"/>
+              <TextField fullWidth type="text" id="codigoPostal" name="codigoPostal" value={datos.codigoPostal ?? ""} onChange={handleCambio}/>
             </Grid>
 
             <Grid size={{ xs: 12, md: 6 }}>
@@ -182,7 +188,7 @@ const EditInsurance = () => {
                 Ciudad
               </Typography>
 
-              <TextField fullWidth type="text" id="ciudad" name="ciudad"/>
+              <TextField fullWidth type="text" id="ciudad" name="ciudad" value={datos.ciudad ?? ""} onChange={handleCambio}/>
             </Grid>
 
             <Grid size={{ xs: 12, md: 6 }}>
@@ -198,7 +204,7 @@ const EditInsurance = () => {
                 Página web
               </Typography>
 
-              <TextField fullWidth type="url" id="paginaWeb" name="paginaWeb"/>
+              <TextField fullWidth type="url" id="paginaWeb" name="paginaWeb" value={datos.paginaWeb ?? ""} onChange={handleCambio}/>
             </Grid>
 
           </Grid>

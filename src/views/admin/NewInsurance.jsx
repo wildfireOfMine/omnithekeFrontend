@@ -31,7 +31,6 @@ const NewInsurance = () => {
         navigate("/admin/aseguradoras");
     } catch (err) {
         console.log(err);
-        Object.values(err).flat().forEach((mensaje) => toast.error(mensaje));
         toast.error(err);
         
     }
