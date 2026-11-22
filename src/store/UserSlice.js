@@ -414,6 +414,25 @@ export const invitarUsuario = createAsyncThunk(
   }
 )
 
+export const estadisticas = createAsyncThunk(
+  "user/estadisticas",
+  async (_,{ rejectWithValue, getState }) => {
+    try {
+      const state = getState();
+      const session = state.users.session;
+      const respuesta = await axios.get(`${BACKEND_URL}users/api/estadisticas/`, {
+        headers: {
+          Authorization: `Bearer ${session.token}`
+        }
+      });
+
+      return respuesta.data
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
+    }
+  }
+)
+
 export const userSlice = createSlice({
   name: "user",
   initialState,
