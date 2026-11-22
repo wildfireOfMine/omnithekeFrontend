@@ -37,9 +37,9 @@ const InsuranceListView = () => {
         const respuesta = await dispatch(todasAseguradorasList({page: pagina, search: busqueda})).unwrap()
         setDatos(respuesta);
       } catch (error) {
-        console.error("Error al cargar especialidades:", error);
+        console.error("Error al cargar aseguradoras:", error);
       }
-    };
+  };
   
 
   const handleBorrar = async (id) => {
@@ -48,7 +48,7 @@ const InsuranceListView = () => {
       toast.success("Borrado con éxito");
       cargarAseguradoras();
     } catch (error) {
-      toast.error("No se ha podido borrar la especialidad");
+      toast.error("No se ha podido borrar la aseguradora");
       console.error(error);
     }
   }

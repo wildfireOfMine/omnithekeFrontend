@@ -2,12 +2,13 @@ import { Avatar, Button, Card, CardContent, Divider, Typography } from '@mui/mat
 import { Box, Stack } from '@mui/system'
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import React from 'react'
 import CustomButton from './CustomButton';
-import { Business } from '@mui/icons-material';
+import { Business, Delete, Edit } from '@mui/icons-material';
 
-const CustomProfile = ({usuario, boton=true}) => {
+const CustomProfile = ({usuario, boton=true, adminPdv=false, handleBorrar}) => {
+    const navigate = useNavigate();
     console.log(usuario);
   return (
         <Card
@@ -66,6 +67,17 @@ const CustomProfile = ({usuario, boton=true}) => {
                             
                         </Typography>
                     </Box>
+                    { adminPdv && 
+                    <Box>
+                        <Button size="small" sx={{ minWidth: "auto", p: 0.5 }} onClick={()=> navigate(`/admin/editarDoctor/${usuario.id}`)}>
+                            <Edit fontSize="small" />
+                        </Button>
+                  
+                        <Button size="small" color="error" sx={{ minWidth: "auto", p: 0.5 }} onClick={()=> handleBorrar(usuario.id)}>
+                            <Delete fontSize="small" />
+                        </Button>
+                    </Box>
+                    }
                 </Box>
 
                 <Divider sx={{ mb: 2 }} />

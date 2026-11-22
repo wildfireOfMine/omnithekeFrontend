@@ -86,6 +86,63 @@ export const todosDoctores = createAsyncThunk(
   }
 );
 
+export const doctor = createAsyncThunk(
+  "user/doctor",
+  async (doctorPk, { rejectWithValue, getState }) => {
+    try {
+      const state = getState();
+      const session = state.users.session;
+      const respuesta = await axios.get(`${BACKEND_URL}users/api/doctor/${doctorPk}/`, {
+        headers: {
+          Authorization: `Bearer ${session.token}`
+        }
+      });
+
+      return respuesta.data
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
+    }
+  }
+);
+
+export const doctorPut = createAsyncThunk(
+  "user/doctorDelete",
+  async ({doctorPk, doctor}, { rejectWithValue, getState }) => {
+    try {
+      const state = getState();
+      const session = state.users.session;
+      const respuesta = await axios.put(`${BACKEND_URL}users/api/doctorPut/${doctorPk}/`, doctor, {
+        headers: {
+          Authorization: `Bearer ${session.token}`
+        }
+      });
+
+      return respuesta.data
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
+    }
+  }
+);
+
+export const doctorDelete = createAsyncThunk(
+  "user/doctorDelete",
+  async (doctorPk, { rejectWithValue, getState }) => {
+    try {
+      const state = getState();
+      const session = state.users.session;
+      const respuesta = await axios.delete(`${BACKEND_URL}users/api/doctorDelete/${doctorPk}/`, {
+        headers: {
+          Authorization: `Bearer ${session.token}`
+        }
+      });
+
+      return respuesta.data
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
+    }
+  }
+);
+
 export const todasEspecialidades = createAsyncThunk(
   "user/todasEspecialidades",
   async (credentials, { rejectWithValue }) => {
@@ -365,7 +422,7 @@ export const todosRecepcionistasList = createAsyncThunk(
   }
 );
 
-export const doctor = createAsyncThunk(
+export const recepcionistaGet = createAsyncThunk(
   "user/doctor",
   async (doctorPk, { rejectWithValue, getState }) => {
     try {
@@ -383,6 +440,46 @@ export const doctor = createAsyncThunk(
     }
   }
 );
+
+export const recepcionistaPut = createAsyncThunk(
+  "user/doctorDelete",
+  async ({doctorPk, doctor}, { rejectWithValue, getState }) => {
+    try {
+      const state = getState();
+      const session = state.users.session;
+      const respuesta = await axios.put(`${BACKEND_URL}users/api/doctorPut/${doctorPk}/`, doctor, {
+        headers: {
+          Authorization: `Bearer ${session.token}`
+        }
+      });
+
+      return respuesta.data
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
+    }
+  }
+);
+
+export const recepcionistaDelete = createAsyncThunk(
+  "user/doctorDelete",
+  async (doctorPk, { rejectWithValue, getState }) => {
+    try {
+      const state = getState();
+      const session = state.users.session;
+      const respuesta = await axios.delete(`${BACKEND_URL}users/api/doctorDelete/${doctorPk}/`, {
+        headers: {
+          Authorization: `Bearer ${session.token}`
+        }
+      });
+
+      return respuesta.data
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
+    }
+  }
+);
+
+
 
 export const confirmarCuenta = createAsyncThunk(
   "user/confirmarCuenta",

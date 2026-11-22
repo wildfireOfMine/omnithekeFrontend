@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { todasAseguradoras, todasEspecialidades, todosDoctores } from '../../store/UserSlice';
+import { doctorDelete, todasAseguradoras, todasEspecialidades, todosDoctores } from '../../store/UserSlice';
 import CustomBox from '../../components/CustomBox';
 import { MenuItem, Pagination, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import CustomProfile from '../../components/CustomProfile';
 import CustomButton from '../../components/CustomButton';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const DoctorListView = () => {
   const [datos, setDatos] = useState({
@@ -33,6 +34,26 @@ const DoctorListView = () => {
 
   const handleAnadir = () => {
     navigate("/admin/nuevoDoctor");
+  }
+
+  const cargarDoctores = async () => {
+      try {
+        const respuesta = await dispatch(todosDoctores({page: pagina, especialidad: especialidad, search: busqueda, aseguradora: aseguradora})).unwrap()
+        setDatos(respuesta);
+      } catch (error) {
+        console.error("Error al cargar doctores:", error);
+      }
+  };
+
+  const handleBorrar = async (id) => {
+    try {
+      await dispatch(doctorDelete(id)).unwrap();
+      toast.success("Borrado con éxito");
+      cargarDoctores();
+    } catch (error) {
+      toast.error("No se ha podido borrar el doctor");
+      console.error(error);
+    }
   }
   return (
     <CustomBox>
@@ -132,7 +153,7 @@ const DoctorListView = () => {
               }}
           >
               {datos.results.map((doctor) => (
-                <CustomProfile key={doctor.id} usuario={doctor} boton={false}/>
+                <CustomProfile key={doctor.id} usuario={doctor} boton={false} adminPdv={true} handleBorrar={handleBorrar}/>
             ))}
           </Box>
       ) : (
