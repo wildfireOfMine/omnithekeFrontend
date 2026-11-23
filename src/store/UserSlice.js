@@ -10,19 +10,6 @@ const initialState = {
   error: null,
 };
 
-export const registrarse = createAsyncThunk(
-  "user/register",
-  async (user, { rejectWithValue }) => {
-    console.log(user);
-    try {
-      const respuesta = await axios.post(`${BACKEND_URL}users/api/registrarse/`, user);
-    } catch (err) {
-      console.log(err);
-      return rejectWithValue(err.response?.data || "Registro fallido");
-    }
-  }
-);
-
 export const login = createAsyncThunk(
   "user/login",
   async (credentials, { rejectWithValue }) => {
@@ -51,6 +38,66 @@ export const login = createAsyncThunk(
     }
   }
 );
+
+export const registrarse = createAsyncThunk(
+  "user/register",
+  async (user, { rejectWithValue }) => {
+    console.log(user);
+    try {
+      const respuesta = await axios.post(`${BACKEND_URL}users/api/registrarse/`, user);
+    } catch (err) {
+      console.log(err);
+      return rejectWithValue(err.response?.data || "Registro fallido");
+    }
+  }
+);
+
+export const confirmarCuenta = createAsyncThunk(
+  "user/confirmarCuenta",
+  async ({uid, token}, { rejectWithValue }) => {
+    try {
+      const respuesta = await axios.post(`${BACKEND_URL}users/api/confirmarCuenta/`, {uid, token});
+      console.log(respuesta);
+
+      return respuesta.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "No se ha podido confirmar la cuenta");
+    }
+  }
+)
+
+export const solicitarRecuperacion = createAsyncThunk(
+  "user/solicitarRecuperacion",
+  async (credentials, { rejectWithValue }) => {
+    try{
+    const respuesta = await axios.post(`${BACKEND_URL}users/api/solicitarRecuperacion/`, {
+        documento: credentials.documento,
+      });
+    console.log(respuesta);
+    } catch (error) {
+        return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
+    }
+  }
+)
+
+export const restablecerContrasena = createAsyncThunk(
+  "user/restablecerContrasena",
+  async ({uid, token, contrasena}, { rejectWithValue }) => {
+    try{
+    const respuesta = await axios.post(`${BACKEND_URL}users/api/restablecerContrasena/`, {uid, token, contrasena});
+    console.log(respuesta);
+    
+
+    } catch (error) {
+        return rejectWithValue(error.response?.data || "No se ha podido restablecer la contraseña");
+    }
+  }
+)
+
+
+
+
+
 
 export const todosDoctores = createAsyncThunk(
   "user/todosDoctores",
@@ -83,6 +130,19 @@ export const todosDoctores = createAsyncThunk(
                 error.response?.data || error.message
             );
         }
+  }
+);
+
+export const registrarseDoctor = createAsyncThunk(
+  "user/registerDoctor",
+  async (doctor, { rejectWithValue }) => {
+    console.log(doctor);
+    try {
+      const respuesta = await axios.post(`${BACKEND_URL}users/api/registrarseDoctor/`, doctor);
+    } catch (err) {
+      console.log(err);
+      return rejectWithValue(err.response?.data || "Registro fallido");
+    }
   }
 );
 
@@ -142,6 +202,9 @@ export const doctorDelete = createAsyncThunk(
     }
   }
 );
+
+
+
 
 export const todasEspecialidades = createAsyncThunk(
   "user/todasEspecialidades",
@@ -267,6 +330,8 @@ export const especialidadDelete = createAsyncThunk(
 )
 
 
+
+
 export const todasAseguradoras = createAsyncThunk(
   "user/todasAseguradoras",
   async (credentials, { rejectWithValue }) => {
@@ -390,6 +455,10 @@ export const aseguradoraDelete = createAsyncThunk(
   }
 )
 
+
+
+
+
 export const todosRecepcionistasList = createAsyncThunk(
   "user/todosRecepcionistasList",
   async ({ page = 1, search = "" }, { rejectWithValue, getState }) => {
@@ -419,6 +488,19 @@ export const todosRecepcionistasList = createAsyncThunk(
                 error.response?.data || error.message
             );
         }
+  }
+);
+
+export const registrarseRecepcionista = createAsyncThunk(
+  "user/registerDoctor",
+  async (recepcionista, { rejectWithValue }) => {
+    console.log(doctor);
+    try {
+      const respuesta = await axios.post(`${BACKEND_URL}users/api/registrarseRecepcionista/`, recepcionista);
+    } catch (err) {
+      console.log(err);
+      return rejectWithValue(err.response?.data || "Registro fallido");
+    }
   }
 );
 
@@ -481,73 +563,8 @@ export const recepcionistaDelete = createAsyncThunk(
 
 
 
-export const confirmarCuenta = createAsyncThunk(
-  "user/confirmarCuenta",
-  async ({uid, token}, { rejectWithValue }) => {
-    try {
-      const respuesta = await axios.post(`${BACKEND_URL}users/api/confirmarCuenta/`, {uid, token});
-      console.log(respuesta);
 
-      return respuesta.data;
-    } catch (error) {
-      return rejectWithValue(error.response?.data || "No se ha podido confirmar la cuenta");
-    }
-  }
-)
 
-export const solicitarRecuperacion = createAsyncThunk(
-  "user/solicitarRecuperacion",
-  async (credentials, { rejectWithValue }) => {
-    try{
-    const respuesta = await axios.post(`${BACKEND_URL}users/api/solicitarRecuperacion/`, {
-        documento: credentials.documento,
-      });
-    console.log(respuesta);
-    } catch (error) {
-        return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
-    }
-  }
-)
-
-export const restablecerContrasena = createAsyncThunk(
-  "user/restablecerContrasena",
-  async ({uid, token, contrasena}, { rejectWithValue }) => {
-    try{
-    const respuesta = await axios.post(`${BACKEND_URL}users/api/restablecerContrasena/`, {uid, token, contrasena});
-    console.log(respuesta);
-    
-
-    } catch (error) {
-        return rejectWithValue(error.response?.data || "No se ha podido restablecer la contraseña");
-    }
-  }
-)
-
-export const registrarseDoctor = createAsyncThunk(
-  "user/registerDoctor",
-  async (doctor, { rejectWithValue }) => {
-    console.log(doctor);
-    try {
-      const respuesta = await axios.post(`${BACKEND_URL}users/api/registrarseDoctor/`, doctor);
-    } catch (err) {
-      console.log(err);
-      return rejectWithValue(err.response?.data || "Registro fallido");
-    }
-  }
-);
-
-export const registrarseRecepcionista = createAsyncThunk(
-  "user/registerDoctor",
-  async (recepcionista, { rejectWithValue }) => {
-    console.log(doctor);
-    try {
-      const respuesta = await axios.post(`${BACKEND_URL}users/api/registrarseRecepcionista/`, recepcionista);
-    } catch (err) {
-      console.log(err);
-      return rejectWithValue(err.response?.data || "Registro fallido");
-    }
-  }
-);
 
 export const invitarUsuario = createAsyncThunk(
   "user/invitarUsuario",
