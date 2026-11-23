@@ -14,6 +14,9 @@ const CustomProfile = ({usuario, boton=true, adminPdv=false, handleBorrar, recep
         <Card
             key={usuario.id}
             sx={{
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
                 borderRadius: 4,
                 overflow: "hidden",
                 transition: "all 0.25s ease",
@@ -25,7 +28,12 @@ const CustomProfile = ({usuario, boton=true, adminPdv=false, handleBorrar, recep
                 },
                 }}
             >
-            <CardContent sx={{ p: 3 }}>
+            <CardContent sx={{
+                p: 3,
+                flex: 1,
+                display: "flex",
+                flexDirection: "column",
+            }}>
                 <Box
                     sx={{
                         display: "flex",
@@ -85,7 +93,7 @@ const CustomProfile = ({usuario, boton=true, adminPdv=false, handleBorrar, recep
 
                 <Divider sx={{ mb: 2 }} />
 
-                    <Stack spacing={1.5}>
+                    <Stack spacing={1.5} sx={{ minHeight: 85, mb: "10px" }}>
                         {usuario.correo && (
                             <Box
                                 sx={{
@@ -141,7 +149,8 @@ const CustomProfile = ({usuario, boton=true, adminPdv=false, handleBorrar, recep
                         component={RouterLink}
                         to={`/paciente/citas/${usuario.id}`} 
                         sx={{
-                            mt: 3,
+                            mt: "auto",
+                            
                             borderRadius: 2,
                             textTransform: "none",
                             fontWeight: 600,
