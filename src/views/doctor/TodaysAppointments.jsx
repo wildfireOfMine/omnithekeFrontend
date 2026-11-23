@@ -109,7 +109,7 @@ const TodaysAppointments = () => {
 
                       <Stack direction="row" sx={{ justifyContent:"space-between", alignItems:"center"}}>
                         <Typography variant="caption" color="text.secondary">Calendario #{consulta.calendario}</Typography>
-                        <CustomButton text="Crear consulta" onClick={() => handleCustomButton(consulta.id)} disabled={consulta.estado == "confirmada"}/>
+                        <CustomButton text="Crear consulta" onClick={() => handleCustomButton(consulta.id)} disabled={consulta.estado != "confirmada"}/>
                       </Stack>
 
                     </Stack>

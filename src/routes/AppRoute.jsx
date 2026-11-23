@@ -40,6 +40,7 @@ import EditInsurance from '../views/admin/EditInsurance'
 import EditSpecialty from '../views/admin/EditSpecialty'
 import EditDoctor from '../views/admin/EditDoctor'
 import EditReceptionist from '../views/admin/EditReceptionist'
+import AllAppointmentsToday from '../views/receptionist/AllAppointmentsToday'
 
 
 
@@ -100,6 +101,7 @@ const AppRoute = () => {
         <Route path="/recepcionista/registrarse/:uid/:token" element={<ReceptionistRegister/>}/>
         <Route element={<ProtectedReceptionistRoute/>}>
           <Route path="/recepcionista/portal" element={<ReceptionistDashboard/>}/>
+          <Route path="/recepcionista/todasCitasHoy" element={<AllAppointmentsToday/>}/>
         </Route>
         
       </Routes>

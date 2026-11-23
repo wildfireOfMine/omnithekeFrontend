@@ -177,6 +177,54 @@ export const misCitasDoctorHoy = createAsyncThunk(
     }
 )
 
+export const todasCitasHoy = createAsyncThunk(
+  "appointment/todasCitasHoy",
+    async ({ page = 1 }, { rejectWithValue, getState }) => {
+        try {
+            const state = getState();
+            const session = state.users.session;
+
+            const params = new URLSearchParams();
+
+            params.append("page", page);
+
+            const respuesta = await axios.get(`${BACKEND_URL}appointments/api/todasCitasHoy/?${params.toString()}`, {
+                headers: {
+                  Authorization: `Bearer ${session.token}`
+                }
+            });
+            console.log(respuesta);
+            return respuesta.data;
+        } catch (error) {
+          return rejectWithValue(error.response?.data || error.message);
+        }
+    }
+)
+
+export const confirmarCita = createAsyncThunk(
+  "appointment/confirmarCita",
+  async (citaId, { rejectWithValue, getState }) => {
+    try {
+        const state = getState();
+        const session = state.users.session;
+        console.log(state);
+        console.log(session);
+
+        const respuesta = await axios.patch(`${BACKEND_URL}appointments/api/confirmarCita/${citaId}/`, {"estado":"confirmada"}, {
+          headers: {
+            Authorization: `Bearer ${session.token}`
+          }
+        });
+        console.log(respuesta);
+
+        return respuesta.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+
+  }
+)
+
 
 
 
