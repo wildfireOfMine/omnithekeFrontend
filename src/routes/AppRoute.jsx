@@ -41,6 +41,8 @@ import EditSpecialty from '../views/admin/EditSpecialty'
 import EditDoctor from '../views/admin/EditDoctor'
 import EditReceptionist from '../views/admin/EditReceptionist'
 import AllAppointmentsToday from '../views/receptionist/AllAppointmentsToday'
+import EditQuery from '../views/doctor/EditQuery'
+import PatientSupression from '../views/receptionist/PatientSupression'
 
 
 
@@ -95,6 +97,7 @@ const AppRoute = () => {
           <Route path="/doctor/consultas" element={<MyQueries/>}/>
           <Route path="/doctor/nuevaConsulta/:id" element={<NewQuery/>}/>
           <Route path="/doctor/consultas/:consultaId" element={<DetailQueryView/>}/>
+          <Route path="/doctor/editarConsulta/:id" element={<EditQuery/>}/>
           <Route path="/doctor/misCitasDeHoy" element={<TodaysAppointments/>}/>
         </Route>
 
@@ -102,6 +105,7 @@ const AppRoute = () => {
         <Route element={<ProtectedReceptionistRoute/>}>
           <Route path="/recepcionista/portal" element={<ReceptionistDashboard/>}/>
           <Route path="/recepcionista/todasCitasHoy" element={<AllAppointmentsToday/>}/>
+          <Route path="/recepcionista/suprimirPaciente" element={<PatientSupression/>}/>
         </Route>
         
       </Routes>

@@ -23,7 +23,7 @@ const ReceptionistDashboard = () => {
         title: "Supresión de Pacientes",
         description: "Implementa la supresión de datos de aquellos pacientes que lo deseen",
         icon: <DeleteForever sx={{ fontSize: 60, color: "#2563eb" }} />,
-        route: "/administrador/aseguradoras"
+        route: "/recepcionista/suprimirPaciente"
     },
     {
         title: "Penalización de Pacientes",

@@ -561,6 +561,44 @@ export const recepcionistaDelete = createAsyncThunk(
   }
 );
 
+export const pacienteGet = createAsyncThunk(
+  "user/recepcionistaGet",
+  async (recepcionistaPk, { rejectWithValue, getState }) => {
+    try {
+      const state = getState();
+      const session = state.users.session;
+      const respuesta = await axios.get(`${BACKEND_URL}users/api/pacienteGet/${recepcionistaPk}/`, {
+        headers: {
+          Authorization: `Bearer ${session.token}`
+        }
+      });
+      console.log(respuesta);
+      return respuesta.data
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "No se ha podido extraer el recepcionista");
+    }
+  }
+);
+
+export const pacienteDelete = createAsyncThunk(
+  "user/recepcionistaDelete",
+  async (recepcionistaPk, { rejectWithValue, getState }) => {
+    try {
+      const state = getState();
+      const session = state.users.session;
+      const respuesta = await axios.delete(`${BACKEND_URL}users/api/pacienteDelete/${recepcionistaPk}/`, {
+        headers: {
+          Authorization: `Bearer ${session.token}`
+        }
+      });
+
+      return respuesta.data
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "No se ha podido extraer el recepcionista");
+    }
+  }
+);
+
 
 
 

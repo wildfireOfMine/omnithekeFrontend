@@ -10,6 +10,22 @@ import 'dayjs/locale/es';
 import { Stack } from '@mui/system';
 
 const TodaysAppointments = () => {
+  const nombresEstado = {
+    pendiente: "Pendiente",
+    confirmada: "Confirmada",
+    completada: "Completada",
+    cancelada: "Cancelada",
+    no_asistio: "No asistió",
+  };
+
+  const coloresEstado = {
+    confirmada: "info",
+    completada: "success",
+    pendiente: "secondary",
+    cancelada: "error",
+    no_asistio: "error"
+  };
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [datos, setDatos] = useState({
@@ -73,7 +89,7 @@ const TodaysAppointments = () => {
                             {dayjs(consulta.fechaInicio).format("HH:mm")} {" - "} {dayjs(consulta.fechaFin).format("HH:mm")}
                           </Typography>
 
-                          <Chip label={consulta.estado} size="small" color={consulta.estado === "pendiente" ? "warning" : "success"}/>
+                          <Chip label={nombresEstado[consulta.estado] || consulta.estado} size="small" color={coloresEstado[consulta.estado]}/>
                         </Stack>
 
                         <Typography variant="caption" color="text.secondary">Cita #{consulta.id}</Typography>
