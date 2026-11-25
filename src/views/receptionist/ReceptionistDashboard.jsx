@@ -29,7 +29,7 @@ const ReceptionistDashboard = () => {
         title: "Penalización de Pacientes",
         description: "Si el contexto lo requiere, penaliza a usuarios que han hecho uso indebido",
         icon: <Block sx={{ fontSize: 60, color: "#2563eb" }} />,
-        route: "/administrador/aseguradoras"
+        route: "/recepcionista/penalizar"
     }
     ];
   return (

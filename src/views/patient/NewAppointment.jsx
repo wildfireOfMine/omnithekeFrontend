@@ -18,6 +18,7 @@ import { crearCita, horariosDisponibles, horasDisponibles } from '../../store/Ap
 import dayjs from 'dayjs'
 import { toast } from 'react-toastify'
 import CustomButton from '../../components/CustomButton'
+import Forbidden from '../public/Forbidden'
 
 const NewAppointment = () => {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ const NewAppointment = () => {
   const [horaSeleccionada, setHoraSeleccionada] = useState(null);
   const [horas, setHoras] = useState([]);
   const [motivo, setMotivo] = useState("");
+  const [sinPermisos, setSinPermisos] = useState(false);
 
   const horarioDelDia = fechaSeleccionada
   ? horarios.find(
@@ -39,8 +41,25 @@ const NewAppointment = () => {
   console.log("HORARIO DEL DÍA", horarioDelDia);
 
   useEffect(() =>{
-    dispatch(doctor(doctorId)).unwrap().then(datos => setDatos(datos));
-    dispatch(horariosDisponibles(doctorId)).unwrap().then(horarios => setHorarios(horarios));
+    const cargarDatos = async () => {
+      try {
+        const datosDoctor = await dispatch(doctor(doctorId)).unwrap();
+        setDatos(datosDoctor);
+
+        const horariosDoctor = await dispatch(horariosDisponibles(doctorId)).unwrap();
+        setHorarios(horariosDoctor);
+      } catch (err) {
+        console.log("ERROOOR:", err);
+
+        if (err?.status === 403 || err?.response?.status === 403) {
+          setSinPermisos(true);
+        } else {
+          toast.error("No se pudieron cargar los datos");
+        }
+      }
+    };
+
+    cargarDatos();
   }, [dispatch])
 
   useEffect(()=>{
@@ -87,6 +106,10 @@ const NewAppointment = () => {
       }
     }
     
+  }
+
+  if (sinPermisos) {
+    return <Forbidden />;
   }
 
   return (

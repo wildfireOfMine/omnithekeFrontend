@@ -75,7 +75,7 @@ export const solicitarRecuperacion = createAsyncThunk(
       });
     console.log(respuesta);
     } catch (error) {
-        return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
+        return rejectWithValue(error.response?.data || "No se ha podido solicitarlo");
     }
   }
 )
@@ -160,7 +160,7 @@ export const doctor = createAsyncThunk(
 
       return respuesta.data
     } catch (error) {
-      return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
+      return rejectWithValue({status: error.response?.status, data: error.response?.data,});
     }
   }
 );
@@ -576,6 +576,25 @@ export const pacienteGet = createAsyncThunk(
       return respuesta.data
     } catch (error) {
       return rejectWithValue(error.response?.data || "No se ha podido extraer el recepcionista");
+    }
+  }
+);
+
+export const pacientePatch = createAsyncThunk(
+  "user/doctorDelete",
+  async (pacientePk, { rejectWithValue, getState }) => {
+    try {
+      const state = getState();
+      const session = state.users.session;
+      const respuesta = await axios.put(`${BACKEND_URL}users/api/pacientePatch/${pacientePk}/`, {"penalizado":true}, {
+        headers: {
+          Authorization: `Bearer ${session.token}`
+        }
+      });
+
+      return respuesta.data
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
     }
   }
 );

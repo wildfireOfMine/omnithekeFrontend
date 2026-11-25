@@ -43,6 +43,7 @@ import EditReceptionist from '../views/admin/EditReceptionist'
 import AllAppointmentsToday from '../views/receptionist/AllAppointmentsToday'
 import EditQuery from '../views/doctor/EditQuery'
 import PatientSupression from '../views/receptionist/PatientSupression'
+import PunishingPatients from '../views/receptionist/PunishingPatients'
 
 
 
@@ -106,6 +107,7 @@ const AppRoute = () => {
           <Route path="/recepcionista/portal" element={<ReceptionistDashboard/>}/>
           <Route path="/recepcionista/todasCitasHoy" element={<AllAppointmentsToday/>}/>
           <Route path="/recepcionista/suprimirPaciente" element={<PatientSupression/>}/>
+          <Route path="/recepcionista/penalizar" element={<PunishingPatients/>}/>
         </Route>
         
       </Routes>
