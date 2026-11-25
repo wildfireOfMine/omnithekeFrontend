@@ -17,7 +17,7 @@ const ReceptionistDashboard = () => {
         title: "Transacciones",
         description: "Realiza transacciones añadiendo el precio",
         icon: <Euro sx={{ fontSize: 60, color: "#2563eb" }} />,
-        route: "/administrador/recepcionistas"
+        route: "/recepcionista/pago"
     },
     {
         title: "Supresión de Pacientes",

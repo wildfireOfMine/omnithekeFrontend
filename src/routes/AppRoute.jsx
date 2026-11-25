@@ -44,6 +44,8 @@ import AllAppointmentsToday from '../views/receptionist/AllAppointmentsToday'
 import EditQuery from '../views/doctor/EditQuery'
 import PatientSupression from '../views/receptionist/PatientSupression'
 import PunishingPatients from '../views/receptionist/PunishingPatients'
+import Transactions from '../views/receptionist/Transactions'
+import SuccessfulPayment from '../views/receptionist/SuccessfulPayment'
 
 
 
@@ -108,6 +110,8 @@ const AppRoute = () => {
           <Route path="/recepcionista/todasCitasHoy" element={<AllAppointmentsToday/>}/>
           <Route path="/recepcionista/suprimirPaciente" element={<PatientSupression/>}/>
           <Route path="/recepcionista/penalizar" element={<PunishingPatients/>}/>
+          <Route path="/recepcionista/pago" element={<Transactions/>}/>
+          <Route path="/recepcionista/pagoExitoso" element={<SuccessfulPayment/>}/>
         </Route>
         
       </Routes>
