@@ -4,6 +4,7 @@ import { Box } from '@mui/system'
 import { Typography } from '@mui/material'
 
 const Transactions = () => {
+  const urlPago = import.meta.env.VITE_STRIPE_DEVELOP_PAYMENT_URL;
   return (
     <CustomBox>
       <Box
@@ -39,7 +40,7 @@ const Transactions = () => {
             </Typography>
             <Box
                 component="a"
-                href="https://buy.stripe.com/test_3cIcN51Ms4w49Mk7TT5sA01"
+                href={urlPago}
                 target="_blank"
                 rel="noopener noreferrer"
                 sx={{
