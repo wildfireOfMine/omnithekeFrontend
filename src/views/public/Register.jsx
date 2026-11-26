@@ -65,7 +65,7 @@ const Register = () => {
           pais: pais.value,
           correo: correoElectronico.value,
           telefono: telefono.value,
-          aseguradoras: aseguradoraEscogida.includes("Público") === "Público" ? null : aseguradoraEscogida,
+          aseguradoras: aseguradoraEscogida.includes("Público") ? [] : aseguradoraEscogida,
           password: contrasena.value,
           grupoSanguineo: grupoSanguineo
           })
@@ -75,7 +75,7 @@ const Register = () => {
       navigate("/iniciarSesion");
     } catch (err) {
       console.log(err);
-      toast.error(err);
+      toast.error(String(err));
     }
     
   }
