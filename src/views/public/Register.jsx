@@ -75,7 +75,20 @@ const Register = () => {
       navigate("/iniciarSesion");
     } catch (err) {
       console.log(err);
-      toast.error(String(err));
+      if (typeof err === "object" && err !== null) {
+        Object.entries(err).forEach(([campo, mensajes]) => {
+          if (Array.isArray(mensajes)) {
+            mensajes.forEach((mensaje) => {
+              toast.error(`${campo}: ${mensaje}`);
+            });
+          } else {
+            toast.error(`${campo}: ${mensajes}`);
+          }
+        });
+      } else {
+        toast.error(String(err));
+      }
+
     }
     
   }
