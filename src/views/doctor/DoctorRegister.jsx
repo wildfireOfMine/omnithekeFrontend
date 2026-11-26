@@ -58,7 +58,7 @@ const DoctorRegister = () => {
         documentoIdentidad: e.currentTarget.documento.value,
         pais: e.currentTarget.pais.value,
         telefono: e.currentTarget.telefono.value,
-        aseguradoras: aseguradoraEscogida === "Público" ? [] : aseguradoraEscogida,
+        aseguradoras: aseguradoraEscogida.includes("Público") ? [] : aseguradoraEscogida,
         password: contrasena.value,
         numeroColegiado: e.currentTarget.numeroColegiado.value,
         especialidad: especialidadEscogida,
