@@ -4,7 +4,7 @@ import { Box } from '@mui/system'
 import { Typography } from '@mui/material'
 
 const Transactions = () => {
-  const urlPago = import.meta.env.VITE_STRIPE_DEVELOP_PAYMENT_URL;
+  const urlPago = import.meta.env.VITE_STRIPE_MAIN_PAYMENT_URL;
   return (
     <CustomBox>
       <Box
