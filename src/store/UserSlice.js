@@ -10,19 +10,6 @@ const initialState = {
   error: null,
 };
 
-export const registrarse = createAsyncThunk(
-  "user/register",
-  async (user, { rejectWithValue }) => {
-    console.log(user);
-    try {
-      const respuesta = await axios.post(`${BACKEND_URL}users/api/registrarse/`, user);
-    } catch (err) {
-      console.log(err);
-      return rejectWithValue(err.response?.data || "Registro fallido");
-    }
-  }
-);
-
 export const login = createAsyncThunk(
   "user/login",
   async (credentials, { rejectWithValue }) => {
@@ -51,6 +38,66 @@ export const login = createAsyncThunk(
     }
   }
 );
+
+export const registrarse = createAsyncThunk(
+  "user/register",
+  async (user, { rejectWithValue }) => {
+    console.log(user);
+    try {
+      const respuesta = await axios.post(`${BACKEND_URL}users/api/registrarse/`, user);
+    } catch (err) {
+      console.log(err);
+      return rejectWithValue(err.response?.data || "Registro fallido");
+    }
+  }
+);
+
+export const confirmarCuenta = createAsyncThunk(
+  "user/confirmarCuenta",
+  async ({uid, token}, { rejectWithValue }) => {
+    try {
+      const respuesta = await axios.post(`${BACKEND_URL}users/api/confirmarCuenta/`, {uid, token});
+      console.log(respuesta);
+
+      return respuesta.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "No se ha podido confirmar la cuenta");
+    }
+  }
+)
+
+export const solicitarRecuperacion = createAsyncThunk(
+  "user/solicitarRecuperacion",
+  async (credentials, { rejectWithValue }) => {
+    try{
+    const respuesta = await axios.post(`${BACKEND_URL}users/api/solicitarRecuperacion/`, {
+        documento: credentials.documento,
+      });
+    console.log(respuesta);
+    } catch (error) {
+        return rejectWithValue(error.response?.data || "No se ha podido solicitarlo");
+    }
+  }
+)
+
+export const restablecerContrasena = createAsyncThunk(
+  "user/restablecerContrasena",
+  async ({uid, token, contrasena}, { rejectWithValue }) => {
+    try{
+    const respuesta = await axios.post(`${BACKEND_URL}users/api/restablecerContrasena/`, {uid, token, contrasena});
+    console.log(respuesta);
+    
+
+    } catch (error) {
+        return rejectWithValue(error.response?.data || "No se ha podido restablecer la contraseña");
+    }
+  }
+)
+
+
+
+
+
 
 export const todosDoctores = createAsyncThunk(
   "user/todosDoctores",
@@ -85,6 +132,79 @@ export const todosDoctores = createAsyncThunk(
         }
   }
 );
+
+export const registrarseDoctor = createAsyncThunk(
+  "user/registerDoctor",
+  async (doctor, { rejectWithValue }) => {
+    console.log(doctor);
+    try {
+      const respuesta = await axios.post(`${BACKEND_URL}users/api/registrarseDoctor/`, doctor);
+    } catch (err) {
+      console.log(err);
+      return rejectWithValue(err.response?.data || "Registro fallido");
+    }
+  }
+);
+
+export const doctor = createAsyncThunk(
+  "user/doctor",
+  async (doctorPk, { rejectWithValue, getState }) => {
+    try {
+      const state = getState();
+      const session = state.users.session;
+      const respuesta = await axios.get(`${BACKEND_URL}users/api/doctor/${doctorPk}/`, {
+        headers: {
+          Authorization: `Bearer ${session.token}`
+        }
+      });
+
+      return respuesta.data
+    } catch (error) {
+      return rejectWithValue({status: error.response?.status, data: error.response?.data,});
+    }
+  }
+);
+
+export const doctorPut = createAsyncThunk(
+  "user/doctorDelete",
+  async ({doctorPk, doctor}, { rejectWithValue, getState }) => {
+    try {
+      const state = getState();
+      const session = state.users.session;
+      const respuesta = await axios.put(`${BACKEND_URL}users/api/doctorPut/${doctorPk}/`, doctor, {
+        headers: {
+          Authorization: `Bearer ${session.token}`
+        }
+      });
+
+      return respuesta.data
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
+    }
+  }
+);
+
+export const doctorDelete = createAsyncThunk(
+  "user/doctorDelete",
+  async (doctorPk, { rejectWithValue, getState }) => {
+    try {
+      const state = getState();
+      const session = state.users.session;
+      const respuesta = await axios.delete(`${BACKEND_URL}users/api/doctorDelete/${doctorPk}/`, {
+        headers: {
+          Authorization: `Bearer ${session.token}`
+        }
+      });
+
+      return respuesta.data
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
+    }
+  }
+);
+
+
+
 
 export const todasEspecialidades = createAsyncThunk(
   "user/todasEspecialidades",
@@ -210,6 +330,8 @@ export const especialidadDelete = createAsyncThunk(
 )
 
 
+
+
 export const todasAseguradoras = createAsyncThunk(
   "user/todasAseguradoras",
   async (credentials, { rejectWithValue }) => {
@@ -255,6 +377,27 @@ export const todasAseguradorasList = createAsyncThunk(
   }
 );
 
+export const aseguradoraGet = createAsyncThunk(
+  "user/aseguradoraGet",
+  async (aseguradoraId, { rejectWithValue, getState }) => {
+    try{
+      const state = getState();
+      const session = state.users.session;
+      console.log(aseguradoraId);
+      const respuesta = await axios.get(`${BACKEND_URL}users/api/aseguradoraGet/${aseguradoraId}/`, {
+          headers: {
+            Authorization: `Bearer ${session.token}`
+          }
+      });
+    console.log(respuesta);
+    return respuesta.data;
+    
+    } catch (error) {
+        return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
+    }
+  }
+)
+
 export const aseguradoraPost = createAsyncThunk(
   "user/aseguradoraPost",
   async (aseguradora, { rejectWithValue, getState }) => {
@@ -273,6 +416,48 @@ export const aseguradoraPost = createAsyncThunk(
     }
   }
 )
+
+export const aseguradoraPut = createAsyncThunk(
+  "user/aseguradoraPut",
+  async ({aseguradoraId, aseguradora}, { rejectWithValue, getState }) => {
+    try{
+      const state = getState();
+      const session = state.users.session;
+      console.log(aseguradora);
+      const respuesta = await axios.put(`${BACKEND_URL}users/api/aseguradoraPut/${aseguradoraId}/`, aseguradora, {
+          headers: {
+            Authorization: `Bearer ${session.token}`
+          }
+      });
+    console.log(respuesta);
+    } catch (error) {
+        return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
+    }
+  }
+)
+
+export const aseguradoraDelete = createAsyncThunk(
+  "user/aseguradoraDelete",
+  async (aseguradoraId, { rejectWithValue, getState }) => {
+    try{
+      const state = getState();
+      const session = state.users.session;
+      console.log(aseguradoraId);
+      const respuesta = await axios.delete(`${BACKEND_URL}users/api/aseguradoraDelete/${aseguradoraId}/`, {
+          headers: {
+            Authorization: `Bearer ${session.token}`
+          }
+      });
+    console.log(respuesta);
+    } catch (error) {
+        return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
+    }
+  }
+)
+
+
+
+
 
 export const todosRecepcionistasList = createAsyncThunk(
   "user/todosRecepcionistasList",
@@ -306,80 +491,6 @@ export const todosRecepcionistasList = createAsyncThunk(
   }
 );
 
-export const doctor = createAsyncThunk(
-  "user/doctor",
-  async (doctorPk, { rejectWithValue, getState }) => {
-    try {
-      const state = getState();
-      const session = state.users.session;
-      const respuesta = await axios.get(`${BACKEND_URL}users/api/doctor/${doctorPk}/`, {
-        headers: {
-          Authorization: `Bearer ${session.token}`
-        }
-      });
-
-      return respuesta.data
-    } catch (error) {
-      return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
-    }
-  }
-);
-
-export const confirmarCuenta = createAsyncThunk(
-  "user/confirmarCuenta",
-  async ({uid, token}, { rejectWithValue }) => {
-    try {
-      const respuesta = await axios.post(`${BACKEND_URL}users/api/confirmarCuenta/`, {uid, token});
-      console.log(respuesta);
-
-      return respuesta.data;
-    } catch (error) {
-      return rejectWithValue(error.response?.data || "No se ha podido confirmar la cuenta");
-    }
-  }
-)
-
-export const solicitarRecuperacion = createAsyncThunk(
-  "user/solicitarRecuperacion",
-  async (credentials, { rejectWithValue }) => {
-    try{
-    const respuesta = await axios.post(`${BACKEND_URL}users/api/solicitarRecuperacion/`, {
-        documento: credentials.documento,
-      });
-    console.log(respuesta);
-    } catch (error) {
-        return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
-    }
-  }
-)
-
-export const restablecerContrasena = createAsyncThunk(
-  "user/restablecerContrasena",
-  async ({uid, token, contrasena}, { rejectWithValue }) => {
-    try{
-    const respuesta = await axios.post(`${BACKEND_URL}users/api/restablecerContrasena/`, {uid, token, contrasena});
-    console.log(respuesta);
-    
-
-    } catch (error) {
-        return rejectWithValue(error.response?.data || "No se ha podido restablecer la contraseña");
-    }
-  }
-)
-
-export const registrarseDoctor = createAsyncThunk(
-  "user/registerDoctor",
-  async (doctor, { rejectWithValue }) => {
-    console.log(doctor);
-    try {
-      const respuesta = await axios.post(`${BACKEND_URL}users/api/registrarseDoctor/`, doctor);
-    } catch (err) {
-      console.log(err);
-      return rejectWithValue(err.response?.data || "Registro fallido");
-    }
-  }
-);
-
 export const registrarseRecepcionista = createAsyncThunk(
   "user/registerDoctor",
   async (recepcionista, { rejectWithValue }) => {
@@ -392,6 +503,125 @@ export const registrarseRecepcionista = createAsyncThunk(
     }
   }
 );
+
+export const recepcionistaGet = createAsyncThunk(
+  "user/recepcionistaGet",
+  async (recepcionistaPk, { rejectWithValue, getState }) => {
+    try {
+      const state = getState();
+      const session = state.users.session;
+      const respuesta = await axios.get(`${BACKEND_URL}users/api/recepcionistaGet/${recepcionistaPk}/`, {
+        headers: {
+          Authorization: `Bearer ${session.token}`
+        }
+      });
+
+      return respuesta.data
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "No se ha podido extraer el recepcionista");
+    }
+  }
+);
+
+export const recepcionistaPut = createAsyncThunk(
+  "user/recepcionistaPut",
+  async ({recepcionistaPk, recepcionista}, { rejectWithValue, getState }) => {
+    try {
+      const state = getState();
+      const session = state.users.session;
+      const respuesta = await axios.put(`${BACKEND_URL}users/api/recepcionistaPut/${recepcionistaPk}/`, recepcionista, {
+        headers: {
+          Authorization: `Bearer ${session.token}`
+        }
+      });
+
+      return respuesta.data
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "No se ha podido extraer el recepcionista");
+    }
+  }
+);
+
+export const recepcionistaDelete = createAsyncThunk(
+  "user/recepcionistaDelete",
+  async (recepcionistaPk, { rejectWithValue, getState }) => {
+    try {
+      const state = getState();
+      const session = state.users.session;
+      const respuesta = await axios.delete(`${BACKEND_URL}users/api/recepcionistaDelete/${recepcionistaPk}/`, {
+        headers: {
+          Authorization: `Bearer ${session.token}`
+        }
+      });
+
+      return respuesta.data
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "No se ha podido extraer el recepcionista");
+    }
+  }
+);
+
+export const pacienteGet = createAsyncThunk(
+  "user/recepcionistaGet",
+  async (recepcionistaPk, { rejectWithValue, getState }) => {
+    try {
+      const state = getState();
+      const session = state.users.session;
+      const respuesta = await axios.get(`${BACKEND_URL}users/api/pacienteGet/${recepcionistaPk}/`, {
+        headers: {
+          Authorization: `Bearer ${session.token}`
+        }
+      });
+      console.log(respuesta);
+      return respuesta.data
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "No se ha podido extraer el recepcionista");
+    }
+  }
+);
+
+export const pacientePatch = createAsyncThunk(
+  "user/doctorDelete",
+  async (pacientePk, { rejectWithValue, getState }) => {
+    try {
+      const state = getState();
+      const session = state.users.session;
+      const respuesta = await axios.put(`${BACKEND_URL}users/api/pacientePatch/${pacientePk}/`, {"penalizado":true}, {
+        headers: {
+          Authorization: `Bearer ${session.token}`
+        }
+      });
+
+      return respuesta.data
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
+    }
+  }
+);
+
+export const pacienteDelete = createAsyncThunk(
+  "user/recepcionistaDelete",
+  async (recepcionistaPk, { rejectWithValue, getState }) => {
+    try {
+      const state = getState();
+      const session = state.users.session;
+      const respuesta = await axios.delete(`${BACKEND_URL}users/api/pacienteDelete/${recepcionistaPk}/`, {
+        headers: {
+          Authorization: `Bearer ${session.token}`
+        }
+      });
+
+      return respuesta.data
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "No se ha podido extraer el recepcionista");
+    }
+  }
+);
+
+
+
+
+
 
 export const invitarUsuario = createAsyncThunk(
   "user/invitarUsuario",
@@ -410,6 +640,25 @@ export const invitarUsuario = createAsyncThunk(
 
     } catch (error) {
         return rejectWithValue(error.response?.data || "No se ha podido restablecer la contraseña");
+    }
+  }
+)
+
+export const estadisticas = createAsyncThunk(
+  "user/estadisticas",
+  async (_,{ rejectWithValue, getState }) => {
+    try {
+      const state = getState();
+      const session = state.users.session;
+      const respuesta = await axios.get(`${BACKEND_URL}users/api/estadisticas/`, {
+        headers: {
+          Authorization: `Bearer ${session.token}`
+        }
+      });
+
+      return respuesta.data
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "No se ha podido extraer el doctor");
     }
   }
 )

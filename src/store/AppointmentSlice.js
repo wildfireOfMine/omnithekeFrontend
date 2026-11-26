@@ -8,6 +8,49 @@ const initialState = {
   
 };
 
+export const crearCalendario = createAsyncThunk(
+  "appointment/crearCalendario",
+  async (_, { rejectWithValue, getState }) => {
+        try {
+            const state = getState();
+            const session = state.users.session;
+
+            const respuesta = await axios.post(`${BACKEND_URL}appointments/api/crearCalendario/`, {}, {
+                headers: {
+                  Authorization: `Bearer ${session.token}`
+                }
+            });
+
+            return respuesta.data;
+        } catch (error) {
+          return rejectWithValue(error.response?.data || error.message);
+        }
+    }
+)
+
+export const conseguirCalendario = createAsyncThunk(
+  "appointment/conseguirCalendario",
+  async (_,{ rejectWithValue, getState }) => {
+        try {
+            const state = getState();
+            const session = state.users.session;
+
+            const respuesta = await axios.get(`${BACKEND_URL}appointments/api/conseguirCalendario/`, {
+                headers: {
+                  Authorization: `Bearer ${session.token}`
+                }
+            });
+
+            return respuesta.data;
+        } catch (error) {
+          return rejectWithValue(error.response?.data || error.message);
+        }
+    }
+)
+
+
+
+
 export const misCitas = createAsyncThunk(
   "appointment/misCitas",
   async ({ page = 1, estado = "", doctor = "" }, { rejectWithValue, getState }) => {
@@ -90,86 +133,6 @@ export const cancelarCita = createAsyncThunk(
   }
 )
 
-export const horariosDisponibles = createAsyncThunk(
-  "appointment/horariosDisponibles",
-    async (doctorId, { rejectWithValue, getState }) => {
-        try {
-            const state = getState();
-            const session = state.users.session;
-
-            const respuesta = await axios.get(`${BACKEND_URL}appointments/api/horariosDisponibles/${doctorId}/`, {
-                headers: {
-                  Authorization: `Bearer ${session.token}`
-                }
-            });
-
-            return respuesta.data;
-        } catch (error) {
-          return rejectWithValue(error.response?.data || error.message);
-        }
-    }
-)
-
-export const misHorarios = createAsyncThunk(
-  "appointment/horariosDisponibles",
-    async (doctorId, { rejectWithValue, getState }) => {
-        try {
-            const state = getState();
-            const session = state.users.session;
-
-            const respuesta = await axios.get(`${BACKEND_URL}appointments/api/misHorarios/`, {
-                headers: {
-                  Authorization: `Bearer ${session.token}`
-                }
-            });
-
-            return respuesta.data;
-        } catch (error) {
-          return rejectWithValue(error.response?.data || error.message);
-        }
-    }
-)
-
-export const horasDisponibles = createAsyncThunk(
-  "appointment/horasDisponibles",
-    async ({doctorId, fecha}, { rejectWithValue, getState }) => {
-        try {
-            const state = getState();
-            const session = state.users.session;
-
-            const respuesta = await axios.get(`${BACKEND_URL}appointments/api/horaDisponible/${doctorId}/${fecha}/`, {
-                headers: {
-                  Authorization: `Bearer ${session.token}`
-                }
-            });
-
-            return respuesta.data;
-        } catch (error) {
-          return rejectWithValue(error.response?.data || error.message);
-        }
-    }
-)
-
-export const crearHorarios = createAsyncThunk(
-  "appointment/crearHorario",
-  async (horarios, { rejectWithValue, getState }) => {
-        try {
-            const state = getState();
-            const session = state.users.session;
-
-            const respuesta = await axios.put(`${BACKEND_URL}appointments/api/crearHorarios/`, horarios, {
-                headers: {
-                  Authorization: `Bearer ${session.token}`
-                }
-            });
-
-            return respuesta.data;
-        } catch (error) {
-          return rejectWithValue(error.response?.data || error.message);
-        }
-    }
-)
-
 export const crearCita = createAsyncThunk(
   "appointment/crearCita",
   async (cita, { rejectWithValue, getState }) => {
@@ -214,14 +177,65 @@ export const misCitasDoctorHoy = createAsyncThunk(
     }
 )
 
-export const crearCalendario = createAsyncThunk(
-  "appointment/crearCalendario",
-  async (_, { rejectWithValue, getState }) => {
+export const todasCitasHoy = createAsyncThunk(
+  "appointment/todasCitasHoy",
+    async ({ page = 1 }, { rejectWithValue, getState }) => {
         try {
             const state = getState();
             const session = state.users.session;
 
-            const respuesta = await axios.post(`${BACKEND_URL}appointments/api/crearCalendario/`, {}, {
+            const params = new URLSearchParams();
+
+            params.append("page", page);
+
+            const respuesta = await axios.get(`${BACKEND_URL}appointments/api/todasCitasHoy/?${params.toString()}`, {
+                headers: {
+                  Authorization: `Bearer ${session.token}`
+                }
+            });
+            console.log(respuesta);
+            return respuesta.data;
+        } catch (error) {
+          return rejectWithValue(error.response?.data || error.message);
+        }
+    }
+)
+
+export const confirmarCita = createAsyncThunk(
+  "appointment/confirmarCita",
+  async (citaId, { rejectWithValue, getState }) => {
+    try {
+        const state = getState();
+        const session = state.users.session;
+        console.log(state);
+        console.log(session);
+
+        const respuesta = await axios.patch(`${BACKEND_URL}appointments/api/confirmarCita/${citaId}/`, {"estado":"confirmada"}, {
+          headers: {
+            Authorization: `Bearer ${session.token}`
+          }
+        });
+        console.log(respuesta);
+
+        return respuesta.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+
+  }
+)
+
+
+
+
+export const misHorarios = createAsyncThunk(
+  "appointment/horariosDisponibles",
+    async (doctorId, { rejectWithValue, getState }) => {
+        try {
+            const state = getState();
+            const session = state.users.session;
+
+            const respuesta = await axios.get(`${BACKEND_URL}appointments/api/misHorarios/`, {
                 headers: {
                   Authorization: `Bearer ${session.token}`
                 }
@@ -234,14 +248,54 @@ export const crearCalendario = createAsyncThunk(
     }
 )
 
-export const conseguirCalendario = createAsyncThunk(
-  "appointment/conseguirCalendario",
-  async (_,{ rejectWithValue, getState }) => {
+export const horariosDisponibles = createAsyncThunk(
+  "appointment/horariosDisponibles",
+    async (doctorId, { rejectWithValue, getState }) => {
         try {
             const state = getState();
             const session = state.users.session;
 
-            const respuesta = await axios.get(`${BACKEND_URL}appointments/api/conseguirCalendario/`, {
+            const respuesta = await axios.get(`${BACKEND_URL}appointments/api/horariosDisponibles/${doctorId}/`, {
+                headers: {
+                  Authorization: `Bearer ${session.token}`
+                }
+            });
+
+            return respuesta.data;
+        } catch (error) {
+          return rejectWithValue(error.response?.data || error.message);
+        }
+    }
+)
+
+export const crearHorarios = createAsyncThunk(
+  "appointment/crearHorario",
+  async (horarios, { rejectWithValue, getState }) => {
+        try {
+            const state = getState();
+            const session = state.users.session;
+
+            const respuesta = await axios.put(`${BACKEND_URL}appointments/api/crearHorarios/`, horarios, {
+                headers: {
+                  Authorization: `Bearer ${session.token}`
+                }
+            });
+
+            return respuesta.data;
+        } catch (error) {
+          return rejectWithValue(error.response?.data || error.message);
+        }
+    }
+)
+
+export const horasDisponibles = createAsyncThunk(
+  "appointment/horasDisponibles",
+    async ({doctorId, fecha}, { rejectWithValue, getState }) => {
+        try {
+            const state = getState();
+            const session = state.users.session;
+
+            const respuesta = await axios.get(`${BACKEND_URL}appointments/api/horaDisponible/${doctorId}/${fecha}/`, {
                 headers: {
                   Authorization: `Bearer ${session.token}`
                 }

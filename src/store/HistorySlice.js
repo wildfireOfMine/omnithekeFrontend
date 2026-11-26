@@ -102,6 +102,30 @@ export const misConsultasDoctor = createAsyncThunk(
 
 )
 
+export const consultaGet = createAsyncThunk(
+  "history/consultaGet",
+  async (consultaId, { rejectWithValue, getState }) => {
+    try {
+        const state = getState();
+        const session = state.users.session;
+        console.log(state);
+        console.log(session);
+
+        const respuesta = await axios.get(`${BACKEND_URL}history/api/consultaGet/${consultaId}/`, {
+          headers: {
+            Authorization: `Bearer ${session.token}`
+          }
+        });
+        console.log(respuesta);
+
+        return respuesta.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+
+  }
+)
+
 export const nuevaConsulta = createAsyncThunk(
   "history/nuevaConsulta",
   async (consulta, { rejectWithValue, getState }) => {
@@ -112,6 +136,31 @@ export const nuevaConsulta = createAsyncThunk(
         console.log(session);
 
         const respuesta = await axios.post(`${BACKEND_URL}history/api/nuevaConsulta/`, consulta, {
+          headers: {
+            Authorization: `Bearer ${session.token}`
+          }
+        });
+        console.log(respuesta);
+
+        return respuesta.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+
+  }
+)
+
+export const consultaPatch = createAsyncThunk(
+  "history/consultaPatch",
+  async ({id, consulta}, { rejectWithValue, getState }) => {
+    try {
+        console.log(consulta);
+        const state = getState();
+        const session = state.users.session;
+        console.log(state);
+        console.log(session);
+
+        const respuesta = await axios.patch(`${BACKEND_URL}history/api/consultaPatch/${id}/`, consulta, {
           headers: {
             Authorization: `Bearer ${session.token}`
           }

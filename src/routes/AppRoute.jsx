@@ -38,6 +38,14 @@ import NewQuery from '../views/doctor/NewQuery'
 import TodaysAppointments from '../views/doctor/TodaysAppointments'
 import EditInsurance from '../views/admin/EditInsurance'
 import EditSpecialty from '../views/admin/EditSpecialty'
+import EditDoctor from '../views/admin/EditDoctor'
+import EditReceptionist from '../views/admin/EditReceptionist'
+import AllAppointmentsToday from '../views/receptionist/AllAppointmentsToday'
+import EditQuery from '../views/doctor/EditQuery'
+import PatientSupression from '../views/receptionist/PatientSupression'
+import PunishingPatients from '../views/receptionist/PunishingPatients'
+import Transactions from '../views/receptionist/Transactions'
+import SuccessfulPayment from '../views/receptionist/SuccessfulPayment'
 
 
 
@@ -60,14 +68,20 @@ const AppRoute = () => {
           <Route path="/admin/portal" element={<AdminDashboard/>}/>
           <Route path="/admin/doctores" element={<DoctorListView/>}/>
           <Route path="/admin/nuevoDoctor" element={<NewDoctor/>}/>
+          <Route path="/admin/editarDoctor/:doctorId" element={<EditDoctor/>}/>
+
           <Route path="/admin/recepcionistas" element={<ReceptionistListView/>}/>
           <Route path="/admin/nuevoRecepcionista" element={<NewReceptionist/>}/>
+          <Route path="/admin/editarRecepcionista/:recepcionistaId" element={<EditReceptionist/>}/>
+
           <Route path="/admin/aseguradoras" element={<InsuranceListView/>}/>
           <Route path="/admin/nuevaAseguradora" element={<NewInsurance/>}/>
           <Route path="/admin/editarAseguradora/:aseguradoraId" element={<EditInsurance/>}/>
+
           <Route path="/admin/especialidades" element={<SpecialtyListView/>}/>
           <Route path="/admin/nuevaEspecialidad" element={<NewSpecialty/>}/>
           <Route path="/admin/editarEspecialidad/:especialidadId" element={<EditSpecialty/>}/>
+
           <Route path="/admin/estadisticas" element={<Stats/>}/>
         </Route>
 
@@ -86,12 +100,18 @@ const AppRoute = () => {
           <Route path="/doctor/consultas" element={<MyQueries/>}/>
           <Route path="/doctor/nuevaConsulta/:id" element={<NewQuery/>}/>
           <Route path="/doctor/consultas/:consultaId" element={<DetailQueryView/>}/>
+          <Route path="/doctor/editarConsulta/:id" element={<EditQuery/>}/>
           <Route path="/doctor/misCitasDeHoy" element={<TodaysAppointments/>}/>
         </Route>
 
         <Route path="/recepcionista/registrarse/:uid/:token" element={<ReceptionistRegister/>}/>
         <Route element={<ProtectedReceptionistRoute/>}>
           <Route path="/recepcionista/portal" element={<ReceptionistDashboard/>}/>
+          <Route path="/recepcionista/todasCitasHoy" element={<AllAppointmentsToday/>}/>
+          <Route path="/recepcionista/suprimirPaciente" element={<PatientSupression/>}/>
+          <Route path="/recepcionista/penalizar" element={<PunishingPatients/>}/>
+          <Route path="/recepcionista/pago" element={<Transactions/>}/>
+          <Route path="/recepcionista/pagoExitoso" element={<SuccessfulPayment/>}/>
         </Route>
         
       </Routes>

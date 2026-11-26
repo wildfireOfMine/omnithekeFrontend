@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { miConsulta } from '../../store/HistorySlice';
 import { useNavigate, useParams } from 'react-router-dom';
 import CustomBox from '../../components/CustomBox';
@@ -16,6 +16,9 @@ const DetailQueryView = () => {
   const dispatch = useDispatch();
   const { consultaId } = useParams(); 
   const navigate = useNavigate();
+  const rol = useSelector(
+    (state) => state.users.session?.rol
+  )
 
   useEffect(()=>{
     dispatch(miConsulta(consultaId)).unwrap().then(datos => setDatos(datos));
@@ -30,6 +33,10 @@ const DetailQueryView = () => {
 
   const handleImprimir = () => {
     window.print();
+  };
+
+  const handleEditar = (id) => {
+    navigate(`/doctor/editarConsulta/${id}`);
   };
 
   const handleCustomButton = () => {
@@ -200,6 +207,7 @@ const DetailQueryView = () => {
 
     <Box sx={{ display: "flex", justifyContent: "space-between", padding: "20px"}}>
       <CustomButton text="Imprimir" color="white" backgroundColor='#16a34a' onClick={handleImprimir}/>
+      { rol == "doctor" && <CustomButton text="Editar" color="white" backgroundColor='#0d49f0' onClick={()=> handleEditar(consultaId)}/>}
       <CustomButton color="#fff" text="Volver Atrás" backgroundColor="#6b7280" onClick={handleCustomButton}/>
     </Box>
       

@@ -3,27 +3,33 @@ import CustomBox from '../../components/CustomBox';
 import { Box, Grid } from '@mui/system';
 import { Link, Link as RouterLink, useNavigate } from 'react-router-dom';
 import { Paper, Typography } from '@mui/material';
-import { Event, HealthAndSafety, MedicalInformation, MedicalServices, SupportAgent } from '@mui/icons-material';
+import { Block, DeleteForever, Euro, ScheduleSend } from '@mui/icons-material';
 
 const ReceptionistDashboard = () => {
   const tarjetas = [
     {
-        title: "Gestionar Doctores",
-        description: "Añade, modifica o elimina doctores de la consulta",
-        icon: <MedicalServices sx={{ fontSize: 60, color: "#2563eb" }} />,
-        route: "/administrador/doctores"
+        title: "Confirmar Citas",
+        description: "Confirma las citas de pacientes presentes en el día de hoy",
+        icon: <ScheduleSend sx={{ fontSize: 60, color: "#2563eb" }} />,
+        route: "/recepcionista/todasCitasHoy"
     },
     {
-        title: "Gestionar Recepcionistas",
-        description: "Añade, modifica o elimina recepcionistas",
-        icon: <SupportAgent sx={{ fontSize: 60, color: "#2563eb" }} />,
-        route: "/administrador/recepcionistas"
+        title: "Transacciones",
+        description: "Realiza transacciones añadiendo el precio",
+        icon: <Euro sx={{ fontSize: 60, color: "#2563eb" }} />,
+        route: "/recepcionista/pago"
     },
     {
-        title: "Gestionar Aseguradoras",
-        description: "Administra las aseguradoras disponibles",
-        icon: <HealthAndSafety sx={{ fontSize: 60, color: "#2563eb" }} />,
-        route: "/administrador/aseguradoras"
+        title: "Supresión de Pacientes",
+        description: "Implementa la supresión de datos de aquellos pacientes que lo deseen",
+        icon: <DeleteForever sx={{ fontSize: 60, color: "#2563eb" }} />,
+        route: "/recepcionista/suprimirPaciente"
+    },
+    {
+        title: "Penalización de Pacientes",
+        description: "Si el contexto lo requiere, penaliza a usuarios que han hecho uso indebido",
+        icon: <Block sx={{ fontSize: 60, color: "#2563eb" }} />,
+        route: "/recepcionista/penalizar"
     }
     ];
   return (
@@ -51,7 +57,7 @@ const ReceptionistDashboard = () => {
             mt: 1
           }}
         >
-          RECEPCIONISTA
+          Modera, confirma, realiza, suprime, o penaliza
         </Typography>
       </Box>
 

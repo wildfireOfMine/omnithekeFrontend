@@ -40,6 +40,7 @@ const Contact = () => {
           <Typography variant="body1" sx={{ fontSize: "inherit" }}><strong>Consultorio Omnitheke</strong></Typography>
           <Typography variant="body1" sx={{ fontSize: "inherit" }}>C/Calle, 12</Typography>
           <Typography variant="body1" sx={{ fontSize: "inherit" }}>12345, San Pedro del Pinatar, Murcia</Typography>
+          <Typography variant="body1" sx={{ fontSize: "inherit" }}>Omnitheke@gmail.com</Typography>
           <Typography variant="body1" sx={{ fontSize: "inherit" }}>Teléfono: (+34) 123 45 67 89</Typography>
         </Box>
     </CustomBox>

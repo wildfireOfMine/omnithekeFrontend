@@ -15,7 +15,7 @@ const App = () => {
   useEffect(() => {
     if (session?.token && tokenInterceptor(session.token)) {
       dispatch(logout());
-      toast.error("Tu sesión ha caducado. Inicia sesión de nuevo.");
+      toast.error("Tu sesión ha caducado, inicia sesión de nuevo");
       navigate("/iniciarSesion", { replace: true });
     }
   }, [session, dispatch, navigate]);

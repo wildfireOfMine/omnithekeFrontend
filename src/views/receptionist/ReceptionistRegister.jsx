@@ -64,9 +64,7 @@ const ReceptionistRegister = () => {
           tipoDocumento: tipoDocumento.value,
           documentoIdentidad: documento.value,
           pais: pais.value,
-          correo: correoElectronico.value,
           telefono: telefono.value,
-          aseguradora: aseguradoraEscogida === "Público" ? null : aseguradoraEscogida,
           password: contrasena.value,
           grupoSanguineo: grupoSanguineo,
           uid: uid,
@@ -283,21 +281,6 @@ const ReceptionistRegister = () => {
             </Grid>
 
             <Grid size={{ xs: 12, md: 6 }}>
-              <Typography component="label" htmlFor="correoElectronico"
-                sx={{
-                  display: "block",
-                  mb: 1,
-                  fontWeight: 600,
-                  color: "#374151",
-                  textAlign: "left"
-                }}
-              >
-                Correo electrónico
-              </Typography>
-              <TextField fullWidth type="email" id="correoElectronico" name="correoElectronico" />
-            </Grid>
-
-            <Grid size={{ xs: 12, md: 4 }}>
               <Typography component="label" htmlFor="telefono"
                 sx={{
                   display: "block",
@@ -310,75 +293,6 @@ const ReceptionistRegister = () => {
                 Teléfono
               </Typography>
               <TextField fullWidth type="tel" id="telefono" name="telefono"/>
-            </Grid>
-
-            <Grid size={{ xs: 12, md: 4 }}>
-              <Typography component="label" htmlFor="aseguradora"
-                sx={{
-                  display: "block",
-                  mb: 1,
-                  fontWeight: 600,
-                  color: "#374151",
-                  textAlign: "left"
-                }}
-              >
-                Aseguradora
-              </Typography>
-
-              <TextField select fullWidth
-                value={aseguradoraEscogida}
-                onChange={(e) => {
-                  setAseguradoraEscogida(e.target.value);
-                }}
-              >
-                <MenuItem value="Público">
-                  Público
-                </MenuItem>
-                {aseguradoras.map((asegur) => (
-                  <MenuItem
-                    key={asegur.id}
-                    value={asegur.id}
-                  >
-                    {asegur.nombre}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Grid>
-
-            <Grid size={{ xs: 12, md: 4 }}>
-              <Typography component="label" htmlFor="aseguradora"
-                sx={{
-                  display: "block",
-                  mb: 1,
-                  fontWeight: 600,
-                  color: "#374151",
-                  textAlign: "left"
-                }}
-              >
-                Grupo Sanguíneo
-              </Typography>
-
-               <TextField
-                select
-                fullWidth
-                id="grupoSanguineo"
-                name="grupoSanguineo"
-                value={grupoSanguineo}
-                onChange={(e) => {
-                  setGrupoSanguineo(e.target.value);
-                }}
-              >
-                <MenuItem value="">No especificado</MenuItem>
-                <MenuItem value="A+">A+</MenuItem>
-                <MenuItem value="A-">A-</MenuItem>
-                <MenuItem value="B+">B+</MenuItem>
-                <MenuItem value="B-">B-</MenuItem>
-                <MenuItem value="AB+">AB+</MenuItem>
-                <MenuItem value="AB-">AB-</MenuItem>
-                <MenuItem value="O+">O+</MenuItem>
-                <MenuItem value="O-">O-</MenuItem>
-
-              </TextField>
             </Grid>
 
           </Grid>

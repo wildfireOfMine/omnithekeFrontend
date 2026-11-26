@@ -17,7 +17,6 @@ const DoctorRegister = () => {
   const [pais, setPais] = useState("");
   const [aseguradoras, setAseguradoras] = useState([]);
   const [aseguradoraEscogida, setAseguradoraEscogida] = useState([]);
-  const [grupoSanguineo, setGrupoSanguineo] = useState("");
   const [especialidades, setEspecialidades] = useState([]);
   const [especialidadEscogida, setEspecialidadEscogida] = useState("");
   const dispatch = useDispatch();
@@ -61,7 +60,6 @@ const DoctorRegister = () => {
         telefono: e.currentTarget.telefono.value,
         aseguradoras: aseguradoraEscogida === "Público" ? [] : aseguradoraEscogida,
         password: contrasena.value,
-        grupoSanguineo: grupoSanguineo,
         numeroColegiado: e.currentTarget.numeroColegiado.value,
         especialidad: especialidadEscogida,
         uid: uid,
@@ -379,43 +377,8 @@ const DoctorRegister = () => {
               </TextField>
             </Grid>
 
-            <Grid size={{ xs: 12, md: 6 }}>
-              <Typography component="label" htmlFor="aseguradora"
-                sx={{
-                  display: "block",
-                  mb: 1,
-                  fontWeight: 600,
-                  color: "#374151",
-                  textAlign: "left"
-                }}
-              >
-                Grupo Sanguíneo
-              </Typography>
 
-               <TextField
-                select
-                fullWidth
-                id="grupoSanguineo"
-                name="grupoSanguineo"
-                value={grupoSanguineo}
-                onChange={(e) => {
-                  setGrupoSanguineo(e.target.value);
-                }}
-              >
-                <MenuItem value="">No especificado</MenuItem>
-                <MenuItem value="A+">A+</MenuItem>
-                <MenuItem value="A-">A-</MenuItem>
-                <MenuItem value="B+">B+</MenuItem>
-                <MenuItem value="B-">B-</MenuItem>
-                <MenuItem value="AB+">AB+</MenuItem>
-                <MenuItem value="AB-">AB-</MenuItem>
-                <MenuItem value="O+">O+</MenuItem>
-                <MenuItem value="O-">O-</MenuItem>
-
-              </TextField>
-            </Grid>
-
-            <Grid size={{ xs: 12, md: 6 }}>
+            <Grid size={{ xs: 12, md: 12 }}>
               <Typography component="label" htmlFor="numeroColegiado"
                 sx={{
                   display: "block",
